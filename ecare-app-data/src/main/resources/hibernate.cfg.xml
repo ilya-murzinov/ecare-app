@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd" >
+
+<hibernate-configuration>
+    <session-factory>
+        <mapping class="com.github.ilyamurzinov.ecareapp.data.domain.Client" />
+        <mapping class="com.github.ilyamurzinov.ecareapp.data.domain.Contract" />
+        <mapping class="com.github.ilyamurzinov.ecareapp.data.domain.Tariff" />
+        <mapping class="com.github.ilyamurzinov.ecareapp.data.domain.Option" />
+    </session-factory>
+</hibernate-configuration>
