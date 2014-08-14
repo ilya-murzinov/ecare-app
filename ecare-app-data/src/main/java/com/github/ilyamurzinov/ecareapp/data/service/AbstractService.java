@@ -5,15 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import java.util.List;
 
 /**
  * @author ilya-murzinov
  */
 public abstract class AbstractService {
-    protected DAO dao;
+    protected List<DAO> daos;
 
-    protected abstract void setDAO();
+    protected abstract void setDAOs();
 
     @Autowired
     protected EntityManagerFactory entityManagerFactory;
@@ -21,10 +21,12 @@ public abstract class AbstractService {
     protected EntityManager entityManager;
 
     protected void createAndInjectEntityManager() {
-        if (dao == null) {
-            setDAO();
+        if (daos == null) {
+            setDAOs();
         }
         entityManager = entityManagerFactory.createEntityManager();
-        dao.setEntityManager(entityManager);
+        for (DAO dao : daos) {
+            dao.setEntityManager(entityManager);
+        }
     }
 }

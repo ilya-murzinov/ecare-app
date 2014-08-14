@@ -1,13 +1,14 @@
 package com.github.ilyamurzinov.ecareapp.data.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author ilya-murzinov
  */
 @Entity
 @Table(name = "contract")
-public class Contract {
+public class Contract implements Serializable {
     @Id
     @GeneratedValue
     private int id;

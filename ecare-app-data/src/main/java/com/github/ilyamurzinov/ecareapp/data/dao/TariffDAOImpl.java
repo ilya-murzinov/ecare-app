@@ -4,7 +4,6 @@ import com.github.ilyamurzinov.ecareapp.data.domain.Tariff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
@@ -16,9 +15,6 @@ import java.util.List;
 public class TariffDAOImpl implements TariffDAO {
 
     private EntityManager entityManager;
-
-    @Autowired
-    private OptionDAO optionDAO;
 
     @Override
     public Tariff getTariff(int id) {
@@ -39,20 +35,16 @@ public class TariffDAOImpl implements TariffDAO {
     }
 
     @Override
+    public void updateTariff(Tariff tariff) {
+        entityManager.merge(tariff);
+    }
+
+    @Override
     public void removeTariff(int id) {
         Tariff tariff = getTariff(id);
         if (tariff != null) {
             entityManager.remove(tariff);
         }
-    }
-
-    @Override
-    public void addOption(int tariffId, int optionId) {
-        
-    }
-
-    @Override
-    public void removeOption(int tariffId, int optionId) {
     }
 
     @Override

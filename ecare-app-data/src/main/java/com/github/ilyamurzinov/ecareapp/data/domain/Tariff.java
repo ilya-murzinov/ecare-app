@@ -1,6 +1,7 @@
 package com.github.ilyamurzinov.ecareapp.data.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -9,7 +10,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "tariff")
-public class Tariff {
+public class Tariff implements Serializable {
     @Id
     @GeneratedValue
     private int id;

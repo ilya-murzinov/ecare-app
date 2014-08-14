@@ -14,9 +14,7 @@ public interface TariffDAO extends DAO {
 
     void addTariff(Tariff tariff);
 
+    void updateTariff(Tariff tariff);
+
     void removeTariff(int id);
-
-    void addOption(int tariffId, int optionId);
-
-    void removeOption(int tariffId, int optionId);
 }

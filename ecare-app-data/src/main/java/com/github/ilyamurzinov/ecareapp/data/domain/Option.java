@@ -1,13 +1,14 @@
 package com.github.ilyamurzinov.ecareapp.data.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author ilya-murzinov
  */
 @Entity
 @Table(name = "t_option")
-public class Option {
+public class Option implements Serializable {
     @Id
     @GeneratedValue
     private int id;
