@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author ilya-murzinov
  */
-public interface TariffDAO {
+public interface TariffDAO extends DAO {
     Tariff getTariff(int id);
 
     List<Tariff> getAllTariffs();

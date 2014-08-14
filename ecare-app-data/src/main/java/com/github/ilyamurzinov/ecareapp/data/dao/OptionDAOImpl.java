@@ -1,33 +1,41 @@
 package com.github.ilyamurzinov.ecareapp.data.dao;
 
 import com.github.ilyamurzinov.ecareapp.data.domain.Option;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  * @author ilya-murzinov
  */
 @Repository
 public class OptionDAOImpl implements OptionDAO {
-    @Autowired
-    private SessionFactory sessionFactory;
+
+    private EntityManager entityManager;
 
     @Override
     public Option getOption(int id) {
-        return (Option) sessionFactory.getCurrentSession().get(Option.class, id);
+        Query query = entityManager.createQuery("from Option where id = :id").setParameter("id", id);
+        return (Option) query.getSingleResult();
     }
 
     @Override
     public void addOption(Option option) {
-        sessionFactory.getCurrentSession().save(option);
+        entityManager.persist(option);
     }
 
     @Override
     public void removeOption(int id) {
         Option option = getOption(id);
         if (option != null) {
-            sessionFactory.getCurrentSession().delete(option);
+            entityManager.remove(option);
         }
+    }
+
+    @Override
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 }

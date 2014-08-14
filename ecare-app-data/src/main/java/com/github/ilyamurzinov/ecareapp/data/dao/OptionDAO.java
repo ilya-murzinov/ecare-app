@@ -5,7 +5,7 @@ import com.github.ilyamurzinov.ecareapp.data.domain.Option;
 /**
  * @author ilya-murzinov
  */
-public interface OptionDAO {
+public interface OptionDAO extends DAO {
     Option getOption(int id);
 
     void addOption(Option option);

@@ -1,10 +1,10 @@
 package com.github.ilyamurzinov.ecareapp.data.dao;
 
 import com.github.ilyamurzinov.ecareapp.data.domain.Client;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -12,31 +12,37 @@ import java.util.List;
  */
 @Repository
 public class ClientDAOImpl implements ClientDAO {
-    @Autowired
-    private SessionFactory sessionFactory;
+
+    private EntityManager entityManager;
+
+    @Override
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public Client getClient(int id) {
-        return (Client) sessionFactory.getCurrentSession().get(Client.class, id);
+        Query query = entityManager.createQuery("from Client c where c.id = :id").setParameter("id", id);
+        return (Client) query.getSingleResult();
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<Client> getAllClients() {
-        return sessionFactory.getCurrentSession()
-                .createQuery("from Client").list();
+        Query query = entityManager.createQuery("from Client c");
+        return query.getResultList();
     }
 
     @Override
     public void addClient(Client client) {
-        sessionFactory.getCurrentSession().save(client);
+        entityManager.persist(client);
     }
 
     @Override
     public void removeClient(int id) {
         Client client = getClient(id);
         if (client != null) {
-            sessionFactory.getCurrentSession().delete(client);
+            entityManager.remove(client);
         }
     }
 }

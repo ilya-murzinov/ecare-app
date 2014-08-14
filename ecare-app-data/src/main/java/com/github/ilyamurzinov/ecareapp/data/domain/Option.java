@@ -9,17 +9,14 @@ import javax.persistence.*;
 @Table(name = "t_option")
 public class Option {
     @Id
-    @Column
     @GeneratedValue
     private int id;
 
-    @Column
     private String name;
 
     @Column(name = "subscription_fee")
     private double subscriptionFee;
 
-    @Column
     private double price;
 
     public int getId() {

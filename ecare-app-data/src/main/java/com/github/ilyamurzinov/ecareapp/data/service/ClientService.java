@@ -10,7 +10,7 @@ import java.util.List;
 public interface ClientService {
     Client getClient(int id);
 
-    List getAllClients();
+    List<Client> getAllClients();
 
     void addClient(Client client);
 

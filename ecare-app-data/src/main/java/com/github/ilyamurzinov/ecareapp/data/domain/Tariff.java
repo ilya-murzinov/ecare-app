@@ -11,14 +11,11 @@ import java.util.Set;
 @Table(name = "tariff")
 public class Tariff {
     @Id
-    @Column
     @GeneratedValue
     private int id;
 
-    @Column
     private String name;
 
-    @Column
     private double price;
 
     @ManyToMany(fetch = FetchType.EAGER)

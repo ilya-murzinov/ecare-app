@@ -10,47 +10,28 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>ecare-app-data</module>
-        <module>ecare-app-server-sockets</module>
     </modules>
 
     <properties>
-        <java-version>1.6</java-version>
-        <org.springframework-version>4.0.5.RELEASE</org.springframework-version>
-        <spring-security.version>3.0.5.RELEASE</spring-security.version>
-        <jetty.version>8.1.4.v20120524</jetty.version>
+        <java.version>1.6</java.version>
+        <org.springframework.version>4.0.6.RELEASE</org.springframework.version>
     </properties>
 
     <dependencies>
-        <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${org.springframework-version}</version>
+            <artifactId>spring-core</artifactId>
+            <version>${org.springframework.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <version>${org.springframework-version}</version>
+            <artifactId>spring-context</artifactId>
+            <version>${org.springframework.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-            <version>${org.springframework-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>${spring-security.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <version>${spring-security.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${spring-security.version}</version>
+            <version>${org.springframework.version}</version>
         </dependency>
 
         <!-- Hibernate and other database stuff -->
@@ -61,7 +42,7 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
+            <artifactId>hibernate-entitymanager</artifactId>
             <version>4.3.6.Final</version>
         </dependency>
         <dependency>
@@ -70,25 +51,11 @@
             <version>5.1.6</version>
         </dependency>
 
-        <!-- Servlet -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-
         <!-- Logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>2.0</version>
-        </dependency>
-
-        <!-- Jetty web server -->
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
-            <version>${jetty.version}</version>
         </dependency>
 
         <!-- Test -->
@@ -100,7 +67,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>2.5</version>
+            <version>${org.springframework.version}</version>
         </dependency>
     </dependencies>
 
@@ -111,36 +78,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>${java-version}</source>
-                    <target>${java-version}</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.3</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals><goal>copy</goal></goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.mortbay.jetty</groupId>
-                                    <artifactId>jetty-runner</artifactId>
-                                    <version>${jetty.version}</version>
-                                    <destFileName>jetty-runner.jar</destFileName>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

@@ -9,11 +9,9 @@ import javax.persistence.*;
 @Table(name = "contract")
 public class Contract {
     @Id
-    @Column
     @GeneratedValue
     private int id;
 
-    @Column
     private int number;
 
     @OneToOne

@@ -1,11 +1,12 @@
 package com.github.ilyamurzinov.ecareapp.data.dao;
 
-import com.github.ilyamurzinov.ecareapp.data.domain.Option;
 import com.github.ilyamurzinov.ecareapp.data.domain.Tariff;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -13,54 +14,49 @@ import java.util.List;
  */
 @Repository
 public class TariffDAOImpl implements TariffDAO {
-    @Autowired
-    private SessionFactory sessionFactory;
+
+    private EntityManager entityManager;
 
     @Autowired
     private OptionDAO optionDAO;
 
     @Override
     public Tariff getTariff(int id) {
-        return (Tariff) sessionFactory.getCurrentSession().get(Tariff.class, id);
+        Query query = entityManager.createQuery("from Tariff where id = :id").setParameter("id", id);
+        return (Tariff) query.getSingleResult();
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<Tariff> getAllTariffs() {
-        return sessionFactory.getCurrentSession()
-                .createQuery("from Tariff").list();
+        Query query = entityManager.createQuery("from Tariff");
+        return query.getResultList();
     }
 
     @Override
     public void addTariff(Tariff tariff) {
-        sessionFactory.getCurrentSession().save(tariff);
+        entityManager.persist(tariff);
     }
 
     @Override
     public void removeTariff(int id) {
         Tariff tariff = getTariff(id);
         if (tariff != null) {
-            sessionFactory.getCurrentSession().delete(tariff);
+            entityManager.remove(tariff);
         }
     }
 
     @Override
     public void addOption(int tariffId, int optionId) {
-        Tariff tariff = getTariff(tariffId);
-        Option option = optionDAO.getOption(optionId);
-
-        tariff.getOptions().add(option);
-        sessionFactory.getCurrentSession().update(tariff);
+        
     }
 
     @Override
     public void removeOption(int tariffId, int optionId) {
-        Tariff tariff = getTariff(tariffId);
-        Option option = optionDAO.getOption(optionId);
+    }
 
-        if (tariff.getOptions().contains(option)) {
-            tariff.getOptions().remove(option);
-            sessionFactory.getCurrentSession().update(tariff);
-        }
+    @Override
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 }

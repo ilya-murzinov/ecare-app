@@ -10,11 +10,9 @@ import java.util.List;
 @Table(name = "client")
 public class Client {
     @Id
-    @Column
     @GeneratedValue
     private int id;
 
-    @Column
     private String name;
 
     @Column(name = "lastname")
@@ -23,16 +21,12 @@ public class Client {
     @Column(name = "date_of_birth")
     private String dateOfBirth;
 
-    @Column
     private String passport;
 
-    @Column
     private String address;
 
-    @Column
     private String email;
 
-    @Column
     private String password;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
