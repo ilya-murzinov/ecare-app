@@ -9,6 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ecare-app-desctop-server</artifactId>
+    <artifactId>ecare-app-desktop-client</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.ilyamurzinov.ecareapp</groupId>
+            <artifactId>ecare-app-data</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

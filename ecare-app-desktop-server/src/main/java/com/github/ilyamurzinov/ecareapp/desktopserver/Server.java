@@ -1,4 +1,4 @@
-package com.github.ilyamurzinov.ecareapp.serverdesktop;
+package com.github.ilyamurzinov.ecareapp.desktopserver;
 
 import com.github.ilyamurzinov.ecareapp.data.service.ClientService;
 import org.apache.logging.log4j.LogManager;
@@ -8,9 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -19,7 +17,7 @@ import java.net.Socket;
  */
 @Component
 public class Server {
-    private Logger logger = LogManager.getLogger(Server.class);
+    private static Logger logger = LogManager.getLogger(Server.class);
 
     @Autowired
     private ClientService clientService;
@@ -45,6 +43,8 @@ public class Server {
         private Socket socket;
         private InputStream inputStream;
         private OutputStream outputStream;
+        private ObjectInputStream objectInputStream;
+        private ObjectOutputStream objectOutputStream;
 
         public RequestHandler(Socket socket) throws IOException {
             this.socket = socket;
@@ -55,21 +55,18 @@ public class Server {
         @Override
         public void run() {
             try {
-                writeResponse(clientService.getClient(1).toString());
+                objectOutputStream = new ObjectOutputStream(outputStream);
+                objectInputStream = new ObjectInputStream(inputStream);
+                String request = (String) objectInputStream.readObject();
+                objectOutputStream.writeObject(
+                        clientService.getClient(Integer.parseInt(request.substring(request.indexOf(' ') + 1)))
+                );
+                objectOutputStream.flush();
             } catch (IOException e) {
-                Server.this.logger.error(e);
+                logger.error(e, e);
+            } catch (ClassNotFoundException e) {
+                logger.error(e);
             }
-        }
-
-        private void writeResponse(String s) throws IOException {
-            String response = "HTTP/1.1 200 OK\r\n" +
-                    "Server: YarServer/2009-09-09\r\n" +
-                    "Content-Type: text/html\r\n" +
-                    "Content-Length: " + s.length() + "\r\n" +
-                    "Connection: close\r\n\r\n";
-            String result = response + s;
-            outputStream.write(result.getBytes());
-            outputStream.flush();
         }
     }
 }

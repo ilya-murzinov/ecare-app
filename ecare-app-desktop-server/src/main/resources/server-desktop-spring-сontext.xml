@@ -9,7 +9,7 @@
 
     <context:annotation-config />
 
-    <context:component-scan base-package="com.github.ilyamurzinov.ecareapp.serverdesktop" />
+    <context:component-scan base-package="com.github.ilyamurzinov.ecareapp.desktopserver" />
 
     <bean id="clientService" class="com.github.ilyamurzinov.ecareapp.data.service.ClientServiceImpl"/>
 
