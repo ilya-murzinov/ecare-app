@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author ilya-murzinov
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring-сontext.xml"})
+@ContextConfiguration(locations = {"classpath:data-spring-сontext.xml"})
 public class ClientServiceTest {
     @Autowired
     private ClientService clientService;
