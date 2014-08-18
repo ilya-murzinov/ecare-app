@@ -1,6 +1,8 @@
 package com.github.ilyamurzinov.ecareapp.desktopserver;
 
+import com.github.ilyamurzinov.ecareapp.data.domain.User;
 import com.github.ilyamurzinov.ecareapp.data.service.ClientService;
+import com.github.ilyamurzinov.ecareapp.data.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public class Server {
     private static Logger logger = LogManager.getLogger(Server.class);
 
     @Autowired
-    private ClientService clientService;
+    private UserService userService;
 
     public static void main(String[] args) throws InterruptedException, IOException {
         ApplicationContext applicationContext =
@@ -57,9 +59,9 @@ public class Server {
             try {
                 objectOutputStream = new ObjectOutputStream(outputStream);
                 objectInputStream = new ObjectInputStream(inputStream);
-                String request = (String) objectInputStream.readObject();
+                User request = (User) objectInputStream.readObject();
                 objectOutputStream.writeObject(
-                        clientService.getClient(Integer.parseInt(request.substring(request.indexOf(' ') + 1)))
+                        userService.getUser(request.getLogin())
                 );
                 objectOutputStream.flush();
             } catch (IOException e) {

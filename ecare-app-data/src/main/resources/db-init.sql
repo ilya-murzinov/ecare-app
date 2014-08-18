@@ -1,4 +1,4 @@
-drop table client, contract, tariff, t_option, tariff_option;
+drop table client, contract, tariff, t_option, tariff_option, user;
 
 create table client(
   id int key auto_increment,
@@ -37,6 +37,14 @@ create table tariff_option(
   option_id int
 );
 
+CREATE TABLE ecare.user
+(
+    id int key auto_increment,
+    login varchar(32) NOT NULL,
+    password varchar(32) NOT NULL,
+    client_id int
+);
+
 insert into client(
   name, lastname, date_of_birth, passport, address, email, password
 ) values (
@@ -66,3 +74,9 @@ insert into t_option(
 # ) values (
 #   1, 1
 # )
+
+insert into user(
+  login, password, client_id
+) values(
+  'user', 'user', 1
+)
