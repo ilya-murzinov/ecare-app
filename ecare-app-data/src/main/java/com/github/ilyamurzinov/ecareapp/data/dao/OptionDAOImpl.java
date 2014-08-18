@@ -17,7 +17,7 @@ public class OptionDAOImpl implements OptionDAO {
 
     @Override
     public Option getOption(int id) {
-        Query query = entityManager.createQuery("from Option where id = :id").setParameter("id", id);
+        Query query = entityManager.createQuery("select o from Option o where o.id = :id").setParameter("id", id);
         return (Option) query.getSingleResult();
     }
 
@@ -32,6 +32,11 @@ public class OptionDAOImpl implements OptionDAO {
         if (option != null) {
             entityManager.remove(option);
         }
+    }
+
+    @Override
+    public void updateOption(Option option) {
+        entityManager.merge(option);
     }
 
     @Override

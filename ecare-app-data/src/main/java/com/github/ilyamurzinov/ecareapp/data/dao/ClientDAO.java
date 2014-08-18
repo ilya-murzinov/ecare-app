@@ -17,4 +17,6 @@ public interface ClientDAO extends DAO {
     void addClient(Client client);
 
     void removeClient(int id);
+
+    void updateClient(Client client);
 }

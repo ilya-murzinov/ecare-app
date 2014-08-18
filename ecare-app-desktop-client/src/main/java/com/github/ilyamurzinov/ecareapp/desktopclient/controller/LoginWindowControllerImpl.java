@@ -8,8 +8,6 @@ import com.github.ilyamurzinov.ecareapp.desktopclient.view.MainWindowUserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.swing.*;
-
 /**
  * @author ilya-murzinov
  */
@@ -30,9 +28,14 @@ public class LoginWindowControllerImpl implements LoginWindowController {
     public void login() {
         String login = loginWindowView.getLoginTextField().getText();
         String password = loginWindowView.getPasswordTextField().getText();
-        if (authorizationService.login(login, password)) {
+
+        authorizationService.login(login, password);
+
+        if (authorizationService.isAuthorized()) {
             loginWindowView.close();
             if (authorizationService.isUser()) {
+                mainWindowUserView.addContractsPanel();
+                mainWindowUserView.addMyDataPanel();
                 mainWindowUserView.show();
             } else {
                 mainWindowAdminView.show();

@@ -18,14 +18,14 @@ public class TariffDAOImpl implements TariffDAO {
 
     @Override
     public Tariff getTariff(int id) {
-        Query query = entityManager.createQuery("from Tariff where id = :id").setParameter("id", id);
+        Query query = entityManager.createQuery("select t from Tariff t where t.id = :id").setParameter("id", id);
         return (Tariff) query.getSingleResult();
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<Tariff> getAllTariffs() {
-        Query query = entityManager.createQuery("from Tariff");
+        Query query = entityManager.createQuery("select t from Tariff t");
         return query.getResultList();
     }
 

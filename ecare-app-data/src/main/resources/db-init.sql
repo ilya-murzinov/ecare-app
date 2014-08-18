@@ -1,4 +1,9 @@
-drop table client, contract, tariff, t_option, tariff_option, user;
+CREATE USER admin@localhost identified BY 'admin';
+GRANT usage ON *.* TO admin@localhost identified BY 'admin';
+DROP DATABASE IF EXISTS ecare;
+CREATE DATABASE IF NOT EXISTS ecare;
+GRANT ALL privileges ON ecare.* TO admin@localhost;
+USE ecare;
 
 create table client(
   id int key auto_increment,
@@ -79,4 +84,10 @@ insert into user(
   login, password, client_id
 ) values(
   'user', 'user', 1
+);
+
+insert into user(
+  login, password, client_id
+) values(
+  'admin', 'admin', null
 )

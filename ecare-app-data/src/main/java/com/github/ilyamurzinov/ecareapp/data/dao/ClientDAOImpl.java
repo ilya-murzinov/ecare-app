@@ -22,14 +22,14 @@ public class ClientDAOImpl implements ClientDAO {
 
     @Override
     public Client getClient(int id) {
-        Query query = entityManager.createQuery("from Client c where c.id = :id").setParameter("id", id);
+        Query query = entityManager.createQuery("select c from Client c where c.id = :id").setParameter("id", id);
         return (Client) query.getSingleResult();
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<Client> getAllClients() {
-        Query query = entityManager.createQuery("from Client c");
+        Query query = entityManager.createQuery("select c from Client c");
         return query.getResultList();
     }
 
@@ -44,5 +44,10 @@ public class ClientDAOImpl implements ClientDAO {
         if (client != null) {
             entityManager.remove(client);
         }
+    }
+
+    @Override
+    public void updateClient(Client client) {
+        entityManager.merge(client);
     }
 }

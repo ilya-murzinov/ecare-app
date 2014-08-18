@@ -66,6 +66,20 @@ public class ClientServiceImpl extends AbstractService implements ClientService 
     }
 
     @Override
+    public void updateClient(Client client) {
+        try {
+            createAndInjectEntityManager();
+            entityManager.getTransaction().begin();
+            clientDAO.updateClient(client);
+            entityManager.getTransaction().commit();
+        } finally {
+            if (entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
     public void removeClient(int id) {
         try {
             createAndInjectEntityManager();

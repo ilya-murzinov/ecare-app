@@ -9,4 +9,6 @@ public interface ContractService {
     void addContract(Contract contract);
 
     void removeContract(int id);
+
+    void updateContract(Contract contract);
 }

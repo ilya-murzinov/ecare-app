@@ -6,5 +6,5 @@ package com.github.ilyamurzinov.ecareapp.desktopclient.service;
 public interface AuthorizationService {
     boolean isAuthorized();
     boolean isUser();
-    boolean login(String login, String password);
+    void login(String login, String password);
 }

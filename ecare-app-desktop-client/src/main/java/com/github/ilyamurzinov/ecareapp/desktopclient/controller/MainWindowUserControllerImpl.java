@@ -1,20 +1,17 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.controller;
 
+import com.github.ilyamurzinov.ecareapp.desktopclient.view.MainWindowUserView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author ilya-murzinov
  */
 @Component
-public class MainWindowUserControllerImpl implements MainWindowUserController {
-    @Override
-    public List<String> getContracts() {
-        return new ArrayList<String>(){{
-            add("Contract 1");
-            add("Contract 2");
-        }};
-    }
+public class MainWindowUserControllerImpl {
+
+    @Autowired
+    private MainWindowUserView mainWindowUserView;
+
+
 }

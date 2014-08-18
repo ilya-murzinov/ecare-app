@@ -14,35 +14,27 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Autowired
     private ConnectionHelper helper;
 
-    private boolean authorized;
+    private User user;
+
 
     @Override
     public boolean isAuthorized() {
-        return authorized;
+        return user != null;
     }
 
     @Override
     public boolean isUser() {
-        return true;
+        return user.getClient() != null;
     }
 
     @Override
-    public boolean login(String login, String password) {
-        try {
-            User request = new User();
-            request.setLogin(login);
-            request.setPassword(password);
+    public void login(String login, String password) {
+        User request = new User();
+        request.setLogin(login);
+        request.setPassword(password);
 
-            helper.getObjectOutputStream().writeObject(request);
-            User response = (User) helper.getObjectInputStream().readObject();
+        helper.sendRequest("GET", request);
 
-            authorized = response != null;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return authorized;
+        user = (User) helper.readObject();
     }
 }

@@ -16,6 +16,7 @@ public class MainWindowAdminView {
     public void init() {
         frame = new JFrame("E-Care application");
         frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public void show() {

@@ -57,6 +57,20 @@ public class OptionServiceImpl extends AbstractService implements OptionService 
     }
 
     @Override
+    public void updateOption(Option option) {
+        try {
+            createAndInjectEntityManager();
+            entityManager.getTransaction().begin();
+            optionDAO.updateOption(option);
+            entityManager.getTransaction().commit();
+        } finally {
+            if (entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
     protected void setDAOs() {
         daos = new ArrayList<DAO>(){{
             add(optionDAO);

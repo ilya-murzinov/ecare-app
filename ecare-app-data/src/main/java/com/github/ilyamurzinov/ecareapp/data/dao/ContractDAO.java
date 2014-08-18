@@ -9,4 +9,6 @@ public interface ContractDAO extends DAO {
     void addContract(Contract contract);
 
     void removeContract(int id);
+
+    void updateContract(Contract contract);
 }

@@ -17,9 +17,7 @@ public class ConnectionHelper {
     private Logger logger = LogManager.getLogger(ConnectionHelper.class);
 
     public static final String HOST = "localhost";
-    public static final int PORT = 8080;
-
-    public static final String GET = "GET";
+    public static final int PORT = 4242;
 
     private ObjectInputStream objectInputStream;
     private ObjectOutputStream objectOutputStream;
@@ -30,15 +28,63 @@ public class ConnectionHelper {
             objectInputStream = new ObjectInputStream(socket.getInputStream());
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         } catch (IOException e) {
+            objectInputStream = null;
+            objectOutputStream = null;
             logger.error(e);
         }
     }
 
-    public ObjectInputStream getObjectInputStream() {
+    private ObjectInputStream getObjectInputStream() {
+        if (objectInputStream == null) {
+            try {
+                Socket socket = new Socket(HOST, PORT);
+                objectInputStream = new ObjectInputStream(socket.getInputStream());
+                objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            } catch (IOException e) {
+                objectInputStream = null;
+                objectOutputStream = null;
+                logger.error(e);
+            }
+        }
         return objectInputStream;
     }
 
-    public ObjectOutputStream getObjectOutputStream() {
+    private ObjectOutputStream getObjectOutputStream() {
+        if (objectOutputStream == null) {
+            try {
+                Socket socket = new Socket(HOST, PORT);
+                objectInputStream = new ObjectInputStream(socket.getInputStream());
+                objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            } catch (IOException e) {
+                objectInputStream = null;
+                objectOutputStream = null;
+                logger.error(e);
+            }
+        }
         return objectOutputStream;
+    }
+
+    private void writeObject(Object o) {
+        try {
+            getObjectOutputStream().writeObject(o);
+        } catch (IOException e) {
+            logger.error(e, e);
+        }
+    }
+
+    public Object readObject() {
+        try {
+            return getObjectInputStream().readObject();
+        } catch (IOException e) {
+            logger.error(e, e);
+        } catch (ClassNotFoundException e) {
+            logger.error(e, e);
+        }
+        return null;
+    }
+
+    public void sendRequest(String method, Object object) {
+        writeObject(method);
+        writeObject(object);
     }
 }

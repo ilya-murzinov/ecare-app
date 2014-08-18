@@ -111,6 +111,20 @@ public class TariffServiceImpl extends AbstractService implements TariffService 
     }
 
     @Override
+    public void updateTariff(Tariff tariff) {
+        try {
+            createAndInjectEntityManager();
+            entityManager.getTransaction().begin();
+            tariffDAO.updateTariff(tariff);
+            entityManager.getTransaction().commit();
+        } finally {
+            if (entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
     protected void setDAOs() {
         daos = new ArrayList<DAO>() {{
            add(tariffDAO);

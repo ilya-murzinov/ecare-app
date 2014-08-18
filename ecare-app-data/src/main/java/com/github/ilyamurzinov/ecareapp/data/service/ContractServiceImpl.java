@@ -45,6 +45,20 @@ public class ContractServiceImpl extends AbstractService implements ContractServ
     }
 
     @Override
+    public void updateContract(Contract contract) {
+        try {
+            createAndInjectEntityManager();
+            entityManager.getTransaction().begin();
+            contractDAO.updateContract(contract);
+            entityManager.getTransaction().commit();
+        } finally {
+            if (entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
     protected void setDAOs() {
         daos = new ArrayList<DAO>() {{
             add(contractDAO);

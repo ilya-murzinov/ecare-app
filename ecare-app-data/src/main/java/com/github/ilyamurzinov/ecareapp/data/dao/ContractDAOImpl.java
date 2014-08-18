@@ -20,11 +20,16 @@ public class ContractDAOImpl implements ContractDAO {
 
     @Override
     public void removeContract(int id) {
-        Query query = entityManager.createQuery("from Contract where id = :id").setParameter("id", id);
+        Query query = entityManager.createQuery("select c from Contract c where c.id = :id").setParameter("id", id);
         Contract contract = (Contract) query.getSingleResult();
         if (contract != null) {
             entityManager.remove(contract);
         }
+    }
+
+    @Override
+    public void updateContract(Contract contract) {
+        entityManager.merge(contract);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.view;
 
-import com.github.ilyamurzinov.ecareapp.desktopclient.controller.MainWindowUserController;
+import com.github.ilyamurzinov.ecareapp.data.domain.Client;
+import com.github.ilyamurzinov.ecareapp.data.domain.Contract;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -12,20 +14,16 @@ import java.awt.*;
  * @author ilya-murzinov
  */
 @Component
+@Lazy
 public class MainWindowUserView {
-    @Autowired
-    private MainWindowUserController controller;
-
     private JFrame frame;
 
     private JPanel contractsPanel;
     private JPanel myDataPanel;
 
     private JComboBox contractsComboBox;
-    private JLabel label1 = new JLabel("Label1");
-    private JLabel label2 = new JLabel("Label2");
-    private JLabel label3 = new JLabel("Label3");
-    private JLabel label4 = new JLabel("Label4");
+    private JLabel numberLabel = new JLabel("Number");
+    private JLabel tariffLabel = new JLabel("Tariff");
 
     @PostConstruct
     public void init() {
@@ -51,47 +49,33 @@ public class MainWindowUserView {
         contractsPanel = new JPanel();
         myDataPanel = new JPanel();
 
-        addContractsPanel();
-        addMyDataPanel();
-
         pane.addTab("My contracts", contractsPanel);
         pane.addTab("My data", myDataPanel);
 
         frame.getContentPane().add(pane);
     }
 
-    private void addContractsPanel() {
+    public void addContractsPanel() {
         GridBagLayout layout = new GridBagLayout();
         contractsPanel.setLayout(layout);
         GridBagConstraints constraints = new GridBagConstraints();
         GridBagConstraintsHelper.init(constraints);
 
         contractsComboBox = new JComboBox();
-        for (String s : controller.getContracts()) {
-            contractsComboBox.addItem(s);
-        }
 
         layout.setConstraints(contractsComboBox, constraints);
         contractsPanel.add(contractsComboBox);
 
         constraints.gridy++;
-        layout.setConstraints(label1, constraints);
-        contractsPanel.add(label1);
+        layout.setConstraints(numberLabel, constraints);
+        contractsPanel.add(numberLabel);
 
         constraints.gridy++;
-        layout.setConstraints(label2, constraints);
-        contractsPanel.add(label2);
-
-        constraints.gridy++;
-        layout.setConstraints(label3, constraints);
-        contractsPanel.add(label3);
-
-        constraints.gridy++;
-        layout.setConstraints(label4, constraints);
-        contractsPanel.add(label4);
+        layout.setConstraints(tariffLabel, constraints);
+        contractsPanel.add(tariffLabel);
     }
 
-    private void addMyDataPanel() {
+    public void addMyDataPanel() {
         GridBagLayout layout = new GridBagLayout();
         myDataPanel.setLayout(layout);
         GridBagConstraints constraints = new GridBagConstraints();
@@ -105,5 +89,9 @@ public class MainWindowUserView {
                 frame.setVisible(true);
             }
         });
+    }
+
+    public JComboBox getContractsComboBox() {
+        return contractsComboBox;
     }
 }

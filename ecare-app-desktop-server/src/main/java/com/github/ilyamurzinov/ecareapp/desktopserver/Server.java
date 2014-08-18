@@ -1,8 +1,7 @@
 package com.github.ilyamurzinov.ecareapp.desktopserver;
 
-import com.github.ilyamurzinov.ecareapp.data.domain.User;
-import com.github.ilyamurzinov.ecareapp.data.service.ClientService;
-import com.github.ilyamurzinov.ecareapp.data.service.UserService;
+import com.github.ilyamurzinov.ecareapp.data.domain.*;
+import com.github.ilyamurzinov.ecareapp.data.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +9,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Entity;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ilya-murzinov
@@ -24,6 +27,18 @@ public class Server {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ClientService clientService;
+
+    @Autowired
+    private ContractService contractService;
+
+    @Autowired
+    private TariffService tariffService;
+
+    @Autowired
+    private OptionService optionService;
+
     public static void main(String[] args) throws InterruptedException, IOException {
         ApplicationContext applicationContext =
                 new ClassPathXmlApplicationContext("server-desktop-spring-сontext.xml");
@@ -33,7 +48,7 @@ public class Server {
 
     private void start() throws InterruptedException, IOException {
         logger.info("Server started");
-        ServerSocket serverSocket = new ServerSocket(8080);
+        ServerSocket serverSocket = new ServerSocket(4242);
         while (true) {
             Socket socket = serverSocket.accept();
             logger.info("Client accepted");
@@ -59,15 +74,80 @@ public class Server {
             try {
                 objectOutputStream = new ObjectOutputStream(outputStream);
                 objectInputStream = new ObjectInputStream(inputStream);
-                User request = (User) objectInputStream.readObject();
-                objectOutputStream.writeObject(
-                        userService.getUser(request.getLogin())
-                );
-                objectOutputStream.flush();
+
+                while (true) {
+                    String method = (String) objectInputStream.readObject();
+
+                    Object object = objectInputStream.readObject();
+
+                    processRequest(method, object);
+                }
+                //objectOutputStream.flush();
             } catch (IOException e) {
                 logger.error(e, e);
             } catch (ClassNotFoundException e) {
                 logger.error(e);
+            }
+        }
+
+        private void processRequest(String method, Object object) throws IOException {
+            if (method.equals("GET")) {
+                if (object instanceof User) {
+                    User user = userService.getUser(((User) object).getLogin());
+                    if (user.getPassword().equals(((User) object).getPassword())) {
+                        objectOutputStream.writeObject(user);
+                    } else {
+                        objectOutputStream.writeObject(null);
+                    }
+                } else if (object instanceof Client) {
+                    objectOutputStream.writeObject(
+                            clientService.getClient(((Client) object).getId())
+                    );
+                } else if (object instanceof Tariff) {
+                    objectOutputStream.writeObject(
+                            tariffService.getTariff(((Tariff) object).getId())
+                    );
+                }
+            } if (method.equals("GET_ALL")) {
+                if (object instanceof Client) {
+                    objectOutputStream.writeObject(
+                            clientService.getAllClients()
+                    );
+                } else if (object instanceof Tariff) {
+                    objectOutputStream.writeObject(
+                            tariffService.getAllTariffs()
+                    );
+                }
+            } else if (method.equals("POST")) {
+                if (object instanceof Client) {
+                    clientService.updateClient((Client) object);
+                } else if (object instanceof Contract) {
+                    contractService.updateContract((Contract) object);
+                } else if (object instanceof Tariff) {
+                    tariffService.updateTariff((Tariff) object);
+                } else if (object instanceof Option) {
+                    optionService.updateOption((Option) object);
+                }
+            } else if (method.equals("PUT")) {
+                if (object instanceof Client) {
+                    clientService.addClient((Client) object);
+                } else if (object instanceof Contract) {
+                    contractService.addContract((Contract) object);
+                } else if (object instanceof Tariff) {
+                    tariffService.addTariff((Tariff) object);
+                } else if (object instanceof Option) {
+                    optionService.addOption((Option) object);
+                }
+            } else if (method.equals("DELETE")) {
+                if (object instanceof Client) {
+                    clientService.removeClient(((Client) object).getId());
+                } else if (object instanceof Contract) {
+                    contractService.removeContract(((Contract) object).getId());
+                } else if (object instanceof Tariff) {
+                    tariffService.removeTariff(((Tariff) object).getId());
+                } else if (object instanceof Option) {
+                    optionService.removeOption(((Option) object).getId());
+                }
             }
         }
     }
