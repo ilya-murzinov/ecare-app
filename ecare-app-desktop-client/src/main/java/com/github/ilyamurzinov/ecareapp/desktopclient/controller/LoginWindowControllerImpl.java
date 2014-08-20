@@ -1,5 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.controller;
 
+import com.github.ilyamurzinov.ecareapp.desktopclient.cache.ClientCache;
 import com.github.ilyamurzinov.ecareapp.desktopclient.service.AuthorizationService;
 import com.github.ilyamurzinov.ecareapp.desktopclient.view.LoginErrorDialogView;
 import com.github.ilyamurzinov.ecareapp.desktopclient.view.LoginWindowView;
@@ -25,6 +26,9 @@ public class LoginWindowControllerImpl implements LoginWindowController {
     @Autowired
     private LoginWindowView loginWindowView;
 
+    @Autowired
+    private ClientCache clientCache;
+
     public void login() {
         String login = loginWindowView.getLoginTextField().getText();
         String password = loginWindowView.getPasswordTextField().getText();
@@ -34,8 +38,7 @@ public class LoginWindowControllerImpl implements LoginWindowController {
         if (authorizationService.isAuthorized()) {
             loginWindowView.close();
             if (authorizationService.isUser()) {
-                mainWindowUserView.addContractsPanel();
-                mainWindowUserView.addMyDataPanel();
+                clientCache.setClient(authorizationService.getUser().getClient());
                 mainWindowUserView.show();
             } else {
                 mainWindowAdminView.show();

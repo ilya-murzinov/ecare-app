@@ -20,4 +20,6 @@ public interface TariffService {
     void addOption(Tariff tariff, Option option);
 
     void removeOption(Tariff tariff, Option option);
+
+    void updateTariff(Tariff tariff);
 }

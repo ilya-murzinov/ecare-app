@@ -16,7 +16,6 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
     private User user;
 
-
     @Override
     public boolean isAuthorized() {
         return user != null;
@@ -36,5 +35,10 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         helper.sendRequest("GET", request);
 
         user = (User) helper.readObject();
+    }
+
+    @Override
+    public User getUser() {
+        return user;
     }
 }

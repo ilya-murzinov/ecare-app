@@ -12,8 +12,7 @@ create table client(
   date_of_birth date,
   passport varchar(200),
   address varchar(200),
-  email varchar(32),
-  password varchar(16)
+  email varchar(32)
 );
 
 create table contract(
@@ -39,6 +38,12 @@ create table t_option(
 create table tariff_option(
   id int key auto_increment,
   tariff_id int,
+  option_id int
+);
+
+create table contract_option(
+  id int key auto_increment,
+  contract_id int,
   option_id int
 );
 
@@ -79,6 +84,12 @@ insert into t_option(
 # ) values (
 #   1, 1
 # )
+
+insert into contract_option(
+  contract_id, option_id
+) values (
+  1, 1
+);
 
 insert into user(
   login, password, client_id

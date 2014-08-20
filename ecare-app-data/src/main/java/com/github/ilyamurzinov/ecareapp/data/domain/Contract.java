@@ -2,6 +2,7 @@ package com.github.ilyamurzinov.ecareapp.data.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author ilya-murzinov
@@ -22,6 +23,13 @@ public class Contract implements Serializable {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "contract_option",
+            joinColumns = @JoinColumn(name = "contract_id"),
+            inverseJoinColumns = @JoinColumn(name = "option_id"))
+    private List<Option> options;
 
     public int getId() {
         return id;
@@ -45,5 +53,13 @@ public class Contract implements Serializable {
 
     public void setTariff(Tariff tariff) {
         this.tariff = tariff;
+    }
+
+    public List<Option> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<Option> options) {
+        this.options = options;
     }
 }

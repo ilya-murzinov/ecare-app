@@ -33,7 +33,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void removeClient(int id) {
+    public void updateClient(Client client) {
+        helper.sendRequest("POST", client);
+    }
 
+    @Override
+    public void removeClient(int id) {
     }
 }

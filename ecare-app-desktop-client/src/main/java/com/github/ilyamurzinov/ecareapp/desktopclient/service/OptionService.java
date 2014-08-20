@@ -11,4 +11,6 @@ public interface OptionService {
     void addOption(Option option);
 
     void removeOption(int id);
+
+    void updateOption(Option option);
 }
