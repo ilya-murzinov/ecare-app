@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
  */
 public interface UserDAO extends DAO {
     User getUser(String login);
+    void updateUser(User user);
 }

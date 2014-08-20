@@ -3,8 +3,11 @@ package com.github.ilyamurzinov.ecareapp.desktopclient.controller;
 import com.github.ilyamurzinov.ecareapp.data.domain.Client;
 import com.github.ilyamurzinov.ecareapp.data.domain.Contract;
 import com.github.ilyamurzinov.ecareapp.data.domain.Option;
+import com.github.ilyamurzinov.ecareapp.data.domain.User;
 import com.github.ilyamurzinov.ecareapp.desktopclient.cache.ClientCache;
+import com.github.ilyamurzinov.ecareapp.desktopclient.service.AuthorizationService;
 import com.github.ilyamurzinov.ecareapp.desktopclient.service.ClientService;
+import com.github.ilyamurzinov.ecareapp.desktopclient.service.UserService;
 import com.github.ilyamurzinov.ecareapp.desktopclient.view.MainWindowUserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,6 +30,12 @@ public class MainWindowUserController {
     @Autowired
     private ClientService clientService;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private AuthorizationService authorizationService;
+
     @PostConstruct
     public void init() {
         mainWindowUserView.getEditButton().addMouseListener(new MouseAdapter() {
@@ -39,6 +48,15 @@ public class MainWindowUserController {
             @Override
             public void mouseClicked(MouseEvent e) {
                 clientService.updateClient(getClientFromView());
+                if (!mainWindowUserView.getPasswordTextField().getText().equals(authorizationService.getUser().getPassword())) {
+                    User user = new User();
+                    user.setId(authorizationService.getUser().getId());
+                    user.setLogin(authorizationService.getUser().getLogin());
+                    user.setPassword(mainWindowUserView.getPasswordTextField().getText());
+                    user.setClient(authorizationService.getUser().getClient());
+
+                    userService.updateUser(user);
+                }
                 mainWindowUserView.setEnabled(false);
             }
         });

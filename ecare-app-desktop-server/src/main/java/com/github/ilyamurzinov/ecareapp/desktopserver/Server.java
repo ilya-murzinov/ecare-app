@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,9 +83,12 @@ public class Server {
 
                     processRequest(method, object);
                 }
-                //objectOutputStream.flush();
             } catch (IOException e) {
-                logger.error(e, e);
+                if (e instanceof SocketException) {
+                    logger.info("Client disconnected");
+                } else {
+                    logger.error(e, e);
+                }
             } catch (ClassNotFoundException e) {
                 logger.error(e);
             }
@@ -119,7 +123,9 @@ public class Server {
                     );
                 }
             } else if (method.equals("POST")) {
-                if (object instanceof Client) {
+                if (object instanceof User) {
+                    userService.updateUser((User) object);
+                } else if (object instanceof Client) {
                     clientService.updateClient((Client) object);
                 } else if (object instanceof Contract) {
                     contractService.updateContract((Contract) object);

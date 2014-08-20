@@ -29,6 +29,20 @@ public class UserServiceImpl extends AbstractService implements UserService {
         }
     }
 
+    @Override
+    public void updateUser(User user) {
+        try {
+            createAndInjectEntityManager();
+            entityManager.getTransaction().begin();
+            userDAO.updateUser(user);
+            entityManager.getTransaction().commit();
+        } finally {
+            if (entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
+
 
     @Override
     protected void setDAOs() {

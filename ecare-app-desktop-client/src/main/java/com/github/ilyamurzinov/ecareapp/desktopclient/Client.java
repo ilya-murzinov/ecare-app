@@ -8,7 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * @author ilya-murzinov
  */
-public class Application {
+public class Client {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
 

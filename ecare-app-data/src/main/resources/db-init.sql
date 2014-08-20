@@ -12,7 +12,8 @@ create table client(
   date_of_birth date,
   passport varchar(200),
   address varchar(200),
-  email varchar(32)
+  email varchar(32),
+  user_id int
 );
 
 create table contract(
