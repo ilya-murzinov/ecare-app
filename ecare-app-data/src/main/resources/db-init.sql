@@ -56,9 +56,9 @@ CREATE TABLE ecare.user
 );
 
 insert into client(
-  name, lastname, date_of_birth, passport, address, email, password
+  name, lastname, date_of_birth, passport, address, email
 ) values (
-  'Ivan', 'Ivanov', '1990-02-02', '123123123 asdkljdhsf fjfjjdsf', 'asdhjgh 1278h nwfhasd', 'asd@asd.asd', 'password'
+  'Ivan', 'Ivanov', '1990-02-02', '123123123 asdkljdhsf fjfjjdsf', 'asdhjgh 1278h nwfhasd', 'asd@asd.asd'
 );
 
 insert into contract(
