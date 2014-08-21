@@ -12,13 +12,12 @@ create table client(
   date_of_birth date,
   passport varchar(200),
   address varchar(200),
-  email varchar(32),
-  user_id int
+  email varchar(32)
 );
 
 create table contract(
   id int key auto_increment,
-  number int,
+  number long,
   tariff_id int,
   client_id int
 );
@@ -65,7 +64,17 @@ insert into client(
 insert into contract(
   number, tariff_id, client_id
 ) values (
-  12, 1, 1
+  1267854678, 3, 1
+);
+insert into contract(
+  number, tariff_id, client_id
+) values (
+  6673747412, 2, 1
+);
+insert into contract(
+  number, tariff_id, client_id
+) values (
+  54783223, 4, 1
 );
 
 insert into tariff(
@@ -73,23 +82,108 @@ insert into tariff(
 ) values (
   'super tariff', 12.0
 );
+insert into tariff(
+  name, price
+) values (
+  'super tariff 2', 13.0
+);
+insert into tariff(
+  name, price
+) values (
+  'super tariff 3', 14.0
+);
+insert into tariff(
+  name, price
+) values (
+  'super tariff 4', 15.0
+);
 
 insert into t_option(
   name, subscription_fee, price
 ) values (
   'super option', 120.12, 30
 );
+insert into t_option(
+  name, subscription_fee, price
+) values (
+  'super option 2', 10.12, 120
+);
+insert into t_option(
+  name, subscription_fee, price
+) values (
+  'super option 3', 20.4, 42
+);
+insert into t_option(
+  name, subscription_fee, price
+) values (
+  'super option 4', 1.12, 15
+);
 
-# insert into tariff_option(
-#   tariff_id, option_id
-# ) values (
-#   1, 1
-# )
+insert into tariff_option(
+  tariff_id, option_id
+) values (
+  1, 1
+);
+insert into tariff_option(
+  tariff_id, option_id
+) values (
+  1, 3
+);
+insert into tariff_option(
+  tariff_id, option_id
+) values (
+  1, 4
+);
+insert into tariff_option(
+  tariff_id, option_id
+) values (
+  2, 2
+);
+insert into tariff_option(
+  tariff_id, option_id
+) values (
+  2, 3
+);
+insert into tariff_option(
+  tariff_id, option_id
+) values (
+  3, 4
+);
+insert into tariff_option(
+  tariff_id, option_id
+) values (
+  4, 1
+);
 
 insert into contract_option(
   contract_id, option_id
 ) values (
   1, 1
+);
+insert into contract_option(
+  contract_id, option_id
+) values (
+  2, 3
+);
+insert into contract_option(
+  contract_id, option_id
+) values (
+  2, 4
+);
+insert into contract_option(
+  contract_id, option_id
+) values (
+  3, 1
+);
+insert into contract_option(
+  contract_id, option_id
+) values (
+  3, 2
+);
+insert into contract_option(
+  contract_id, option_id
+) values (
+  3, 4
 );
 
 insert into user(

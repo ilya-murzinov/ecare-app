@@ -23,7 +23,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
     @Override
     public boolean isUser() {
-        return user.getClient() != null;
+        return user.getClientId() != 0;
     }
 
     @Override

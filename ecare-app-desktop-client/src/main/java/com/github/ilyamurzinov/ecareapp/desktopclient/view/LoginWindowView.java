@@ -113,4 +113,8 @@ public class LoginWindowView {
     public JTextField getPasswordTextField() {
         return passwordTextField;
     }
+
+    public JButton getLoginButton() {
+        return loginButton;
+    }
 }

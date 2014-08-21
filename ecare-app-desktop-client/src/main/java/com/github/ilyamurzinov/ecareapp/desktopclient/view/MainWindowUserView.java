@@ -23,8 +23,14 @@ public class MainWindowUserView {
 
     private JComboBox contractsComboBox = new JComboBox();
     private JLabel tariffLabel = new JLabel("Tariff");
-    private DefaultListModel optionsList = new DefaultListModel();
-    private JList optionsListBox = new JList(optionsList);
+    private JComboBox tariffComboBox = new JComboBox();
+    private DefaultListModel optionsListModel = new DefaultListModel();
+    private JList optionsList = new JList(optionsListModel);
+    private JScrollPane optionsListBox = new JScrollPane();
+    private JButton changeTariffButton = new JButton("Change tariff");
+    private JButton saveTariffButton = new JButton("Save tariff");
+    private JButton addOptionButton = new JButton("Add option");
+    private JButton removeOptionButton = new JButton("Remove option");
 
     private JLabel nameLabel = new JLabel("Name");
     private JLabel lastNameLabel = new JLabel("Last name");
@@ -82,16 +88,50 @@ public class MainWindowUserView {
         contractsPanel.setLayout(layout);
         GridBagConstraints constraints = new GridBagConstraints();
         GridBagConstraintsHelper.init(constraints);
+        constraints.gridwidth = 2;
 
         layout.setConstraints(contractsComboBox, constraints);
         contractsPanel.add(contractsComboBox);
 
+        constraints.gridy++;
+        constraints.gridwidth = 1;
         layout.setConstraints(tariffLabel, constraints);
         contractsPanel.add(tariffLabel);
 
+        tariffComboBox.setEnabled(false);
+
+        constraints.gridx++;
+        constraints.gridwidth = 1;
+        layout.setConstraints(tariffComboBox, constraints);
+        contractsPanel.add(tariffComboBox);
+
+        constraints.gridx = 0;
+        constraints.gridy++;
+        layout.setConstraints(changeTariffButton, constraints);
+        contractsPanel.add(changeTariffButton);
+
+        constraints.gridx++;
+        layout.setConstraints(saveTariffButton, constraints);
+        contractsPanel.add(saveTariffButton);
+
+        constraints.gridwidth = 2;
+        optionsListBox.getViewport().add(optionsList);
+        optionsListBox.setPreferredSize(new Dimension(100, 100));
+
+        constraints.gridx = 0;
         constraints.gridy++;
         layout.setConstraints(optionsListBox, constraints);
         contractsPanel.add(optionsListBox);
+
+        constraints.gridx = 0;
+        constraints.gridy++;
+        constraints.gridwidth = 1;
+        layout.setConstraints(addOptionButton, constraints);
+        contractsPanel.add(addOptionButton);
+
+        constraints.gridx++;
+        layout.setConstraints(removeOptionButton, constraints);
+        contractsPanel.add(removeOptionButton);
     }
 
     private void initMyDataPanel() {
@@ -100,7 +140,7 @@ public class MainWindowUserView {
         GridBagConstraints constraints = new GridBagConstraints();
         GridBagConstraintsHelper.init(constraints);
 
-        setEnabled(false);
+        setMyDataEnabled(false);
 
         layout.setConstraints(nameLabel, constraints);
         myDataPanel.add(nameLabel);
@@ -173,7 +213,7 @@ public class MainWindowUserView {
         myDataPanel.add(saveButton);
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setMyDataEnabled(boolean enabled) {
         nameTextField.setEnabled(enabled);
         lastNameTextField.setEnabled(enabled);
         passportTextField.setEnabled(enabled);
@@ -184,7 +224,7 @@ public class MainWindowUserView {
     }
 
     public void show() {
-        mainWindowUserController.updateView();
+        mainWindowUserController.initView();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -193,12 +233,40 @@ public class MainWindowUserView {
         });
     }
 
+    public boolean isShown() {
+        return frame.isVisible();
+    }
+
     public JComboBox getContractsComboBox() {
         return contractsComboBox;
     }
 
-    public DefaultListModel getOptionsList() {
+    public DefaultListModel getOptionsListModel() {
+        return optionsListModel;
+    }
+
+    public JList getOptionsList() {
         return optionsList;
+    }
+
+    public JComboBox getTariffComboBox() {
+        return tariffComboBox;
+    }
+
+    public JButton getChangeTariffButton() {
+        return changeTariffButton;
+    }
+
+    public JButton getSaveTariffButton() {
+        return saveTariffButton;
+    }
+
+    public JButton getAddOptionButton() {
+        return addOptionButton;
+    }
+
+    public JButton getRemoveOptionButton() {
+        return removeOptionButton;
     }
 
     public JTextField getNameTextField() {
@@ -229,11 +297,11 @@ public class MainWindowUserView {
         return passwordTextField;
     }
 
-    public JButton getSaveButton() {
+    public JButton getSaveMyDataButton() {
         return saveButton;
     }
 
-    public JButton getEditButton() {
+    public JButton getEditMyDataButton() {
         return editButton;
     }
 }

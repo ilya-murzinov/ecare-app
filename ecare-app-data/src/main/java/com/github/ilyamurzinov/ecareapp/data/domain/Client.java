@@ -31,9 +31,6 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private List<Contract> contracts;
 
-    @OneToOne
-    private User user;
-
     public int getId() {
         return id;
     }
@@ -98,11 +95,20 @@ public class Client implements Serializable {
         this.contracts = contracts;
     }
 
-    public User getUser() {
-        return user;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        if (id != client.id) return false;
+
+        return true;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

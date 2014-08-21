@@ -1,20 +1,17 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.controller;
 
-import com.github.ilyamurzinov.ecareapp.data.domain.Client;
-import com.github.ilyamurzinov.ecareapp.data.domain.Contract;
-import com.github.ilyamurzinov.ecareapp.data.domain.Option;
-import com.github.ilyamurzinov.ecareapp.data.domain.User;
+import com.github.ilyamurzinov.ecareapp.data.domain.*;
 import com.github.ilyamurzinov.ecareapp.desktopclient.cache.ClientCache;
 import com.github.ilyamurzinov.ecareapp.desktopclient.service.AuthorizationService;
 import com.github.ilyamurzinov.ecareapp.desktopclient.service.ClientService;
+import com.github.ilyamurzinov.ecareapp.desktopclient.service.TariffService;
 import com.github.ilyamurzinov.ecareapp.desktopclient.service.UserService;
 import com.github.ilyamurzinov.ecareapp.desktopclient.view.MainWindowUserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 /**
  * @author ilya-murzinov
@@ -36,44 +33,109 @@ public class MainWindowUserController {
     @Autowired
     private AuthorizationService authorizationService;
 
+    @Autowired
+    private TariffService tariffService;
+
+    private Contract currentContract;
+
     @PostConstruct
     public void init() {
-        mainWindowUserView.getEditButton().addMouseListener(new MouseAdapter() {
+        mainWindowUserView.getContractsComboBox().addItemListener(new ItemListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                mainWindowUserView.setEnabled(true);
+            public void itemStateChanged(ItemEvent e) {
+                if (mainWindowUserView.isShown() && e.getStateChange() == ItemEvent.SELECTED) {
+                    currentContract = (Contract) e.getItem();
+                    updateContractsTab();
+                }
             }
         });
-        mainWindowUserView.getSaveButton().addMouseListener(new MouseAdapter() {
+        mainWindowUserView.getChangeTariffButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                mainWindowUserView.getTariffComboBox().setEnabled(true);
+            }
+        });
+        mainWindowUserView.getSaveTariffButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                mainWindowUserView.getTariffComboBox().setEnabled(false);
+            }
+        });
+        mainWindowUserView.getAddOptionButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
+        mainWindowUserView.getRemoveOptionButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (!mainWindowUserView.getOptionsList().isSelectionEmpty()) {
+                    mainWindowUserView.getOptionsListModel().remove(
+                            mainWindowUserView.getOptionsList().getSelectedIndex()
+                    );
+                }
+            }
+        });
+
+        mainWindowUserView.getEditMyDataButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                mainWindowUserView.setMyDataEnabled(true);
+            }
+        });
+        mainWindowUserView.getSaveMyDataButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 clientService.updateClient(getClientFromView());
-                if (!mainWindowUserView.getPasswordTextField().getText().equals(authorizationService.getUser().getPassword())) {
+                String newPassword = mainWindowUserView.getPasswordTextField().getText();
+                if (!newPassword.equals("") && !newPassword.equals(authorizationService.getUser().getPassword())) {
                     User user = new User();
                     user.setId(authorizationService.getUser().getId());
                     user.setLogin(authorizationService.getUser().getLogin());
                     user.setPassword(mainWindowUserView.getPasswordTextField().getText());
-                    user.setClient(authorizationService.getUser().getClient());
-
+                    user.setClientId(authorizationService.getUser().getClientId());
                     userService.updateUser(user);
                 }
-                mainWindowUserView.setEnabled(false);
+                mainWindowUserView.setMyDataEnabled(false);
             }
         });
     }
 
-    public void updateView() {
+    public void initView() {
+        initContractsTab();
+        initMyDataTab();
+    }
+
+    public void initContractsTab() {
+        currentContract = clientCache.getClient().getContracts().get(0);
+        for (Contract contract : clientCache.getClient().getContracts()) {
+            mainWindowUserView.getContractsComboBox().addItem(contract);
+        }
+        for (Tariff tariff : tariffService.getAllTariffs()) {
+            mainWindowUserView.getTariffComboBox().addItem(tariff);
+        }
+        mainWindowUserView.getTariffComboBox().setSelectedItem(currentContract.getTariff());
+
+        for (Option option : currentContract.getOptions()) {
+            mainWindowUserView.getOptionsListModel().addElement(option);
+        }
+    }
+
+    public void initMyDataTab() {
         mainWindowUserView.getNameTextField().setText(clientCache.getClient().getName());
         mainWindowUserView.getLastNameTextField().setText(clientCache.getClient().getLastname());
         mainWindowUserView.getPassportTextField().setText(clientCache.getClient().getPassport());
         mainWindowUserView.getDateOdBirthTestField().setText(clientCache.getClient().getDateOfBirth());
         mainWindowUserView.getAddressTextField().setText(clientCache.getClient().getAddress());
         mainWindowUserView.getEmailTestField().setText(clientCache.getClient().getEmail());
-        for (Contract contract : clientCache.getClient().getContracts()) {
-            mainWindowUserView.getContractsComboBox().addItem(contract.getNumber());
-            for (Option option : contract.getOptions()) {
-                mainWindowUserView.getOptionsList().addElement(option);
-            }
+    }
+
+    private void updateContractsTab() {
+        mainWindowUserView.getTariffComboBox().setSelectedItem(currentContract.getTariff());
+        mainWindowUserView.getOptionsListModel().removeAllElements();
+        for (Option option : currentContract.getOptions()) {
+            mainWindowUserView.getOptionsListModel().addElement(option);
         }
     }
 

@@ -11,20 +11,20 @@ import java.io.Serializable;
 public class User implements Serializable {
     @Id
     @GeneratedValue
-    private String id;
+    private int id;
 
     private String login;
 
     private String password;
 
-    @OneToOne
-    private Client client;
+    @Column(name = "client_id")
+    private int clientId;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -44,11 +44,28 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Client getClient() {
-        return client;
+    public int getClientId() {
+        return clientId;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (id != user.id) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

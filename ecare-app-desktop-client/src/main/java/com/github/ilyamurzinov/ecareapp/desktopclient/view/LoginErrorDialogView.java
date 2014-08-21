@@ -2,6 +2,8 @@ package com.github.ilyamurzinov.ecareapp.desktopclient.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * @author ilya-murzinov
@@ -18,10 +20,22 @@ public class LoginErrorDialogView extends JDialog {
         messagePane.add(new JLabel(message));
         getContentPane().add(messagePane);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
+                    close();
+                }
+            }
+        });
         pack();
     }
 
     public void display() {
         setVisible(true);
+    }
+
+    public void close() {
+        setVisible(false);
     }
 }

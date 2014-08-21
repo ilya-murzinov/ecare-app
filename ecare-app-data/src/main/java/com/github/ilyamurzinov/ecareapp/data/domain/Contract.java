@@ -14,7 +14,7 @@ public class Contract implements Serializable {
     @GeneratedValue
     private int id;
 
-    private int number;
+    private long number;
 
     @OneToOne
     @JoinColumn(name = "tariff_id")
@@ -39,7 +39,7 @@ public class Contract implements Serializable {
         this.id = id;
     }
 
-    public int getNumber() {
+    public long getNumber() {
         return number;
     }
 
@@ -61,5 +61,27 @@ public class Contract implements Serializable {
 
     public void setOptions(List<Option> options) {
         this.options = options;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(number);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Contract contract = (Contract) o;
+
+        if (id != contract.id) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }
