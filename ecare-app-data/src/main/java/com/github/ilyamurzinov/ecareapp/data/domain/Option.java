@@ -54,7 +54,7 @@ public class Option implements Serializable {
 
     @Override
     public String toString() {
-        return name;
+        return String.format("%s, fee - %s, price - %s", name, subscriptionFee, price);
     }
 
     @Override

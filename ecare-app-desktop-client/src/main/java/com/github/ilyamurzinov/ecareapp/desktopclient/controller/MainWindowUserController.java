@@ -2,11 +2,9 @@ package com.github.ilyamurzinov.ecareapp.desktopclient.controller;
 
 import com.github.ilyamurzinov.ecareapp.data.domain.*;
 import com.github.ilyamurzinov.ecareapp.desktopclient.cache.ClientCache;
-import com.github.ilyamurzinov.ecareapp.desktopclient.service.AuthorizationService;
-import com.github.ilyamurzinov.ecareapp.desktopclient.service.ClientService;
-import com.github.ilyamurzinov.ecareapp.desktopclient.service.TariffService;
-import com.github.ilyamurzinov.ecareapp.desktopclient.service.UserService;
+import com.github.ilyamurzinov.ecareapp.desktopclient.service.*;
 import com.github.ilyamurzinov.ecareapp.desktopclient.view.MainWindowUserView;
+import com.github.ilyamurzinov.ecareapp.desktopclient.view.OptionsListView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +20,9 @@ public class MainWindowUserController {
     private MainWindowUserView mainWindowUserView;
 
     @Autowired
+    private OptionsListView optionsListView;
+
+    @Autowired
     private ClientCache clientCache;
 
     @Autowired
@@ -35,6 +36,9 @@ public class MainWindowUserController {
 
     @Autowired
     private TariffService tariffService;
+
+    @Autowired
+    private ContractService contractService;
 
     private Contract currentContract;
 
@@ -58,19 +62,42 @@ public class MainWindowUserController {
         mainWindowUserView.getSaveTariffButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                Contract contract = (Contract) mainWindowUserView.getContractsComboBox().getSelectedItem();
+                Tariff tariff = (Tariff) mainWindowUserView.getTariffComboBox().getSelectedItem();
+                contract.setTariff(tariff);
+                contractService.updateContract(contract);
+
                 mainWindowUserView.getTariffComboBox().setEnabled(false);
             }
         });
         mainWindowUserView.getAddOptionButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+                optionsListView.getOptionsListModel().removeAllElements();
+                for (Option option : ((Tariff) mainWindowUserView.getTariffComboBox().getSelectedItem()).getOptions()) {
+                    optionsListView.getOptionsListModel().addElement(option);
+                }
+                optionsListView.getAddButton().addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        Contract contract = (Contract) mainWindowUserView.getContractsComboBox().getSelectedItem();
+                        contract.getOptions().add((Option) optionsListView.getOptionsList().getSelectedValue());
+                        contractService.updateContract(contract);
+                        optionsListView.close();
+                    }
+                });
+                optionsListView.show();
             }
         });
         mainWindowUserView.getRemoveOptionButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!mainWindowUserView.getOptionsList().isSelectionEmpty()) {
+                    Contract contract = (Contract) mainWindowUserView.getContractsComboBox().getSelectedItem();
+                    Option option = (Option) mainWindowUserView.getOptionsList().getSelectedValue();
+                    contract.getOptions().remove(option);
+                    contractService.updateContract(contract);
+
                     mainWindowUserView.getOptionsListModel().remove(
                             mainWindowUserView.getOptionsList().getSelectedIndex()
                     );

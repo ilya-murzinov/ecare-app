@@ -49,6 +49,6 @@ public class TariffServiceImpl implements TariffService {
 
     @Override
     public void updateTariff(Tariff tariff) {
-
+        helper.sendRequest("POST", tariff);
     }
 }
