@@ -1,23 +1,16 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.view;
 
-import com.github.ilyamurzinov.ecareapp.desktopclient.controller.LoginWindowController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 /**
  * @author ilya-murzinov
  */
 @Component
 public class LoginWindowView {
-    @Autowired
-    private LoginWindowController controller;
-
     private JFrame frame;
 
     private JLabel loginTextArea;
@@ -42,7 +35,6 @@ public class LoginWindowView {
         loginButton = new JButton("Login");
 
         setLayout();
-        setActionListeners();
     }
 
     private void setLayout() {
@@ -74,15 +66,6 @@ public class LoginWindowView {
         mainPanel.add(loginButton);
 
         frame.getContentPane().add(mainPanel);
-    }
-
-    private void setActionListeners() {
-        loginButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                controller.login();
-            }
-        });
     }
 
     public void show() {

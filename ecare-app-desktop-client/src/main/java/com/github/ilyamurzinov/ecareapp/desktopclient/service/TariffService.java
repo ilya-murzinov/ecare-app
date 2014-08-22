@@ -1,6 +1,5 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.service;
 
-import com.github.ilyamurzinov.ecareapp.data.domain.Option;
 import com.github.ilyamurzinov.ecareapp.data.domain.Tariff;
 
 import java.util.List;
@@ -16,10 +15,6 @@ public interface TariffService {
     void addTariff(Tariff tariff);
 
     void removeTariff(int id);
-
-    void addOption(Tariff tariff, Option option);
-
-    void removeOption(Tariff tariff, Option option);
 
     void updateTariff(Tariff tariff);
 }

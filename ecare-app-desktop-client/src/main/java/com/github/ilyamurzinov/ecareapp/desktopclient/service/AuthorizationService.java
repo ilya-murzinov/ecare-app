@@ -7,7 +7,10 @@ import com.github.ilyamurzinov.ecareapp.data.domain.User;
  */
 public interface AuthorizationService {
     boolean isAuthorized();
+
     boolean isUser();
+
     void login(String login, String password);
+
     User getUser();
 }

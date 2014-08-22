@@ -11,47 +11,40 @@ import java.awt.*;
  */
 @Component
 @Scope("prototype")
-public class ContractPanel extends JPanel {
-    private JComboBox contractsComboBox = new JComboBox();
-    private JComboBox tariffComboBox = new JComboBox();
+public class TariffPanel extends JPanel {
+    private JTextField nameTextField = new JTextField();
+    private JTextField priceTextField = new JTextField();
     private ListModelDecorator optionsListModel = new ListModelDecorator();
     private JList optionsList = new JList(optionsListModel);
-    private JButton changeTariffButton = new JButton("Change tariff");
-    private JButton saveTariffButton = new JButton("Save tariff");
     private JButton addOptionButton = new JButton("Add option");
     private JButton removeOptionButton = new JButton("Remove option");
+    private JScrollPane optionsListBox = new JScrollPane();
 
-    public ContractPanel() {
+    private JButton saveButton = new JButton("Save");
+
+    public TariffPanel() {
         GridBagLayout layout = new GridBagLayout();
         setLayout(layout);
         GridBagConstraints constraints = new GridBagConstraints();
         GridBagConstraintsHelper.init(constraints);
-        constraints.gridwidth = 2;
 
-        layout.setConstraints(contractsComboBox, constraints);
-        add(contractsComboBox);
-
-        constraints.gridy++;
-        constraints.gridwidth = 1;
-        JLabel tariffLabel = new JLabel("Tariff");
-        layout.setConstraints(tariffLabel, constraints);
-        add(tariffLabel);
-
-        tariffComboBox.setEnabled(false);
+        JLabel nameLabel = new JLabel("Name");
+        layout.setConstraints(nameLabel, constraints);
+        add(nameLabel);
 
         constraints.gridx++;
-        constraints.gridwidth = 1;
-        layout.setConstraints(tariffComboBox, constraints);
-        add(tariffComboBox);
+        layout.setConstraints(nameTextField, constraints);
+        add(nameTextField);
 
         constraints.gridx = 0;
         constraints.gridy++;
-        layout.setConstraints(changeTariffButton, constraints);
-        add(changeTariffButton);
+        JLabel priceLabel = new JLabel("Price");
+        layout.setConstraints(priceLabel, constraints);
+        add(priceLabel);
 
         constraints.gridx++;
-        layout.setConstraints(saveTariffButton, constraints);
-        add(saveTariffButton);
+        layout.setConstraints(priceTextField, constraints);
+        add(priceTextField);
 
         constraints.gridwidth = 2;
         JScrollPane optionsListBox = new JScrollPane();
@@ -72,30 +65,29 @@ public class ContractPanel extends JPanel {
         constraints.gridx++;
         layout.setConstraints(removeOptionButton, constraints);
         add(removeOptionButton);
+
+        constraints.gridx = 0;
+        constraints.gridy++;
+        layout.setConstraints(saveButton, constraints);
+        add(saveButton);
     }
 
-    public JComboBox getContractsComboBox() {
-        return contractsComboBox;
+    @Override
+    public void setEnabled(boolean enabled) {
+        nameTextField.setEnabled(enabled);
+        priceTextField.setEnabled(enabled);
+    }
+
+    public JTextField getNameTextField() {
+        return nameTextField;
+    }
+
+    public JTextField getPriceTextField() {
+        return priceTextField;
     }
 
     public ListModelDecorator getOptionsListModel() {
         return optionsListModel;
-    }
-
-    public JList getOptionsList() {
-        return optionsList;
-    }
-
-    public JComboBox getTariffComboBox() {
-        return tariffComboBox;
-    }
-
-    public JButton getChangeTariffButton() {
-        return changeTariffButton;
-    }
-
-    public JButton getSaveTariffButton() {
-        return saveTariffButton;
     }
 
     public JButton getAddOptionButton() {
@@ -104,5 +96,9 @@ public class ContractPanel extends JPanel {
 
     public JButton getRemoveOptionButton() {
         return removeOptionButton;
+    }
+
+    public JButton getSaveButton() {
+        return saveButton;
     }
 }

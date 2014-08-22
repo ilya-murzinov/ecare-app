@@ -54,7 +54,6 @@ public class MainWindowUserView {
     }
 
     public void show() {
-        controller.initView();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -63,8 +62,8 @@ public class MainWindowUserView {
         });
     }
 
-    public boolean isShown() {
-        return frame.isVisible();
+    public JFrame getFrame() {
+        return frame;
     }
 
     public ContractPanel getContractPanel() {

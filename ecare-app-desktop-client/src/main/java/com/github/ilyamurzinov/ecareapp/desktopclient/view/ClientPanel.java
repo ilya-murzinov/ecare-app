@@ -1,5 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.view;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import java.awt.*;
  * @author ilya-murzinov
  */
 @Component
+@Scope("prototype")
 public class ClientPanel extends JPanel {
     private JTextField nameTextField = new JTextField();
     private JTextField lastNameTextField = new JTextField();
@@ -26,7 +28,7 @@ public class ClientPanel extends JPanel {
         GridBagConstraints constraints = new GridBagConstraints();
         GridBagConstraintsHelper.init(constraints);
 
-        setMyDataEnabled(false);
+        setEnabled(false);
 
         JLabel nameLabel = new JLabel("Name");
         layout.setConstraints(nameLabel, constraints);
@@ -106,7 +108,8 @@ public class ClientPanel extends JPanel {
         add(saveButton);
     }
 
-    public void setMyDataEnabled(boolean enabled) {
+    @Override
+    public void setEnabled(boolean enabled) {
         nameTextField.setEnabled(enabled);
         lastNameTextField.setEnabled(enabled);
         passportTextField.setEnabled(enabled);

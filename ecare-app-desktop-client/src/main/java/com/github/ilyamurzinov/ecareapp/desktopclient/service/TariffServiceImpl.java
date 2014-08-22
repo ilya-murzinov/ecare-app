@@ -1,6 +1,5 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.service;
 
-import com.github.ilyamurzinov.ecareapp.data.domain.Option;
 import com.github.ilyamurzinov.ecareapp.data.domain.Tariff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,21 +28,11 @@ public class TariffServiceImpl implements TariffService {
 
     @Override
     public void addTariff(Tariff tariff) {
-
+        helper.sendRequest("PUT", tariff);
     }
 
     @Override
     public void removeTariff(int id) {
-
-    }
-
-    @Override
-    public void addOption(Tariff tariff, Option option) {
-
-    }
-
-    @Override
-    public void removeOption(Tariff tariff, Option option) {
 
     }
 

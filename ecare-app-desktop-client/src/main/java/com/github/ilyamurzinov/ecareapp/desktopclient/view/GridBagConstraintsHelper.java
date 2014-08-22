@@ -6,6 +6,9 @@ import java.awt.*;
  * @author ilya-murzinov
  */
 public class GridBagConstraintsHelper {
+    private GridBagConstraintsHelper() {
+    }
+
     public static void init(GridBagConstraints constraints) {
         constraints.anchor = GridBagConstraints.NORTHWEST;
         constraints.insets = new Insets(5, 5, 5, 5);

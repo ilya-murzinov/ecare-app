@@ -1,5 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.view;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -9,12 +10,13 @@ import java.awt.*;
  * @author ilya-murzinov
  */
 @Component
+@Scope("prototype")
 public class OptionsListView {
     private JFrame frame = new JFrame();
 
     private JPanel panel = new JPanel();
     private JScrollPane scrollPane = new JScrollPane();
-    private DefaultListModel optionsListModel = new DefaultListModel();
+    private ListModelDecorator optionsListModel = new ListModelDecorator();
     private JList optionsList = new JList(optionsListModel);
     private JButton addButton = new JButton("Add");
 
@@ -44,7 +46,7 @@ public class OptionsListView {
         frame.setContentPane(panel);
     }
 
-    public void show() {
+    public void display() {
         frame.setVisible(true);
     }
 
@@ -56,7 +58,7 @@ public class OptionsListView {
         return frame;
     }
 
-    public DefaultListModel getOptionsListModel() {
+    public ListModelDecorator getOptionsListModel() {
         return optionsListModel;
     }
 

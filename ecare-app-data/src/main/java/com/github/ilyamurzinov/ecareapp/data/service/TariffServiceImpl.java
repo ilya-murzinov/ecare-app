@@ -19,9 +19,6 @@ public class TariffServiceImpl extends AbstractService implements TariffService 
     @Autowired
     private TariffDAO tariffDAO;
 
-    @Autowired
-    private OptionDAO optionDAO;
-
     @Override
     public Tariff getTariff(int id) {
         try {
@@ -75,42 +72,6 @@ public class TariffServiceImpl extends AbstractService implements TariffService 
     }
 
     @Override
-    public void addOption(Tariff tariff, Option option) {
-        try {
-            createAndInjectEntityManager();
-            entityManager.getTransaction().begin();
-
-            tariff.getOptions().add(option);
-            tariffDAO.updateTariff(tariff);
-
-            entityManager.getTransaction().commit();
-        } finally {
-            if (entityManager.isOpen()) {
-                entityManager.close();
-            }
-        }
-    }
-
-    @Override
-    public void removeOption(Tariff tariff, Option option) {
-        try {
-            createAndInjectEntityManager();
-            entityManager.getTransaction().begin();
-
-            if (tariff.getOptions().contains(option)) {
-                tariff.getOptions().remove(option);
-            }
-            tariffDAO.updateTariff(tariff);
-
-            entityManager.getTransaction().commit();
-        } finally {
-            if (entityManager.isOpen()) {
-                entityManager.close();
-            }
-        }
-    }
-
-    @Override
     public void updateTariff(Tariff tariff) {
         try {
             createAndInjectEntityManager();
@@ -128,7 +89,6 @@ public class TariffServiceImpl extends AbstractService implements TariffService 
     protected void setDAOs() {
         daos = new ArrayList<DAO>() {{
            add(tariffDAO);
-           add(optionDAO);
         }};
     }
 }

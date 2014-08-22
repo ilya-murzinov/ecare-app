@@ -1,7 +1,7 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.controller;
 
 import com.github.ilyamurzinov.ecareapp.data.domain.*;
-import com.github.ilyamurzinov.ecareapp.desktopclient.cache.ClientCache;
+import com.github.ilyamurzinov.ecareapp.desktopclient.cache.Cache;
 import com.github.ilyamurzinov.ecareapp.desktopclient.service.*;
 import com.github.ilyamurzinov.ecareapp.desktopclient.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,9 @@ import java.util.ArrayList;
 @Component
 public class MainWindowUserController {
     @Autowired
+    private MainWindowUserView mainWindowUserView;
+
+    @Autowired
     private ContractPanel contractPanel;
 
     @Autowired
@@ -26,7 +29,7 @@ public class MainWindowUserController {
     private OptionsListView optionsListView;
 
     @Autowired
-    private ClientCache clientCache;
+    private Cache cache;
 
     @Autowired
     private ClientService clientService;
@@ -47,6 +50,12 @@ public class MainWindowUserController {
 
     @PostConstruct
     public void init() {
+        mainWindowUserView.getFrame().addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                initView();
+            }
+        });
         contractPanel.getContractsComboBox().addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -85,9 +94,6 @@ public class MainWindowUserController {
                 optionsListView.getAddButton().addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        if (e.getSource() != optionsListView.getAddButton()) {
-                            return;
-                        }
                         Contract contract = (Contract) contractPanel.getContractsComboBox().getSelectedItem();
                         Option option = (Option) optionsListView.getOptionsList().getSelectedValue();
                         if (currentContract.getOptions().contains(option)) {
@@ -105,7 +111,7 @@ public class MainWindowUserController {
                         optionsListView.close();
                     }
                 });
-                optionsListView.show();
+                optionsListView.display();
             }
         });
         contractPanel.getRemoveOptionButton().addMouseListener(new MouseAdapter() {
@@ -127,7 +133,7 @@ public class MainWindowUserController {
         clientPanel.getEditMyDataButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                clientPanel.setMyDataEnabled(true);
+                clientPanel.setEnabled(true);
             }
         });
         clientPanel.getSaveMyDataButton().addMouseListener(new MouseAdapter() {
@@ -143,7 +149,7 @@ public class MainWindowUserController {
                     user.setClientId(authorizationService.getUser().getClientId());
                     userService.updateUser(user);
                 }
-                clientPanel.setMyDataEnabled(false);
+                clientPanel.setEnabled(false);
             }
         });
     }
@@ -154,8 +160,8 @@ public class MainWindowUserController {
     }
 
     public void initContractsTab() {
-        currentContract = clientCache.getClient().getContracts().get(0);
-        for (Contract contract : clientCache.getClient().getContracts()) {
+        currentContract = cache.getClient().getContracts().get(0);
+        for (Contract contract : cache.getClient().getContracts()) {
             contractPanel.getContractsComboBox().addItem(contract);
         }
         for (Tariff tariff : tariffService.getAllTariffs()) {
@@ -169,12 +175,12 @@ public class MainWindowUserController {
     }
 
     public void initMyDataTab() {
-        clientPanel.getNameTextField().setText(clientCache.getClient().getName());
-        clientPanel.getLastNameTextField().setText(clientCache.getClient().getLastname());
-        clientPanel.getPassportTextField().setText(clientCache.getClient().getPassport());
-        clientPanel.getDateOdBirthTestField().setText(clientCache.getClient().getDateOfBirth());
-        clientPanel.getAddressTextField().setText(clientCache.getClient().getAddress());
-        clientPanel.getEmailTestField().setText(clientCache.getClient().getEmail());
+        clientPanel.getNameTextField().setText(cache.getClient().getName());
+        clientPanel.getLastNameTextField().setText(cache.getClient().getLastname());
+        clientPanel.getPassportTextField().setText(cache.getClient().getPassport());
+        clientPanel.getDateOdBirthTestField().setText(cache.getClient().getDateOfBirth());
+        clientPanel.getAddressTextField().setText(cache.getClient().getAddress());
+        clientPanel.getEmailTestField().setText(cache.getClient().getEmail());
     }
 
     private void updateContractsTab() {
@@ -187,7 +193,7 @@ public class MainWindowUserController {
 
     private Client getClientFromView() {
         Client client = new Client();
-        client.setId(clientCache.getClient().getId());
+        client.setId(cache.getClient().getId());
         client.setName(clientPanel.getNameTextField().getText());
         client.setLastname(clientPanel.getLastNameTextField().getText());
         client.setPassport(clientPanel.getPassportTextField().getText());
