@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.List;
 
 /**
  * @author ilya-murzinov
@@ -19,6 +20,13 @@ public class OptionDAOImpl implements OptionDAO {
     public Option getOption(int id) {
         Query query = entityManager.createQuery("select o from Option o where o.id = :id").setParameter("id", id);
         return (Option) query.getSingleResult();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Option> getAllOptions() {
+        Query query = entityManager.createQuery("select o from Option o");
+        return (List<Option>) query.getResultList();
     }
 
     @Override

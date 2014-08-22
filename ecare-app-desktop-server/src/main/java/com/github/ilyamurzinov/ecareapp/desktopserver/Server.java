@@ -121,6 +121,10 @@ public class Server {
                     objectOutputStream.writeObject(
                             tariffService.getAllTariffs()
                     );
+                } else if (object instanceof Option) {
+                    objectOutputStream.writeObject(
+                            optionService.getAllOptions()
+                    );
                 }
             } else if (method.equals("POST")) {
                 if (object instanceof User) {

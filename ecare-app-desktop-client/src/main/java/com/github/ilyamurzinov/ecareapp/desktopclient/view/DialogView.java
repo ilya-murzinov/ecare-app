@@ -8,8 +8,8 @@ import java.awt.event.KeyEvent;
 /**
  * @author ilya-murzinov
  */
-public class LoginErrorDialogView extends JDialog {
-    public LoginErrorDialogView(JFrame parent, String title, String message) {
+public class DialogView extends JDialog {
+    public DialogView(JFrame parent, String title, String message) {
         super(parent, title, true);
         if (parent != null) {
             Dimension parentSize = parent.getSize();

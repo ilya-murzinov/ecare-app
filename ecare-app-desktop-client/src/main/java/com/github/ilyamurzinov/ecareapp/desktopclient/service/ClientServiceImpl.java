@@ -22,9 +22,12 @@ public class ClientServiceImpl implements ClientService {
         return (Client) helper.readObject();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Client> getAllClients() {
-        return null;
+        Client c = new Client();
+        helper.sendRequest("GET_ALL", c);
+        return (List<Client>) helper.readObject();
     }
 
     @Override

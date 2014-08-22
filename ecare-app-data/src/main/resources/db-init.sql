@@ -47,7 +47,7 @@ create table contract_option(
   option_id int
 );
 
-CREATE TABLE ecare.user
+create table ecare.user
 (
     id int key auto_increment,
     login varchar(32) NOT NULL,
@@ -55,11 +55,19 @@ CREATE TABLE ecare.user
     client_id int
 );
 
+######################################################
+# Client
+######################################################
+
 insert into client(
   name, lastname, date_of_birth, passport, address, email
 ) values (
   'Ivan', 'Ivanov', '1990-02-02', '123123123 asdkljdhsf fjfjjdsf', 'asdhjgh 1278h nwfhasd', 'asd@asd.asd'
 );
+
+######################################################
+# Contract
+######################################################
 
 insert into contract(
   number, tariff_id, client_id
@@ -74,8 +82,12 @@ insert into contract(
 insert into contract(
   number, tariff_id, client_id
 ) values (
-  54783223, 4, 1
+  54783223, 1, 1
 );
+
+######################################################
+# Tariff
+######################################################
 
 insert into tariff(
   name, price
@@ -98,6 +110,10 @@ insert into tariff(
   'super tariff 4', 15.0
 );
 
+######################################################
+# Option
+######################################################
+
 insert into t_option(
   name, subscription_fee, price
 ) values (
@@ -118,6 +134,30 @@ insert into t_option(
 ) values (
   'super option 4', 1.12, 15
 );
+insert into t_option(
+  name, subscription_fee, price
+) values (
+  'super option 5', 120.12, 30
+);
+insert into t_option(
+  name, subscription_fee, price
+) values (
+  'super option 6', 10.12, 120
+);
+insert into t_option(
+  name, subscription_fee, price
+) values (
+  'super option 7', 20.4, 42
+);
+insert into t_option(
+  name, subscription_fee, price
+) values (
+  'super option 8', 1.12, 15
+);
+
+######################################################
+# Option to tariff
+######################################################
 
 insert into tariff_option(
   tariff_id, option_id
@@ -137,6 +177,11 @@ insert into tariff_option(
 insert into tariff_option(
   tariff_id, option_id
 ) values (
+  1, 7
+);
+insert into tariff_option(
+  tariff_id, option_id
+) values (
   2, 2
 );
 insert into tariff_option(
@@ -147,18 +192,67 @@ insert into tariff_option(
 insert into tariff_option(
   tariff_id, option_id
 ) values (
+  2, 6
+);
+insert into tariff_option(
+  tariff_id, option_id
+) values (
+  2, 7
+);
+insert into tariff_option(
+  tariff_id, option_id
+) values (
   3, 4
+);
+insert into tariff_option(
+  tariff_id, option_id
+) values (
+  3, 1
+);
+insert into tariff_option(
+  tariff_id, option_id
+) values (
+  3, 2
+);
+insert into tariff_option(
+  tariff_id, option_id
+) values (
+  3, 8
 );
 insert into tariff_option(
   tariff_id, option_id
 ) values (
   4, 1
 );
+insert into tariff_option(
+  tariff_id, option_id
+) values (
+  4, 3
+);
+insert into tariff_option(
+  tariff_id, option_id
+) values (
+  4, 5
+);
+insert into tariff_option(
+  tariff_id, option_id
+) values (
+  4, 7
+);
+insert into tariff_option(
+  tariff_id, option_id
+) values (
+  4, 2
+);
+
+######################################################
+# Option to contract
+######################################################
 
 insert into contract_option(
   contract_id, option_id
 ) values (
-  1, 1
+  1, 4
 );
 insert into contract_option(
   contract_id, option_id
@@ -168,7 +262,7 @@ insert into contract_option(
 insert into contract_option(
   contract_id, option_id
 ) values (
-  2, 4
+  2, 2
 );
 insert into contract_option(
   contract_id, option_id
@@ -178,13 +272,17 @@ insert into contract_option(
 insert into contract_option(
   contract_id, option_id
 ) values (
-  3, 2
+  3, 3
 );
 insert into contract_option(
   contract_id, option_id
 ) values (
   3, 4
 );
+
+######################################################
+# User
+######################################################
 
 insert into user(
   login, password, client_id
@@ -195,5 +293,5 @@ insert into user(
 insert into user(
   login, password, client_id
 ) values(
-  'admin', 'admin', null
+  'admin', 'admin', 0
 )

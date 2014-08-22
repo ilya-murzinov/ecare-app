@@ -3,7 +3,7 @@ package com.github.ilyamurzinov.ecareapp.desktopclient.controller;
 import com.github.ilyamurzinov.ecareapp.desktopclient.cache.ClientCache;
 import com.github.ilyamurzinov.ecareapp.desktopclient.service.AuthorizationService;
 import com.github.ilyamurzinov.ecareapp.desktopclient.service.ClientService;
-import com.github.ilyamurzinov.ecareapp.desktopclient.view.LoginErrorDialogView;
+import com.github.ilyamurzinov.ecareapp.desktopclient.view.DialogView;
 import com.github.ilyamurzinov.ecareapp.desktopclient.view.LoginWindowView;
 import com.github.ilyamurzinov.ecareapp.desktopclient.view.MainWindowAdminView;
 import com.github.ilyamurzinov.ecareapp.desktopclient.view.MainWindowUserView;
@@ -57,7 +57,7 @@ public class LoginWindowControllerImpl implements LoginWindowController {
         String password = loginWindowView.getPasswordTextField().getText();
 
         if (login.equals("") || password.equals("")) {
-            new LoginErrorDialogView(
+            new DialogView(
                     loginWindowView.getFrame(),
                     "Login error",
                     "Please fill username and password"
@@ -77,7 +77,7 @@ public class LoginWindowControllerImpl implements LoginWindowController {
                 mainWindowAdminView.show();
             }
         } else {
-            new LoginErrorDialogView(
+            new DialogView(
                    loginWindowView.getFrame(),
                    "Login error",
                    "Wrong username or password"

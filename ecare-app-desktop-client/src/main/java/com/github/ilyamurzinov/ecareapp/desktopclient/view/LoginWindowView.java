@@ -32,6 +32,7 @@ public class LoginWindowView {
     public void init() {
         frame = new JFrame("Login to E-Care app");
         frame.setSize(300, 150);
+        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         loginTextArea = new JLabel("Login");

@@ -20,6 +20,7 @@ public class OptionsListView {
 
     public OptionsListView() {
         frame.setSize(300, 200);
+        frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -49,6 +50,10 @@ public class OptionsListView {
 
     public void close() {
         frame.setVisible(false);
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 
     public DefaultListModel getOptionsListModel() {

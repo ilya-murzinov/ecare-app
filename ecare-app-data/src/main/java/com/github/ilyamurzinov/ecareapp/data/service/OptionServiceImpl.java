@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ilya-murzinov
@@ -21,6 +22,18 @@ public class OptionServiceImpl extends AbstractService implements OptionService 
         try {
             createAndInjectEntityManager();
             return optionDAO.getOption(id);
+        } finally {
+            if (entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
+
+    @Override
+    public List<Option> getAllOptions() {
+        try {
+            createAndInjectEntityManager();
+            return optionDAO.getAllOptions();
         } finally {
             if (entityManager.isOpen()) {
                 entityManager.close();
