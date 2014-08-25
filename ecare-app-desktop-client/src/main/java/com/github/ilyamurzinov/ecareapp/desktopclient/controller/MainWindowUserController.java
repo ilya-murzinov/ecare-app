@@ -81,6 +81,22 @@ public class MainWindowUserController {
             }
         });
 
+        mainWindowUserView.getClientPanel().getSaveNewButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Client client = mainWindowUserView.getClientPanel().getClientFromView();
+                clientService.addClient(client);
+            }
+        });
+        mainWindowUserView.getClientPanel().getSaveEditedButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Client client = mainWindowUserView.getClientPanel().getClientFromView();
+                client.setId(cache.getClient().getId());
+                clientService.updateClient(client);
+            }
+        });
+
         /*
         Options list
          */

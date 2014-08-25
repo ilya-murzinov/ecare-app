@@ -32,7 +32,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void addClient(Client client) {
-
+        helper.sendRequest("PUT", client);
     }
 
     @Override

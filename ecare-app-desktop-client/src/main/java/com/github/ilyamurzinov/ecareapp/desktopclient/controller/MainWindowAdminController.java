@@ -73,6 +73,21 @@ public class MainWindowAdminController {
                 clientView.display();
             }
         });
+        clientView.getClientPanel().getSaveNewButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Client client = clientView.getClientPanel().getClientFromView();
+                clientService.addClient(client);
+            }
+        });
+        clientView.getClientPanel().getSaveEditedButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Client client = clientView.getClientPanel().getClientFromView();
+                client.setId(cache.getClient().getId());
+                clientService.updateClient(client);
+            }
+        });
         mainWindowAdminView.getAddTariffButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

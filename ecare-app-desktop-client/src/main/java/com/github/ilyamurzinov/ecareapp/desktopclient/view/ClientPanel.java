@@ -1,6 +1,7 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.view;
 
 import com.github.ilyamurzinov.ecareapp.data.domain.Client;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -10,6 +11,7 @@ import java.awt.*;
  * @author ilya-murzinov
  */
 @Component
+@Scope("prototype")
 public class ClientPanel extends JPanel implements View {
     private JTextField nameTextField = new JTextField();
     private JTextField lastNameTextField = new JTextField();
@@ -110,35 +112,35 @@ public class ClientPanel extends JPanel implements View {
 
     @Override
     public void setMode(ViewMode mode) {
-//        switch (mode) {
-//            case VIEW:
-//                setEnabled(false);
-//                saveNewButton.setVisible(false);
-//                saveEditedButton.setVisible(false);
-//                break;
-//            case EDIT:
-//                setEnabled(true);
-//                saveNewButton.setVisible(false);
-//                saveEditedButton.setVisible(true);
-//                break;
-//            case ADD:
-//                setEnabled(true);
-//                saveNewButton.setVisible(true);
-//                saveEditedButton.setVisible(false);
-//                break;
-//        }
+        switch (mode) {
+            case VIEW:
+                setEnabled(false);
+                saveNewButton.setVisible(false);
+                saveEditedButton.setVisible(false);
+                break;
+            case EDIT:
+                setEnabled(true);
+                saveNewButton.setVisible(false);
+                saveEditedButton.setVisible(true);
+                break;
+            case ADD:
+                setEnabled(true);
+                saveNewButton.setVisible(true);
+                saveEditedButton.setVisible(false);
+                break;
+        }
     }
 
-//    @Override
-//    public void setEnabled(boolean enabled) {
-//        nameTextField.setEnabled(enabled);
-//        lastNameTextField.setEnabled(enabled);
-//        passportTextField.setEnabled(enabled);
-//        dateOdBirthTestField.setEnabled(enabled);
-//        addressTextField.setEnabled(enabled);
-//        emailTestField.setEnabled(enabled);
-//        passwordTextField.setEnabled(enabled);
-//    }
+    @Override
+    public void setEnabled(boolean enabled) {
+        nameTextField.setEnabled(enabled);
+        lastNameTextField.setEnabled(enabled);
+        passportTextField.setEnabled(enabled);
+        dateOdBirthTestField.setEnabled(enabled);
+        addressTextField.setEnabled(enabled);
+        emailTestField.setEnabled(enabled);
+        passwordTextField.setEnabled(enabled);
+    }
 
     public JTextField getNameTextField() {
         return nameTextField;
@@ -168,7 +170,7 @@ public class ClientPanel extends JPanel implements View {
         return passwordTextField;
     }
 
-    public JButton getSaveNewButton() {
+    public synchronized JButton getSaveNewButton() {
         return saveNewButton;
     }
 

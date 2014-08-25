@@ -29,7 +29,7 @@ public class ClientView {
 
     @PostConstruct
     private void init() {
-        frame.setContentPane(clientPanel);
+        frame.getContentPane().add(clientPanel);
     }
 
     public void display() {
