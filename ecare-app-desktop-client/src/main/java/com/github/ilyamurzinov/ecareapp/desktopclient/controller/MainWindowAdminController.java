@@ -69,9 +69,22 @@ public class MainWindowAdminController {
         mainWindowAdminView.getEditClientButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                cache.setClient((Client) mainWindowAdminView.getClientsList().getSelectedValue());
-                clientView.getClientPanel().setMode(ViewMode.EDIT);
-                clientView.display();
+                Client client = (Client) mainWindowAdminView.getClientsList().getSelectedValue();
+                if (client != null) {
+                    cache.setClient(client);
+                    clientView.getClientPanel().setMode(ViewMode.EDIT);
+                    clientView.display();
+                }
+            }
+        });
+        mainWindowAdminView.getRemoveClientButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Client client = (Client) mainWindowAdminView.getClientsList().getSelectedValue();
+                if (client != null) {
+                    mainWindowAdminView.getClientsListModel().removeElement(client);
+                    clientService.removeClient(client);
+                }
             }
         });
         clientView.getFrame().addWindowListener(new WindowAdapter() {
@@ -113,6 +126,16 @@ public class MainWindowAdminController {
                 if (selectedValue != null) {
                     cache.setTariff((Tariff) selectedValue);
                     tariffView.display();
+                }
+            }
+        });
+        mainWindowAdminView.getRemoveTariffButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Tariff tariff = (Tariff) mainWindowAdminView.getTariffsList().getSelectedValue();
+                if (tariff != null) {
+                    mainWindowAdminView.getTariffsListModel().removeElement(tariff);
+                    tariffService.removeTariff(tariff);
                 }
             }
         });

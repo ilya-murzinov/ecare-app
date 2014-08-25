@@ -19,7 +19,7 @@ public class Tariff implements Serializable {
 
     private double price;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "tariff_option",
             joinColumns = @JoinColumn(name = "tariff_id"),

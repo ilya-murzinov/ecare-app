@@ -24,7 +24,7 @@ public class Contract implements Serializable {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "contract_option",
             joinColumns = @JoinColumn(name = "contract_id"),

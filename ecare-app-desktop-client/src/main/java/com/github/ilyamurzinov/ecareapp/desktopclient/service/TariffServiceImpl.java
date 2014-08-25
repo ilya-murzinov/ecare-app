@@ -32,8 +32,8 @@ public class TariffServiceImpl implements TariffService {
     }
 
     @Override
-    public void removeTariff(int id) {
-
+    public void removeTariff(Tariff tariff) {
+        helper.sendRequest("DELETE", tariff);
     }
 
     @Override

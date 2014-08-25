@@ -14,7 +14,7 @@ public interface TariffService {
 
     void addTariff(Tariff tariff);
 
-    void removeTariff(int id);
+    void removeTariff(Tariff tariff);
 
     void updateTariff(Tariff tariff);
 }

@@ -28,7 +28,7 @@ public class Client implements Serializable {
 
     private String email;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Contract> contracts;
 
     public int getId() {

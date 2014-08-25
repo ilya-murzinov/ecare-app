@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class Cache {
-    private User user;
-    private Client client;
-    private Contract contract;
-    private Tariff tariff;
-    private Option option;
+    private User user = new User();
+    private Client client = new Client();
+    private Contract contract = new Contract();
+    private Tariff tariff = new Tariff();
+    private Option option = new Option();
 
     public User getUser() {
         return user;

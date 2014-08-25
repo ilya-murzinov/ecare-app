@@ -16,5 +16,5 @@ public interface ClientService {
 
     void updateClient(Client client);
 
-    void removeClient(int id);
+    void removeClient(Client client);
 }
