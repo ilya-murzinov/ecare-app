@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 /**
  * @author ilya-murzinov
@@ -18,12 +17,6 @@ import java.util.ArrayList;
 public class MainWindowUserController {
     @Autowired
     private MainWindowUserView mainWindowUserView;
-
-    @Autowired
-    private ContractPanel contractPanel;
-
-    @Autowired
-    private ClientPanel clientPanel;
 
     @Autowired
     private OptionsListView optionsListView;
@@ -35,171 +28,118 @@ public class MainWindowUserController {
     private ClientService clientService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private AuthorizationService authorizationService;
-
-    @Autowired
     private TariffService tariffService;
 
     @Autowired
     private ContractService contractService;
 
-    private Contract currentContract;
+    private boolean initialized;
 
     @PostConstruct
     public void init() {
         mainWindowUserView.getFrame().addWindowListener(new WindowAdapter() {
             @Override
-            public void windowOpened(WindowEvent e) {
-                initView();
+            public void windowActivated(WindowEvent e) {
+                updateView();
             }
         });
-        contractPanel.getContractsComboBox().addItemListener(new ItemListener() {
+
+        /*
+        Contracts tab
+         */
+        mainWindowUserView.getContractPanel().getTariffComboBox().setEnabled(false);
+
+        mainWindowUserView.getContractPanel().getContractsComboBox().addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    currentContract = (Contract) e.getItem();
+                if (initialized && e.getStateChange() == ItemEvent.SELECTED) {
+                    cache.setContract((Contract) e.getItem());
                     updateContractsTab();
                 }
             }
         });
-        contractPanel.getChangeTariffButton().addMouseListener(new MouseAdapter() {
+        mainWindowUserView.getContractPanel().getChangeTariffButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                contractPanel.getTariffComboBox().setEnabled(true);
+                mainWindowUserView.getContractPanel().getTariffComboBox().setEnabled(true);
             }
         });
-        contractPanel.getSaveTariffButton().addMouseListener(new MouseAdapter() {
+        mainWindowUserView.getContractPanel().getSaveTariffButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Contract contract = (Contract) contractPanel.getContractsComboBox().getSelectedItem();
-                Tariff tariff = (Tariff) contractPanel.getTariffComboBox().getSelectedItem();
-                contract.setTariff(tariff);
-                contract.setOptions(new ArrayList<Option>());
-                contractService.updateContract(contract);
+                Tariff tariff = (Tariff) mainWindowUserView.getContractPanel().getTariffComboBox().getSelectedItem();
+                cache.getContract().setTariff(tariff);
+                contractService.updateContract(cache.getContract());
+                mainWindowUserView.getContractPanel().getTariffComboBox().setEnabled(false);
+            }
+        });
 
-                contractPanel.getTariffComboBox().setEnabled(false);
-                updateContractsTab();
-            }
-        });
-        contractPanel.getAddOptionButton().addMouseListener(new MouseAdapter() {
+        mainWindowUserView.getContractPanel().getAddOptionButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                optionsListView.getOptionsListModel().removeAllElements();
-                for (Option option : ((Tariff) contractPanel.getTariffComboBox().getSelectedItem()).getOptions()) {
-                    optionsListView.getOptionsListModel().addElement(option);
-                }
-                optionsListView.getAddButton().addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        Contract contract = (Contract) contractPanel.getContractsComboBox().getSelectedItem();
-                        Option option = (Option) optionsListView.getOptionsList().getSelectedValue();
-                        if (currentContract.getOptions().contains(option)) {
-                            new DialogView(
-                                    optionsListView.getFrame(),
-                                    "Error",
-                                    "You already have this option in this contract"
-                            ).display();
-                            return;
-                        } else {
-                            contract.getOptions().add(option);
-                        }
-                        contractService.updateContract(contract);
-                        updateContractsTab();
-                        optionsListView.close();
-                    }
-                });
                 optionsListView.display();
             }
         });
-        contractPanel.getRemoveOptionButton().addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (!contractPanel.getOptionsList().isSelectionEmpty()) {
-                    Contract contract = (Contract) contractPanel.getContractsComboBox().getSelectedItem();
-                    Option option = (Option) contractPanel.getOptionsList().getSelectedValue();
-                    contract.getOptions().remove(option);
-                    contractService.updateContract(contract);
 
-                    contractPanel.getOptionsListModel().remove(
-                            contractPanel.getOptionsList().getSelectedIndex()
-                    );
-                }
-            }
-        });
-
-        clientPanel.getEditMyDataButton().addMouseListener(new MouseAdapter() {
+        /*
+        Options list
+         */
+        optionsListView.getAddButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                clientPanel.setEnabled(true);
-            }
-        });
-        clientPanel.getSaveMyDataButton().addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                clientService.updateClient(getClientFromView());
-                String newPassword = clientPanel.getPasswordTextField().getText();
-                if (!newPassword.equals("") && !newPassword.equals(authorizationService.getUser().getPassword())) {
-                    User user = new User();
-                    user.setId(authorizationService.getUser().getId());
-                    user.setLogin(authorizationService.getUser().getLogin());
-                    user.setPassword(clientPanel.getPasswordTextField().getText());
-                    user.setClientId(authorizationService.getUser().getClientId());
-                    userService.updateUser(user);
+                Option option = (Option) optionsListView.getOptionsList().getSelectedValue();
+                if (!cache.getContract().getOptions().contains(option)) {
+                    cache.getContract().getOptions().add(option);
+                    mainWindowUserView.getContractPanel().getOptionsListModel().addElement(option);
+                    optionsListView.close();
+                } else {
+                    new DialogView(mainWindowUserView.getFrame(), "Error", "You already have this option")
+                            .display();
                 }
-                clientPanel.setEnabled(false);
             }
         });
     }
 
-    public void initView() {
-        initContractsTab();
-        initMyDataTab();
+    public void updateView() {
+        updateContractsTab();
+        updateMyDataTab();
     }
 
-    public void initContractsTab() {
-        currentContract = cache.getClient().getContracts().get(0);
-        for (Contract contract : cache.getClient().getContracts()) {
-            contractPanel.getContractsComboBox().addItem(contract);
+    public void updateContractsTab() {
+        if (cache.getContract() == null) {
+            cache.setContract(cache.getClient().getContracts().get(0));
+        }
+
+        mainWindowUserView.getContractPanel().getTariffComboBox().removeAllItems();
+        mainWindowUserView.getContractPanel().getOptionsListModel().removeAllElements();
+
+        if (!initialized) {
+            mainWindowUserView.getContractPanel().getContractsComboBox().removeAllItems();
+            for (Contract contract : cache.getClient().getContracts()) {
+                mainWindowUserView.getContractPanel().getContractsComboBox().addItem(contract);
+            }
+            initialized = true;
         }
         for (Tariff tariff : tariffService.getAllTariffs()) {
-            contractPanel.getTariffComboBox().addItem(tariff);
+            mainWindowUserView.getContractPanel().getTariffComboBox().addItem(tariff);
         }
-        contractPanel.getTariffComboBox().setSelectedItem(currentContract.getTariff());
+        mainWindowUserView.getContractPanel().getTariffComboBox().setSelectedItem(cache.getContract().getTariff());
 
-        for (Option option : currentContract.getOptions()) {
-            contractPanel.getOptionsListModel().addElement(option);
+        for (Option option : cache.getContract().getOptions()) {
+            mainWindowUserView.getContractPanel().getOptionsListModel().addElement(option);
         }
-    }
 
-    public void initMyDataTab() {
-        clientPanel.getNameTextField().setText(cache.getClient().getName());
-        clientPanel.getLastNameTextField().setText(cache.getClient().getLastname());
-        clientPanel.getPassportTextField().setText(cache.getClient().getPassport());
-        clientPanel.getDateOdBirthTestField().setText(cache.getClient().getDateOfBirth());
-        clientPanel.getAddressTextField().setText(cache.getClient().getAddress());
-        clientPanel.getEmailTestField().setText(cache.getClient().getEmail());
-    }
-
-    private void updateContractsTab() {
-        contractPanel.getTariffComboBox().setSelectedItem(currentContract.getTariff());
-        contractPanel.getOptionsListModel().removeAllElements();
-        for (Option option : currentContract.getOptions()) {
-            contractPanel.getOptionsListModel().addElement(option);
+        for (Option option : cache.getContract().getTariff().getOptions()) {
+            optionsListView.getOptionsListModel().addElement(option);
         }
     }
 
-    private Client getClientFromView() {
-        Client client = new Client();
-        client.setId(cache.getClient().getId());
-        client.setName(clientPanel.getNameTextField().getText());
-        client.setLastname(clientPanel.getLastNameTextField().getText());
-        client.setPassport(clientPanel.getPassportTextField().getText());
-        client.setDateOfBirth(clientPanel.getDateOdBirthTestField().getText());
-        client.setAddress(clientPanel.getAddressTextField().getText());
-        client.setEmail(clientPanel.getEmailTestField().getText());
-        return client;
+    public void updateMyDataTab() {
+        mainWindowUserView.getClientPanel().getNameTextField().setText(cache.getClient().getName());
+        mainWindowUserView.getClientPanel().getLastNameTextField().setText(cache.getClient().getLastname());
+        mainWindowUserView.getClientPanel().getPassportTextField().setText(cache.getClient().getPassport());
+        mainWindowUserView.getClientPanel().getDateOdBirthTestField().setText(cache.getClient().getDateOfBirth());
+        mainWindowUserView.getClientPanel().getAddressTextField().setText(cache.getClient().getAddress());
+        mainWindowUserView.getClientPanel().getEmailTestField().setText(cache.getClient().getEmail());
     }
 }

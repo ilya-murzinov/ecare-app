@@ -1,6 +1,5 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.view;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -10,7 +9,6 @@ import java.awt.*;
  * @author ilya-murzinov
  */
 @Component
-@Scope("prototype")
 public class ContractPanel extends JPanel {
     private JComboBox contractsComboBox = new JComboBox();
     private JComboBox tariffComboBox = new JComboBox();
@@ -36,8 +34,6 @@ public class ContractPanel extends JPanel {
         JLabel tariffLabel = new JLabel("Tariff");
         layout.setConstraints(tariffLabel, constraints);
         add(tariffLabel);
-
-        tariffComboBox.setEnabled(false);
 
         constraints.gridx++;
         constraints.gridwidth = 1;

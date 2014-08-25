@@ -42,35 +42,58 @@ public class TariffController {
         for (Option option : optionService.getAllOptions()) {
             optionsListView.getOptionsListModel().addElement(option);
         }
-
         tariffView.getFrame().addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
                 updateView();
             }
-        });
-
-        tariffView.getTariffPanel().getAddOptionButton().addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                optionsListView.getAddButton().addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        Option option = (Option) optionsListView.getOptionsList().getSelectedValue();
-                        cache.getTariff().getOptions().add(option);
-                        tariffView.getTariffPanel().getOptionsListModel().addElement(option);
-                        optionsListView.close();
-                    }
-                });
-                optionsListView.display();
+            public void windowDeactivated(WindowEvent e) {
+                cache.setTariff(getTariffFromView());
             }
         });
-        tariffView.getTariffPanel().getSaveButton().addMouseListener(new MouseAdapter() {
+        tariffView.getTariffPanel().getSaveEditedTariffButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Tariff tariff = getTariffFromView();
+                tariff.setId(cache.getTariff().getId());
+                tariffService.updateTariff(tariff);
+                tariffView.close();
+            }
+        });
+        tariffView.getTariffPanel().getSaveNewTariffButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Tariff tariff = getTariffFromView();
                 tariffService.addTariff(tariff);
                 tariffView.close();
+            }
+        });
+        tariffView.getTariffPanel().getAddOptionButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                optionsListView.display();
+            }
+        });
+        optionsListView.getAddButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Option option = (Option) optionsListView.getOptionsList().getSelectedValue();
+                if (option != null) {
+                    cache.getTariff().getOptions().add(option);
+                    tariffView.getTariffPanel().getOptionsListModel().addElement(option);
+                }
+                optionsListView.close();
+            }
+        });
+        tariffView.getTariffPanel().getRemoveOptionButton().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Option option = (Option) optionsListView.getOptionsList().getSelectedValue();
+                if (option != null) {
+                    cache.getTariff().getOptions().remove(option);
+                    tariffView.getTariffPanel().getOptionsListModel().removeElement(option);
+                }
             }
         });
     }

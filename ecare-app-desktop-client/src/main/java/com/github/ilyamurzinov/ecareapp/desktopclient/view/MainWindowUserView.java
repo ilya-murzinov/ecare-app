@@ -49,11 +49,13 @@ public class MainWindowUserView {
 
         frame.setContentPane(pane);
 
+        clientPanel.setMode(ViewMode.EDIT);
+
         pane.addTab("My contracts", contractPanel);
         pane.addTab("My data", clientPanel);
     }
 
-    public void show() {
+    public void display() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -73,6 +75,4 @@ public class MainWindowUserView {
     public ClientPanel getClientPanel() {
         return clientPanel;
     }
-
-
 }

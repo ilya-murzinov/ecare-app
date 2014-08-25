@@ -1,8 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.cache;
 
-import com.github.ilyamurzinov.ecareapp.data.domain.Client;
-import com.github.ilyamurzinov.ecareapp.data.domain.Option;
-import com.github.ilyamurzinov.ecareapp.data.domain.Tariff;
+import com.github.ilyamurzinov.ecareapp.data.domain.*;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,9 +8,19 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class Cache {
+    private User user;
     private Client client;
+    private Contract contract;
     private Tariff tariff;
     private Option option;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Client getClient() {
         return client;
@@ -20,6 +28,14 @@ public class Cache {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
     }
 
     public Tariff getTariff() {

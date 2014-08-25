@@ -1,6 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.view;
 
-import org.springframework.context.annotation.Scope;
+import com.github.ilyamurzinov.ecareapp.data.domain.Client;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -10,8 +10,7 @@ import java.awt.*;
  * @author ilya-murzinov
  */
 @Component
-@Scope("prototype")
-public class ClientPanel extends JPanel {
+public class ClientPanel extends JPanel implements View {
     private JTextField nameTextField = new JTextField();
     private JTextField lastNameTextField = new JTextField();
     private JTextField passportTextField = new JTextField();
@@ -19,16 +18,15 @@ public class ClientPanel extends JPanel {
     private JTextField addressTextField = new JTextField();
     private JTextField emailTestField = new JTextField();
     private JTextField passwordTextField = new JTextField();
-    private JButton editButton = new JButton("Edit");
-    private JButton saveButton = new JButton("Save");
+    private JButton saveNewButton = new JButton("Save");
+    private JButton saveEditedButton = new JButton("Save");
+    private JButton cancelButton = new JButton("Cancel");
 
     public ClientPanel() {
         GridBagLayout layout = new GridBagLayout();
         setLayout(layout);
         GridBagConstraints constraints = new GridBagConstraints();
         GridBagConstraintsHelper.init(constraints);
-
-        setEnabled(false);
 
         JLabel nameLabel = new JLabel("Name");
         layout.setConstraints(nameLabel, constraints);
@@ -100,24 +98,47 @@ public class ClientPanel extends JPanel {
 
         constraints.gridx = 0;
         constraints.gridy++;
-        layout.setConstraints(editButton, constraints);
-        add(editButton);
+        layout.setConstraints(saveNewButton, constraints);
+        add(saveNewButton);
+        layout.setConstraints(saveEditedButton, constraints);
+        add(saveEditedButton);
 
         constraints.gridx++;
-        layout.setConstraints(saveButton, constraints);
-        add(saveButton);
+        layout.setConstraints(cancelButton, constraints);
+        add(cancelButton);
     }
 
     @Override
-    public void setEnabled(boolean enabled) {
-        nameTextField.setEnabled(enabled);
-        lastNameTextField.setEnabled(enabled);
-        passportTextField.setEnabled(enabled);
-        dateOdBirthTestField.setEnabled(enabled);
-        addressTextField.setEnabled(enabled);
-        emailTestField.setEnabled(enabled);
-        passwordTextField.setEnabled(enabled);
+    public void setMode(ViewMode mode) {
+//        switch (mode) {
+//            case VIEW:
+//                setEnabled(false);
+//                saveNewButton.setVisible(false);
+//                saveEditedButton.setVisible(false);
+//                break;
+//            case EDIT:
+//                setEnabled(true);
+//                saveNewButton.setVisible(false);
+//                saveEditedButton.setVisible(true);
+//                break;
+//            case ADD:
+//                setEnabled(true);
+//                saveNewButton.setVisible(true);
+//                saveEditedButton.setVisible(false);
+//                break;
+//        }
     }
+
+//    @Override
+//    public void setEnabled(boolean enabled) {
+//        nameTextField.setEnabled(enabled);
+//        lastNameTextField.setEnabled(enabled);
+//        passportTextField.setEnabled(enabled);
+//        dateOdBirthTestField.setEnabled(enabled);
+//        addressTextField.setEnabled(enabled);
+//        emailTestField.setEnabled(enabled);
+//        passwordTextField.setEnabled(enabled);
+//    }
 
     public JTextField getNameTextField() {
         return nameTextField;
@@ -147,11 +168,26 @@ public class ClientPanel extends JPanel {
         return passwordTextField;
     }
 
-    public JButton getSaveMyDataButton() {
-        return saveButton;
+    public JButton getSaveNewButton() {
+        return saveNewButton;
     }
 
-    public JButton getEditMyDataButton() {
-        return editButton;
+    public JButton getSaveEditedButton() {
+        return saveEditedButton;
+    }
+
+    public JButton getCancelButton() {
+        return cancelButton;
+    }
+
+    public Client getClientFromView() {
+        Client client = new Client();
+        client.setName(getNameTextField().getText());
+        client.setLastname(getLastNameTextField().getText());
+        client.setPassport(getPassportTextField().getText());
+        client.setDateOfBirth(getDateOdBirthTestField().getText());
+        client.setAddress(getAddressTextField().getText());
+        client.setEmail(getEmailTestField().getText());
+        return client;
     }
 }

@@ -11,7 +11,7 @@ import java.awt.*;
  */
 @Component
 @Scope("prototype")
-public class TariffPanel extends JPanel {
+public class TariffPanel extends JPanel implements View {
     private JTextField nameTextField = new JTextField();
     private JTextField priceTextField = new JTextField();
     private ListModelDecorator optionsListModel = new ListModelDecorator();
@@ -20,7 +20,10 @@ public class TariffPanel extends JPanel {
     private JButton removeOptionButton = new JButton("Remove option");
     private JScrollPane optionsListBox = new JScrollPane();
 
-    private JButton saveButton = new JButton("Save");
+    private JButton editButton = new JButton("Edit");
+    private JButton saveNewTariffButton = new JButton("Save");
+    private JButton saveEditedTariffButton = new JButton("Save");
+    private JButton cancelButton = new JButton("Cancel");
 
     public TariffPanel() {
         GridBagLayout layout = new GridBagLayout();
@@ -46,19 +49,21 @@ public class TariffPanel extends JPanel {
         layout.setConstraints(priceTextField, constraints);
         add(priceTextField);
 
-        constraints.gridwidth = 2;
+        constraints.gridwidth = 3;
         JScrollPane optionsListBox = new JScrollPane();
         optionsListBox.getViewport().add(optionsList);
         optionsListBox.setPreferredSize(new Dimension(100, 100));
 
         constraints.gridx = 0;
         constraints.gridy++;
+        constraints.ipady = 50;
         layout.setConstraints(optionsListBox, constraints);
         add(optionsListBox);
 
         constraints.gridx = 0;
         constraints.gridy++;
         constraints.gridwidth = 1;
+        constraints.ipady = 0;
         layout.setConstraints(addOptionButton, constraints);
         add(addOptionButton);
 
@@ -68,14 +73,48 @@ public class TariffPanel extends JPanel {
 
         constraints.gridx = 0;
         constraints.gridy++;
-        layout.setConstraints(saveButton, constraints);
-        add(saveButton);
+        layout.setConstraints(editButton, constraints);
+        add(editButton);
+
+        constraints.gridx++;
+        layout.setConstraints(saveEditedTariffButton, constraints);
+        add(saveEditedTariffButton);
+        layout.setConstraints(saveNewTariffButton, constraints);
+        add(saveNewTariffButton);
+
+        constraints.gridx++;
+        layout.setConstraints(cancelButton, constraints);
+        add(cancelButton);
     }
 
     @Override
     public void setEnabled(boolean enabled) {
         nameTextField.setEnabled(enabled);
         priceTextField.setEnabled(enabled);
+    }
+
+    @Override
+    public void setMode(ViewMode mode) {
+        switch (mode) {
+            case VIEW:
+                setEnabled(false);
+                editButton.setVisible(false);
+                saveEditedTariffButton.setVisible(false);
+                saveNewTariffButton.setVisible(false);
+                break;
+            case EDIT:
+                setEnabled(false);
+                editButton.setVisible(true);
+                saveEditedTariffButton.setVisible(true);
+                saveNewTariffButton.setVisible(false);
+                break;
+            case ADD:
+                setEnabled(true);
+                editButton.setVisible(true);
+                saveEditedTariffButton.setVisible(false);
+                saveNewTariffButton.setVisible(true);
+                break;
+        }
     }
 
     public JTextField getNameTextField() {
@@ -98,7 +137,11 @@ public class TariffPanel extends JPanel {
         return removeOptionButton;
     }
 
-    public JButton getSaveButton() {
-        return saveButton;
+    public JButton getSaveNewTariffButton() {
+        return saveNewTariffButton;
+    }
+
+    public JButton getSaveEditedTariffButton() {
+        return saveEditedTariffButton;
     }
 }
