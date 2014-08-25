@@ -36,11 +36,15 @@ public class ClientView {
         frame.setVisible(true);
     }
 
+    public void close() {
+        frame.setVisible(false);
+    }
+
     public ClientPanel getClientPanel() {
         return clientPanel;
     }
 
-    public void close() {
-        frame.setVisible(false);
+    public JFrame getFrame() {
+        return frame;
     }
 }

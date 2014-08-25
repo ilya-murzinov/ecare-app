@@ -192,4 +192,13 @@ public class ClientPanel extends JPanel implements View {
         client.setEmail(getEmailTestField().getText());
         return client;
     }
+
+    public void update(Client client) {
+        getNameTextField().setText(client.getName());
+        getLastNameTextField().setText(client.getLastname());
+        getPassportTextField().setText(client.getPassport());
+        getDateOdBirthTestField().setText(client.getDateOfBirth());
+        getAddressTextField().setText(client.getAddress());
+        getEmailTestField().setText(client.getEmail());
+    }
 }

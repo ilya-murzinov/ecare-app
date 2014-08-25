@@ -151,11 +151,6 @@ public class MainWindowUserController {
     }
 
     public void updateMyDataTab() {
-        mainWindowUserView.getClientPanel().getNameTextField().setText(cache.getClient().getName());
-        mainWindowUserView.getClientPanel().getLastNameTextField().setText(cache.getClient().getLastname());
-        mainWindowUserView.getClientPanel().getPassportTextField().setText(cache.getClient().getPassport());
-        mainWindowUserView.getClientPanel().getDateOdBirthTestField().setText(cache.getClient().getDateOfBirth());
-        mainWindowUserView.getClientPanel().getAddressTextField().setText(cache.getClient().getAddress());
-        mainWindowUserView.getClientPanel().getEmailTestField().setText(cache.getClient().getEmail());
+        mainWindowUserView.getClientPanel().update(cache.getClient());
     }
 }

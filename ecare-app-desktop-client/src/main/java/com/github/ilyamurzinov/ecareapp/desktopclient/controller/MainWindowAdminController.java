@@ -69,8 +69,15 @@ public class MainWindowAdminController {
         mainWindowAdminView.getEditClientButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                cache.setClient((Client) mainWindowAdminView.getClientsList().getSelectedValue());
                 clientView.getClientPanel().setMode(ViewMode.EDIT);
                 clientView.display();
+            }
+        });
+        clientView.getFrame().addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowActivated(WindowEvent e) {
+                clientView.getClientPanel().update(cache.getClient());
             }
         });
         clientView.getClientPanel().getSaveNewButton().addMouseListener(new MouseAdapter() {
