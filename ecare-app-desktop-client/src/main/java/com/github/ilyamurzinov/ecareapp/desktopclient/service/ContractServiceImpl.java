@@ -1,6 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.service;
 
-import com.github.ilyamurzinov.ecareapp.data.domain.Contract;
+import com.github.ilyamurzinov.ecareapp.common.domain.Contract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

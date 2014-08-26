@@ -1,7 +1,7 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.controller;
 
-import com.github.ilyamurzinov.ecareapp.data.domain.Option;
-import com.github.ilyamurzinov.ecareapp.data.domain.Tariff;
+import com.github.ilyamurzinov.ecareapp.common.domain.Option;
+import com.github.ilyamurzinov.ecareapp.common.domain.Tariff;
 import com.github.ilyamurzinov.ecareapp.desktopclient.cache.Cache;
 import com.github.ilyamurzinov.ecareapp.desktopclient.service.OptionService;
 import com.github.ilyamurzinov.ecareapp.desktopclient.service.TariffService;
@@ -39,10 +39,13 @@ public class TariffController {
 
     @PostConstruct
     public void init() {
-        for (Option option : optionService.getAllOptions()) {
-            optionsListView.getOptionsListModel().addElement(option);
-        }
         tariffView.getFrame().addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                for (Option option : optionService.getAllOptions()) {
+                    optionsListView.getOptionsListModel().addElement(option);
+                }
+            }
             @Override
             public void windowActivated(WindowEvent e) {
                 updateView();

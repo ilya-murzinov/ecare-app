@@ -1,8 +1,8 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.controller;
 
-import com.github.ilyamurzinov.ecareapp.data.domain.Client;
-import com.github.ilyamurzinov.ecareapp.data.domain.Option;
-import com.github.ilyamurzinov.ecareapp.data.domain.Tariff;
+import com.github.ilyamurzinov.ecareapp.common.domain.Client;
+import com.github.ilyamurzinov.ecareapp.common.domain.Option;
+import com.github.ilyamurzinov.ecareapp.common.domain.Tariff;
 import com.github.ilyamurzinov.ecareapp.desktopclient.cache.Cache;
 import com.github.ilyamurzinov.ecareapp.desktopclient.service.ClientService;
 import com.github.ilyamurzinov.ecareapp.desktopclient.service.ContractService;

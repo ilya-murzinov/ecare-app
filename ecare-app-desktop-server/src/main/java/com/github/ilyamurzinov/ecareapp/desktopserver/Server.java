@@ -1,7 +1,7 @@
 package com.github.ilyamurzinov.ecareapp.desktopserver;
 
-import com.github.ilyamurzinov.ecareapp.data.domain.*;
-import com.github.ilyamurzinov.ecareapp.data.service.*;
+import com.github.ilyamurzinov.ecareapp.common.domain.*;
+import com.github.ilyamurzinov.ecareapp.desktopserver.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +9,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author ilya-murzinov

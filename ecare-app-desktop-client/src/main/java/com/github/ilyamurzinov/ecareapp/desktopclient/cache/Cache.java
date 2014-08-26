@@ -1,6 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.cache;
 
-import com.github.ilyamurzinov.ecareapp.data.domain.*;
+import com.github.ilyamurzinov.ecareapp.common.domain.*;
 import org.springframework.stereotype.Component;
 
 /**

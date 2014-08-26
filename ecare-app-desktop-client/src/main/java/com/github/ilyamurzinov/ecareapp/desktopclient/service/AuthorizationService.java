@@ -1,6 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.service;
 
-import com.github.ilyamurzinov.ecareapp.data.domain.User;
+import com.github.ilyamurzinov.ecareapp.common.domain.User;
 
 /**
  * @author ilya-murzinov

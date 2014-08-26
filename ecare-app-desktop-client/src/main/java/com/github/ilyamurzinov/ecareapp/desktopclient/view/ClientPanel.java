@@ -1,6 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.desktopclient.view;
 
-import com.github.ilyamurzinov.ecareapp.data.domain.Client;
+import com.github.ilyamurzinov.ecareapp.common.domain.Client;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

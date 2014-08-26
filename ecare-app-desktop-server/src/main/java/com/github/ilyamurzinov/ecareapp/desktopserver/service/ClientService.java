@@ -1,4 +1,4 @@
-package com.github.ilyamurzinov.ecareapp.desktopclient.service;
+package com.github.ilyamurzinov.ecareapp.desktopserver.service;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Client;
 
@@ -16,5 +16,5 @@ public interface ClientService {
 
     void updateClient(Client client);
 
-    void removeClient(Client client);
+    void removeClient(int id);
 }

@@ -1,4 +1,4 @@
-package com.github.ilyamurzinov.ecareapp.desktopclient.service;
+package com.github.ilyamurzinov.ecareapp.desktopserver.service;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Contract;
 

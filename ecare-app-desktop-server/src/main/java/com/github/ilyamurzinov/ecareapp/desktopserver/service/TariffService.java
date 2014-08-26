@@ -1,4 +1,4 @@
-package com.github.ilyamurzinov.ecareapp.desktopclient.service;
+package com.github.ilyamurzinov.ecareapp.desktopserver.service;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Tariff;
 
@@ -14,7 +14,7 @@ public interface TariffService {
 
     void addTariff(Tariff tariff);
 
-    void removeTariff(Tariff tariff);
+    void removeTariff(int id);
 
     void updateTariff(Tariff tariff);
 }
