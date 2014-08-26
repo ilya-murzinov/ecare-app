@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.RequestHeaderRequestMatcher;
 
 /**
  * @author ilya-murzinov
@@ -18,6 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
@@ -26,7 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/protected/**").access("hasRole('ROLE_ADMIN')")
-                .and().formLogin().defaultSuccessUrl("/", false);
+                .antMatchers("/backoffice/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/clientoffice/**").access("hasRole('ROLE_CLIENT')")
+                .and().formLogin().defaultSuccessUrl("/", false)
+                .and().logout().logoutUrl("/logout")
+                .and().exceptionHandling().accessDeniedPage("/WEB-INF/views/403.jsp");
     }
 }

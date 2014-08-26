@@ -4,8 +4,6 @@
     <title></title>
 </head>
 <body>
-    Hello!
-    <p><a href="clientoffice">For clients</a></p>
-    <p><a href="backoffice">For employees</a></p>
+    This is client office.
 </body>
 </html>

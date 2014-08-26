@@ -300,13 +300,13 @@ insert into contract_option(
 insert into user(
   login, password, client_id
 ) values(
-  'user', 'user', 1
+  'admin', 'admin', 0
 );
 
 insert into user(
   login, password, client_id
 ) values(
-  'admin', 'admin', 0
+  'user', 'user', 1
 );
 
 insert into authority (
@@ -315,8 +315,20 @@ insert into authority (
   'ROLE_ADMIN'
 );
 
+insert into authority (
+  authority
+) values (
+  'ROLE_CLIENT'
+);
+
 insert into user_authority (
   user_id, authority_id
 ) values (
-  2, 1
-)
+  1, 1
+);
+
+insert into user_authority (
+  user_id, authority_id
+) values (
+  2, 2
+);
