@@ -15,7 +15,10 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.github.ilyamurzinov.ecareapp.web"})
+@ComponentScan(basePackages = {
+        "com.github.ilyamurzinov.ecareapp.web.controller",
+        "com.github.ilyamurzinov.ecareapp.web.config"
+})
 @ImportResource("/WEB-INF/data-source.xml")
 public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
