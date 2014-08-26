@@ -6,6 +6,7 @@
 </head>
 <body>
     Protected
-    ${title}
+    <p>${title}</p>
+    <p>${message}</p>
 </body>
 </html>

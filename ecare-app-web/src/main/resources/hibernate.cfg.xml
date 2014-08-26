@@ -6,6 +6,7 @@
 <hibernate-configuration>
   <session-factory>
     <mapping class="com.github.ilyamurzinov.ecareapp.common.domain.User" />
+    <mapping class="com.github.ilyamurzinov.ecareapp.common.domain.Authority" />
     <mapping class="com.github.ilyamurzinov.ecareapp.common.domain.Client" />
     <mapping class="com.github.ilyamurzinov.ecareapp.common.domain.Contract" />
     <mapping class="com.github.ilyamurzinov.ecareapp.common.domain.Tariff" />

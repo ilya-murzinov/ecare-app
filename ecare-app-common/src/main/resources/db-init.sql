@@ -55,6 +55,19 @@ create table ecare.user
     client_id int
 );
 
+create table authority
+(
+  id int key auto_increment,
+  authority varchar(32)
+);
+
+create table user_authority
+(
+  id int key auto_increment,
+  user_id int,
+  authority_id int
+);
+
 ######################################################
 # Client
 ######################################################
@@ -294,4 +307,16 @@ insert into user(
   login, password, client_id
 ) values(
   'admin', 'admin', 0
+);
+
+insert into authority (
+  authority
+) values (
+  'ROLE_ADMIN'
+);
+
+insert into user_authority (
+  user_id, authority_id
+) values (
+  2, 1
 )

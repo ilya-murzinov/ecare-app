@@ -13,10 +13,6 @@
   <packaging>war</packaging>
   <name>ecare-app-web</name>
 
-  <properties>
-    <org.springsecurity.version>3.2.4.RELEASE</org.springsecurity.version>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>com.github.ilyamurzinov.ecareapp</groupId>
@@ -32,11 +28,6 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
       <version>${org.springframework.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
-      <version>${org.springsecurity.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
