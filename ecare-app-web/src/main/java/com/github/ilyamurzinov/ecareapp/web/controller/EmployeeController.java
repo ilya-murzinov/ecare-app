@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author ilya-murzinov
  */
 @Controller
-public class MainController {
-    @RequestMapping(value = "/")
+@RequestMapping(URL.BACKOFFICE)
+public class EmployeeController {
+    @RequestMapping
     public String index() {
-        return "index";
+        return URL.BACKOFFICE + "/index";
     }
 }

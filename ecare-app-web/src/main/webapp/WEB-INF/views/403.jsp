@@ -6,6 +6,6 @@
 </head>
 <body>
     403 :(
-    <a href = "/login">Login again</a>
+    <a href = "login">Login again</a>
 </body>
 </html>
