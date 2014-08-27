@@ -43,10 +43,6 @@ public class MainWindowUserController {
         mainWindowUserView.getFrame().addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
-                for (Option option : cache.getContract().getOptions()) {
-                    mainWindowUserView.getContractPanel().getOptionsListModel().addElement(option);
-                }
-
                 updateView();
             }
         });
@@ -133,6 +129,10 @@ public class MainWindowUserController {
             cache.setContract(cache.getClient().getContracts().get(0));
         }
 
+        for (Option option : cache.getContract().getOptions()) {
+            mainWindowUserView.getContractPanel().getOptionsListModel().addElement(option);
+        }
+
         mainWindowUserView.getContractPanel().getTariffComboBox().removeAllItems();
         mainWindowUserView.getContractPanel().getOptionsListModel().removeAllElements();
 
@@ -147,6 +147,10 @@ public class MainWindowUserController {
             mainWindowUserView.getContractPanel().getTariffComboBox().addItem(tariff);
         }
         mainWindowUserView.getContractPanel().getTariffComboBox().setSelectedItem(cache.getContract().getTariff());
+
+        for (Option option : cache.getContract().getTariff().getOptions()) {
+            mainWindowUserView.getContractPanel().getOptionsListModel().addElement(option);
+        }
 
         for (Option option : cache.getContract().getTariff().getOptions()) {
             optionsListView.getOptionsListModel().addElement(option);
