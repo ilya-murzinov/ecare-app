@@ -6,6 +6,8 @@
 
 <persistence-unit name="ecare" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <class>com.github.ilyamurzinov.ecareapp.common.domain.User</class>
+    <class>com.github.ilyamurzinov.ecareapp.common.domain.Authority</class>
     <class>com.github.ilyamurzinov.ecareapp.common.domain.Client</class>
     <class>com.github.ilyamurzinov.ecareapp.common.domain.Contract</class>
     <class>com.github.ilyamurzinov.ecareapp.common.domain.Tariff</class>
