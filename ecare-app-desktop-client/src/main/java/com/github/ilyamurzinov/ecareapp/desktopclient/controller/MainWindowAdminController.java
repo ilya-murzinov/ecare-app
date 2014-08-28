@@ -20,6 +20,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.ParseException;
 import java.util.HashSet;
 
 /**
@@ -96,14 +97,24 @@ public class MainWindowAdminController {
         clientView.getClientPanel().getSaveNewButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Client client = clientView.getClientPanel().getClientFromView();
+                Client client = null;
+                try {
+                    client = clientView.getClientPanel().getClientFromView();
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
                 clientService.addClient(client);
             }
         });
         clientView.getClientPanel().getSaveEditedButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Client client = clientView.getClientPanel().getClientFromView();
+                Client client = null;
+                try {
+                    client = clientView.getClientPanel().getClientFromView();
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
                 client.setId(cache.getClient().getId());
                 clientService.updateClient(client);
             }

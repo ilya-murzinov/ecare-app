@@ -1,7 +1,14 @@
 package com.github.ilyamurzinov.ecareapp.common.domain;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,19 +21,29 @@ public class Client implements Serializable {
     @GeneratedValue
     private int id;
 
+    @NotNull
+    @NotBlank
+    @Length(max = 32)
     private String name;
 
     @Column(name = "lastname")
+    @NotNull
+    @NotBlank
+    @Length(max = 32)
     private String lastname;
 
     @Column(name = "date_of_birth")
-    private String dateOfBirth;
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Past
+    private Date dateOfBirth;
 
+    @Length(max = 200)
     private String passport;
 
+    @Length(max = 200)
     private String address;
-
-    private String email;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Contract> contracts;
@@ -55,11 +72,11 @@ public class Client implements Serializable {
         this.lastname = lastname;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -77,14 +94,6 @@ public class Client implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public List<Contract> getContracts() {

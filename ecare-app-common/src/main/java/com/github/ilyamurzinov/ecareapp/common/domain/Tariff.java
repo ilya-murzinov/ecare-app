@@ -1,6 +1,12 @@
 package com.github.ilyamurzinov.ecareapp.common.domain;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -14,8 +20,12 @@ public class Tariff implements Serializable {
     @GeneratedValue
     private int id;
 
+    @Length(max = 32)
+    @NotNull
+    @NotBlank
     private String name;
 
+    @Min(0)
     private double price;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)

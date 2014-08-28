@@ -27,7 +27,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Override
     public void login(String login, String password) {
         User request = new User();
-        request.setLogin(login);
+        request.setEmail(login);
         request.setPassword(password);
 
         helper.sendRequest("GET", request);

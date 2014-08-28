@@ -11,8 +11,7 @@ create table client(
   lastname varchar(32),
   date_of_birth date,
   passport varchar(200),
-  address varchar(200),
-  email varchar(32)
+  address varchar(200)
 );
 
 create table contract(
@@ -50,8 +49,8 @@ create table contract_option(
 create table ecare.user
 (
     id int key auto_increment,
-    login varchar(32) NOT NULL,
-    password varchar(32) NOT NULL,
+    email varchar(32) NOT NULL,
+    password varchar(100) NOT NULL,
     client_id int
 );
 
@@ -73,9 +72,9 @@ create table user_authority
 ######################################################
 
 insert into client(
-  name, lastname, date_of_birth, passport, address, email
+  name, lastname, date_of_birth, passport, address
 ) values (
-  'Ivan', 'Ivanov', '1990-02-02', '123123123 asdkljdhsf fjfjjdsf', 'asdhjgh 1278h nwfhasd', 'asd@asd.asd'
+  'Ivan', 'Ivanov', '1990-02-02', '123123123 asdkljdhsf fjfjjdsf', 'asdhjgh 1278h nwfhasd'
 );
 
 ######################################################
@@ -298,15 +297,15 @@ insert into contract_option(
 ######################################################
 
 insert into user(
-  login, password, client_id
+  email, password, client_id
 ) values(
-  'admin', 'admin', 0
+  'admin@mail.com', '21232f297a57a5a743894a0e4a801fc3', 0
 );
 
 insert into user(
-  login, password, client_id
+  email, password, client_id
 ) values(
-  'user', 'user', 1
+  'user@mail.com', 'ee11cbb19052e40b07aac0ca060c23ee', 1
 );
 
 insert into authority (

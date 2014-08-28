@@ -8,11 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
+import sun.security.provider.MD5;
 
+import javax.persistence.RollbackException;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * @author ilya-murzinov
@@ -79,6 +83,12 @@ public class Server {
 
                     processRequest(method, object);
                 }
+            } catch (RollbackException e) {
+                try {
+                    objectOutputStream.writeObject(null);
+                } catch (IOException e1) {
+                    logger.error(e, e);
+                }
             } catch (IOException e) {
                 if (e instanceof SocketException) {
                     logger.info("Client disconnected");
@@ -86,15 +96,17 @@ public class Server {
                     logger.error(e, e);
                 }
             } catch (ClassNotFoundException e) {
-                logger.error(e);
+                logger.error(e, e);
+            } catch (NoSuchAlgorithmException e) {
+                logger.error(e, e);
             }
         }
 
-        private void processRequest(String method, Object object) throws IOException {
+        private void processRequest(String method, Object object) throws IOException, NoSuchAlgorithmException {
             if (method.equals("GET")) {
                 if (object instanceof User) {
-                    User user = userService.getUser(((User) object).getLogin());
-                    if (user.getPassword().equals(((User) object).getPassword())) {
+                    User user = userService.getUser(((User) object).getEmail());
+                    if (user != null && Util.getMd5Hash(((User) object).getPassword()).equals(user.getPassword())) {
                         objectOutputStream.writeObject(user);
                     } else {
                         objectOutputStream.writeObject(null);

@@ -1,6 +1,8 @@
 package com.github.ilyamurzinov.ecareapp.common.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -13,11 +15,14 @@ public class Option implements Serializable {
     @GeneratedValue
     private int id;
 
+    @NotNull(message = "Name must be defined")
     private String name;
 
     @Column(name = "subscription_fee")
+    @NotNull(message = "Subscription fee must be defined")
     private double subscriptionFee;
 
+    @NotNull(message = "Price must be defined")
     private double price;
 
     public int getId() {

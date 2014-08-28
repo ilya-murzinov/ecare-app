@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author ilya-murzinov
@@ -182,14 +185,13 @@ public class ClientPanel extends JPanel implements View {
         return cancelButton;
     }
 
-    public Client getClientFromView() {
+    public Client getClientFromView() throws ParseException {
         Client client = new Client();
         client.setName(getNameTextField().getText());
         client.setLastname(getLastNameTextField().getText());
         client.setPassport(getPassportTextField().getText());
-        client.setDateOfBirth(getDateOdBirthTestField().getText());
+        client.setDateOfBirth(new SimpleDateFormat("dd-MM-yyy").parse(getDateOdBirthTestField().getText()));
         client.setAddress(getAddressTextField().getText());
-        client.setEmail(getEmailTestField().getText());
         return client;
     }
 
@@ -197,8 +199,7 @@ public class ClientPanel extends JPanel implements View {
         getNameTextField().setText(client.getName());
         getLastNameTextField().setText(client.getLastname());
         getPassportTextField().setText(client.getPassport());
-        getDateOdBirthTestField().setText(client.getDateOfBirth());
+        getDateOdBirthTestField().setText(new SimpleDateFormat("dd-MM-yyy").format(client.getDateOfBirth()));
         getAddressTextField().setText(client.getAddress());
-        getEmailTestField().setText(client.getEmail());
     }
 }

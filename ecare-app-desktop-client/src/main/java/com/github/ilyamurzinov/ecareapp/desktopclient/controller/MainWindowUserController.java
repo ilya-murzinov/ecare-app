@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.awt.event.*;
+import java.text.ParseException;
 
 /**
  * @author ilya-murzinov
@@ -87,16 +88,26 @@ public class MainWindowUserController {
         mainWindowUserView.getClientPanel().getSaveNewButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Client client = mainWindowUserView.getClientPanel().getClientFromView();
+                Client client = null;
+                try {
+                    client = mainWindowUserView.getClientPanel().getClientFromView();
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
                 clientService.addClient(client);
             }
         });
         mainWindowUserView.getClientPanel().getSaveEditedButton().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Client client = mainWindowUserView.getClientPanel().getClientFromView();
-                client.setId(cache.getClient().getId());
-                clientService.updateClient(client);
+                Client client = null;
+                try {
+                    client = mainWindowUserView.getClientPanel().getClientFromView();
+                    client.setId(cache.getClient().getId());
+                    clientService.updateClient(client);
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 

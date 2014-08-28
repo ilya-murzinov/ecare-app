@@ -1,9 +1,13 @@
 package com.github.ilyamurzinov.ecareapp.common.domain;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
@@ -18,8 +22,14 @@ public class User implements UserDetails, Serializable {
     @GeneratedValue
     private int id;
 
-    private String login;
+    @NotNull
+    @NotBlank
+    @Email
+    @Length(max = 32)
+    private String email;
 
+    @NotNull
+    @NotBlank
     private String password;
 
     @Column(name = "client_id")
@@ -41,12 +51,12 @@ public class User implements UserDetails, Serializable {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String login) {
+        this.email = login;
     }
 
     public void setPassword(String password) {
@@ -72,7 +82,7 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public String getUsername() {
-        return login;
+        return email;
     }
 
     @Override
