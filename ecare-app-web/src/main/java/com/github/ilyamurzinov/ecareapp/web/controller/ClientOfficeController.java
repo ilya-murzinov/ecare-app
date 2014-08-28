@@ -43,9 +43,12 @@ public class ClientOfficeController {
             @Valid @ModelAttribute("passwordBean") PasswordBean passwordBean,
             BindingResult result
     ) {
-        int userId = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
-        userService.changePassword(userId, passwordBean.getCurrentPassword(), passwordBean.getNewPassword());
-        return new ModelAndView(URL.CLIENTOFFICE + "/index");
+        if (!result.hasErrors()) {
+            int userId = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+            userService.changePassword(userId, passwordBean.getCurrentPassword(), passwordBean.getNewPassword());
+            return new ModelAndView(URL.CLIENTOFFICE + "/index");
+        }
+        return new ModelAndView("clientoffice/change-password");
     }
 
     @ModelAttribute("clientBean")
