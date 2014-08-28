@@ -14,6 +14,11 @@ public class UserDAOImpl implements UserDAO {
     private SessionFactory sessionFactory;
 
     @Override
+    public User getUser(int id) {
+        return (User) sessionFactory.getCurrentSession().get(User.class, id);
+    }
+
+    @Override
     public User getUser(String login) {
         return (User) sessionFactory.getCurrentSession().createQuery("select u from User u where u.email = :login")
                 .setParameter("login", login)

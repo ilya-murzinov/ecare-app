@@ -28,11 +28,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/backoffice/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/clientoffice/**").access("hasRole('ROLE_CLIENT')")
                 .and().formLogin().defaultSuccessUrl("/", false)
-                .and().logout().logoutUrl("/logout")
-                .and().exceptionHandling().accessDeniedPage("/WEB-INF/views/403.jsp");
+                .and().logout().logoutUrl("/logout");
+                //.and().exceptionHandling().accessDeniedPage("/WEB-INF/views/403.jsp");
     }
 }

@@ -32,8 +32,9 @@ public class User implements UserDetails, Serializable {
     @NotBlank
     private String password;
 
-    @Column(name = "client_id")
-    private int clientId;
+    @OneToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinTable(
@@ -63,12 +64,12 @@ public class User implements UserDetails, Serializable {
         this.password = password;
     }
 
-    public int getClientId() {
-        return clientId;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     @Override

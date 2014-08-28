@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService, UserService {
     @Autowired
     private UserDAO userDAO;
 
@@ -25,5 +25,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return user;
         }
         throw new UsernameNotFoundException(login);
+    }
+
+    @Override
+    public boolean changePassword(int id, String currentPassword, String newPassword) {
+        userDAO.getUser(id);
+        return true;
     }
 }

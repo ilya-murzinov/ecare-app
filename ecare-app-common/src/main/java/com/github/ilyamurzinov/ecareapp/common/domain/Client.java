@@ -10,6 +10,7 @@ import javax.validation.constraints.Past;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author ilya-murzinov
@@ -46,7 +47,7 @@ public class Client implements Serializable {
     private String address;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private List<Contract> contracts;
+    private Set<Contract> contracts;
 
     public int getId() {
         return id;
@@ -96,11 +97,11 @@ public class Client implements Serializable {
         this.address = address;
     }
 
-    public List<Contract> getContracts() {
+    public Set<Contract> getContracts() {
         return contracts;
     }
 
-    public void setContracts(List<Contract> contracts) {
+    public void setContracts(Set<Contract> contracts) {
         this.contracts = contracts;
     }
 
