@@ -1,9 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.web.dao;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Client;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -21,27 +18,30 @@ public class ClientDAOImpl implements ClientDAO {
 
     @Override
     public Client getClient(int id) {
-//        return (Client) sessionFactory.getCurrentSession().get(Client.class, id);
-        return null;
+        Query query = entityManager.createQuery("select c from Client c where c.id = :id")
+                .setParameter("id", id);
+        return (Client) query.getSingleResult();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Client> getAllClients() {
-        return null;
+        Query query = entityManager.createQuery("select c from Client c");
+        return (List<Client>) query.getResultList();
     }
 
     @Override
     public void addClient(Client client) {
-
+        entityManager.persist(client);
     }
 
     @Override
     public void removeClient(int id) {
-
+        entityManager.remove(getClient(id));
     }
 
     @Override
     public void updateClient(Client client) {
-//        sessionFactory.getCurrentSession().update(client);
+        entityManager.merge(client);
     }
 }

@@ -34,7 +34,7 @@ public class Client implements Serializable {
     @Column(name = "date_of_birth")
     @NotNull
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Past
     private Date dateOfBirth;
 

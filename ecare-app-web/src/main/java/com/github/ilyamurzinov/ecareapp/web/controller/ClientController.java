@@ -38,14 +38,14 @@ public class ClientController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView edit(
+    public String edit(
             @Valid @ModelAttribute("clientBean") Client client,
             BindingResult result
     ) {
         if (result.hasErrors()) {
-            return new ModelAndView("clientoffice/edit-data");
+            return "clientoffice/edit-data";
         }
         clientService.updateClient(client);
-        return new ModelAndView("clientoffice/index");
+        return "redirect:";
     }
 }

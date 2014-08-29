@@ -5,4 +5,5 @@
 <html>
 You are logged in as <b><%=user.getEmail()%></b>
 <a href="/ecare-app/logout">Logout</a>
+<a href="/ecare-app/change-password">Change password</a>
 </html>

@@ -190,7 +190,7 @@ public class ClientPanel extends JPanel implements View {
         client.setName(getNameTextField().getText());
         client.setLastname(getLastNameTextField().getText());
         client.setPassport(getPassportTextField().getText());
-        client.setDateOfBirth(new SimpleDateFormat("dd-MM-yyyy").parse(getDateOdBirthTestField().getText()));
+        client.setDateOfBirth(new SimpleDateFormat("dd.MM.yyyy").parse(getDateOdBirthTestField().getText()));
         client.setAddress(getAddressTextField().getText());
         return client;
     }
@@ -199,7 +199,7 @@ public class ClientPanel extends JPanel implements View {
         getNameTextField().setText(client.getName());
         getLastNameTextField().setText(client.getLastname());
         getPassportTextField().setText(client.getPassport());
-        getDateOdBirthTestField().setText(new SimpleDateFormat("dd-MM-yyyy").format(client.getDateOfBirth()));
+        getDateOdBirthTestField().setText(new SimpleDateFormat("dd.MM.yyyy").format(client.getDateOfBirth()));
         getAddressTextField().setText(client.getAddress());
     }
 }
