@@ -10,6 +10,10 @@ public class SecurityHelper {
     private SecurityHelper() {}
 
     public static User getCurrentUser() {
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (user instanceof User) {
+            return (User) user;
+        }
+        throw new IllegalStateException("You are not logged in");
     }
 }

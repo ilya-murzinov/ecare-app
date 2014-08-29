@@ -2,6 +2,7 @@ package com.github.ilyamurzinov.ecareapp.web.service;
 
 import com.github.ilyamurzinov.ecareapp.common.Util;
 import com.github.ilyamurzinov.ecareapp.common.domain.User;
+import com.github.ilyamurzinov.ecareapp.web.controller.PasswordException;
 import com.github.ilyamurzinov.ecareapp.web.dao.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,13 +30,12 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public String changePassword(int id, String currentPassword, String newPassword) {
+    public void changePassword(int id, String currentPassword, String newPassword) {
         User user = userDAO.getUser(id);
         if (!Util.getMd5Hash(currentPassword).equals(user.getPassword())) {
-            return "Current password is invalid";
+            throw new PasswordException("Current password is invalid");
         }
         user.setPassword(Util.getMd5Hash(newPassword));
         userDAO.updateUser(user);
-        return null;
     }
 }

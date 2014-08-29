@@ -1,15 +1,11 @@
 package com.github.ilyamurzinov.ecareapp.web.controller;
 
-import com.github.ilyamurzinov.ecareapp.common.domain.User;
 import com.github.ilyamurzinov.ecareapp.web.beans.PasswordBean;
 import com.github.ilyamurzinov.ecareapp.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -23,9 +19,11 @@ public class PasswordController {
     @Autowired
     private UserService userService;
 
+    private PasswordBean passwordBean;
+
     @ModelAttribute("passwordBean")
     public PasswordBean getPasswordBean() {
-        return new PasswordBean();
+        return passwordBean == null ? new PasswordBean() : passwordBean;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -38,11 +36,19 @@ public class PasswordController {
             @Valid @ModelAttribute("passwordBean") PasswordBean passwordBean,
             BindingResult result
     ) {
+        this.passwordBean = passwordBean;
         if (!result.hasErrors()) {
-            int userId = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+            int userId = (SecurityHelper.getCurrentUser()).getId();
             userService.changePassword(userId, passwordBean.getCurrentPassword(), passwordBean.getNewPassword());
             return "redirect:";
         }
         return "change-password";
+    }
+
+    @ExceptionHandler(value = IllegalStateException.class)
+    private
+    @ResponseBody
+    String handle(IllegalStateException ex) {
+        return ex.getMessage();
     }
 }

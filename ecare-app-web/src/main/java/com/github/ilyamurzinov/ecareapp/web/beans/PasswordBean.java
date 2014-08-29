@@ -19,9 +19,16 @@ public class PasswordBean {
     @NotBlank
     private String newPasswordRetyped;
 
-    @AssertTrue
-    private boolean isValid() {
-        return newPassword.equals(newPasswordRetyped);
+    private boolean valid;
+
+    @AssertTrue(message = "New passwords don't match")
+    public boolean isValid() {
+        valid = newPassword != null && newPasswordRetyped != null && newPassword.equals(newPasswordRetyped);
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
     }
 
     public String getCurrentPassword() {

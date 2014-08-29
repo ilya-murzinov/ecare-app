@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author ilya-murzinov
  */
 @Controller
-@RequestMapping(URL.BACKOFFICE)
+@RequestMapping("backoffice")
 public class BackOfficeController {
     @RequestMapping
     public String index() {
-        return URL.BACKOFFICE + "/index";
+        return "backoffice/index";
     }
 }
