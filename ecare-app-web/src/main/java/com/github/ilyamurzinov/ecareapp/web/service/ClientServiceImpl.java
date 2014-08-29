@@ -27,4 +27,9 @@ public class ClientServiceImpl implements ClientService {
     public Client getClient(int id) {
         return clientDAO.getClient(id);
     }
+
+    @Override
+    public void updateClient(Client client) {
+        clientDAO.updateClient(client);
+    }
 }

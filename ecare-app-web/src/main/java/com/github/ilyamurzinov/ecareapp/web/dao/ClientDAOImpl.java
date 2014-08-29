@@ -40,6 +40,6 @@ public class ClientDAOImpl implements ClientDAO {
 
     @Override
     public void updateClient(Client client) {
-
+        sessionFactory.getCurrentSession().update(client);
     }
 }

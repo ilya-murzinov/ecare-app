@@ -4,5 +4,5 @@
 <%User user = (User) request.getAttribute("userBean");%>
 <html>
 You are logged in as <b><%=user.getEmail()%></b>
-<a href="logout">Logout</a>
+<a href="/ecare-app/logout">Logout</a>
 </html>

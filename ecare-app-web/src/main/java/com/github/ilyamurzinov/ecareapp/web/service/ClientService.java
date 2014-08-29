@@ -8,4 +8,5 @@ import com.github.ilyamurzinov.ecareapp.common.domain.Client;
 public interface ClientService {
     Client getCurrentClient();
     Client getClient(int id);
+    void updateClient(Client client);
 }

@@ -12,8 +12,6 @@
 <body>
     <p><c:import url="../header.jsp"/></p>
 
-    This is client office.
-
     <table>
         <tr>
             <td>Name:</td>
@@ -40,5 +38,6 @@
             <td><%=user.getEmail()%></td>
         </tr>
     </table>
+    <a href="clientoffice/edit">Edit you data</a>
 </body>
 </html>
