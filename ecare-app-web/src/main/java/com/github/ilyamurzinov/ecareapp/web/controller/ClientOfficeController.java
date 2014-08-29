@@ -1,6 +1,7 @@
 package com.github.ilyamurzinov.ecareapp.web.controller;
 
-import com.github.ilyamurzinov.ecareapp.web.beans.ClientBean;
+import com.github.ilyamurzinov.ecareapp.common.domain.Client;
+import com.github.ilyamurzinov.ecareapp.common.domain.User;
 import com.github.ilyamurzinov.ecareapp.web.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,8 +20,13 @@ public class ClientOfficeController {
     private ClientService clientService;
 
     @ModelAttribute("clientBean")
-    public ClientBean getClientBean() {
-        return new ClientBean(clientService.getCurrentClient(), SecurityHelper.getCurrentUser());
+    public Client getClientBean() {
+        return clientService.getCurrentClient();
+    }
+
+    @ModelAttribute("userBean")
+    public User getUserBean() {
+        return SecurityHelper.getCurrentUser();
     }
 
     @RequestMapping(method = RequestMethod.GET)

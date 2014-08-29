@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/backoffice/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/clientoffice/**").access("hasRole('ROLE_CLIENT')")
                 .and().formLogin().defaultSuccessUrl("/", false)
-                .and().logout().logoutUrl("/logout");
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
                 //.and().exceptionHandling().accessDeniedPage("/WEB-INF/views/403.jsp");
     }
 }
