@@ -299,7 +299,7 @@ insert into contract_option(
 insert into user(
   email, password, client_id
 ) values(
-  'admin@mail.com', '21232f297a57a5a743894a0e4a801fc3', 0
+  'admin@mail.com', '21232f297a57a5a743894a0e4a801fc3', NULL
 );
 
 insert into user(
