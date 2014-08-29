@@ -1,5 +1,8 @@
 package com.github.ilyamurzinov.ecareapp.common;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -8,6 +11,8 @@ import java.security.NoSuchAlgorithmException;
  * @author ilya-murzinov
  */
 public class Util {
+    private static Logger logger = LogManager.getLogger(Util.class);
+
     private Util() {}
 
     public static String getMd5Hash(String input) {
@@ -26,8 +31,8 @@ public class Util {
 
             return hashtext;
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            logger.error(e, e);
         }
-        return "";
+        return null;
     }
 }

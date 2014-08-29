@@ -5,16 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 
 /**
  * @author ilya-murzinov
  */
 @Repository
 public class ContractDAOImpl implements ContractDAO {
-    @PersistenceContext
+    @PersistenceUnit
+    public void setEntityManager(EntityManagerFactory entityManagerFactory) {
+        entityManager = entityManagerFactory.createEntityManager();
+    }
+
     private EntityManager entityManager;
 
 

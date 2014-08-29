@@ -3,16 +3,18 @@ package com.github.ilyamurzinov.ecareapp.web.dao;
 import com.github.ilyamurzinov.ecareapp.common.domain.User;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 
 /**
  * @author ilya-murzinov
  */
 @Repository
 public class UserDAOImpl implements UserDAO {
-    @PersistenceContext
+    @PersistenceUnit
+    public void setEntityManager(EntityManagerFactory entityManagerFactory) {
+        entityManager = entityManagerFactory.createEntityManager();
+    }
+
     private EntityManager entityManager;
 
     @Override

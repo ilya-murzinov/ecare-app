@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -15,7 +13,11 @@ import java.util.List;
  */
 @Repository
 public class OptionDAOImpl implements OptionDAO {
-    @PersistenceContext
+    @PersistenceUnit
+    public void setEntityManager(EntityManagerFactory entityManagerFactory) {
+        entityManager = entityManagerFactory.createEntityManager();
+    }
+
     private EntityManager entityManager;
 
     @Override
