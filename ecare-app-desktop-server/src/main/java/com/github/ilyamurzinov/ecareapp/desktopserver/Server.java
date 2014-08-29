@@ -1,5 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.desktopserver;
 
+import com.github.ilyamurzinov.ecareapp.common.Util;
 import com.github.ilyamurzinov.ecareapp.common.domain.*;
 import com.github.ilyamurzinov.ecareapp.desktopserver.service.*;
 import org.apache.logging.log4j.LogManager;
@@ -8,14 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
-import sun.security.provider.MD5;
 
 import javax.persistence.RollbackException;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**

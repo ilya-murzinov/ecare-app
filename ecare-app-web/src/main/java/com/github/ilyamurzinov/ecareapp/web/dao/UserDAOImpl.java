@@ -27,6 +27,6 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void updateUser(User user) {
-
+        sessionFactory.getCurrentSession().update(user);
     }
 }

@@ -22,13 +22,11 @@ public class Client implements Serializable {
     @GeneratedValue
     private int id;
 
-    @NotNull
     @NotBlank
     @Length(max = 32)
     private String name;
 
     @Column(name = "lastname")
-    @NotNull
     @NotBlank
     @Length(max = 32)
     private String lastname;

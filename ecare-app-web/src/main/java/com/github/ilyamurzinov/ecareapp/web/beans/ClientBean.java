@@ -2,20 +2,48 @@ package com.github.ilyamurzinov.ecareapp.web.beans;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Client;
 import com.github.ilyamurzinov.ecareapp.common.domain.User;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 /**
  * @author ilya-murzinov
  */
 public class ClientBean {
-    private int id;
+    @NotBlank
+    @Length(max = 32)
     private String name;
+
+    @NotBlank
+    @Length(max = 32)
     private String lastname;
+
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Past
     private Date dateOfBirth;
+
+    @Length(max = 200)
     private String passport;
+
+    @Length(max = 200)
     private String address;
+
+    @NotBlank
+    @Email
+    @Length(max = 32)
     private String email;
+
+    @NotBlank
     private String password;
 
     public ClientBean(Client client, User user) {
@@ -25,14 +53,6 @@ public class ClientBean {
         setDateOfBirth(client.getDateOfBirth());
         setAddress(client.getAddress());
         setEmail(user.getEmail());
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

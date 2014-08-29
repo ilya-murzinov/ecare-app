@@ -8,14 +8,23 @@
     <h2>Change your password</h2>
     <form:form method="POST" action="change-password" modelAttribute="passwordBean">
         <fieldset>
-            <form:label path="currentPassword">Current password</form:label>
-            <form:input path="currentPassword" />
-
-            <form:label path="newPassword">New password</form:label>
-            <form:password path="newPassword" />
-
-            <form:label path="newPasswordRetyped">Re-type new password</form:label>
-            <form:password path="newPasswordRetyped" />
+            <table>
+                <tr>
+                    <td><form:label path="currentPassword">Current password</form:label></td>
+                    <td><form:password path="currentPassword" /></td>
+                    <td><form:errors path="currentPassword"/></td>
+                </tr>
+                <tr>
+                    <td><form:label path="newPassword">New password</form:label></td>
+                    <td><form:password path="newPassword" /></td>
+                    <td><form:errors path="newPassword"/></td>
+                </tr>
+                <tr>
+                    <td><form:label path="newPasswordRetyped">Re-type new password</form:label></td>
+                    <td><form:password path="newPasswordRetyped" /></td>
+                    <td><form:errors path="newPasswordRetyped"/></td>
+                </tr>
+            </table>
         </fieldset>
         <p><button type="submit">Submit</button></p>
     </form:form>

@@ -22,13 +22,11 @@ public class User implements UserDetails, Serializable {
     @GeneratedValue
     private int id;
 
-    @NotNull
     @NotBlank
     @Email
     @Length(max = 32)
     private String email;
 
-    @NotNull
     @NotBlank
     private String password;
 

@@ -1,4 +1,4 @@
-package com.github.ilyamurzinov.ecareapp.desktopserver;
+package com.github.ilyamurzinov.ecareapp.common;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
