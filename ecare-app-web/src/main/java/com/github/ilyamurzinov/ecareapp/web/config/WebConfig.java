@@ -3,16 +3,21 @@ package com.github.ilyamurzinov.ecareapp.web.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
+import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.jta.JtaTransactionManager;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 /**
@@ -37,28 +42,29 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public LocalEntityManagerFactoryBean getLocalEntityManagerFactoryBean() {
-        LocalEntityManagerFactoryBean localEntityManagerFactoryBean = new LocalEntityManagerFactoryBean();
-        localEntityManagerFactoryBean.setPersistenceUnitName("ecare");
-        return localEntityManagerFactoryBean;
+    public JtaTransactionManager getJtaTransactionManager() {
+        return new JtaTransactionManager();
     }
 
     @Bean
-    public JpaTransactionManager getJpaTransactionManager() {
-        JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
-        jpaTransactionManager.setDataSource(getDataSource());
-        jpaTransactionManager.setJpaDialect(new HibernateJpaDialect());
-        jpaTransactionManager.setEntityManagerFactory(getLocalEntityManagerFactoryBean().getNativeEntityManagerFactory());
-        return jpaTransactionManager;
+    public DataSource getDataSource() throws NamingException {
+        InitialContext ctx = new InitialContext();
+        return (DataSource) ctx.lookup("ecare");
     }
 
     @Bean
-    public DataSource getDataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/ecare?useUnicode=yes&characterEncoding=UTF-8");
-        dataSource.setUsername("admin");
-        dataSource.setPassword("admin");
-        return dataSource;
+    public HibernateJpaVendorAdapter getJpaVendorAdapter() {
+        HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
+        hibernateJpaVendorAdapter.setDatabase(Database.MYSQL);
+        hibernateJpaVendorAdapter.setShowSql(true);
+        return hibernateJpaVendorAdapter;
+    }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean getLocalContainerEntityManagerFactoryBean() throws NamingException {
+        LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        localContainerEntityManagerFactoryBean.setJtaDataSource(getDataSource());
+        localContainerEntityManagerFactoryBean.setJpaVendorAdapter(getJpaVendorAdapter());
+        return localContainerEntityManagerFactoryBean;
     }
 }
