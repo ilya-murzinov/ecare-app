@@ -137,7 +137,7 @@ public class MainWindowUserController {
 
     public void updateContractsTab() {
         if (cache.getContract() == null) {
-            cache.setContract(cache.getClient().getContracts().get(0));
+            cache.setContract((Contract) cache.getClient().getContracts().toArray()[0]);
         }
 
         for (Option option : cache.getContract().getOptions()) {

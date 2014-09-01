@@ -75,10 +75,9 @@ public class LoginWindowController {
         if (authorizationService.isAuthorized()) {
             loginWindowView.close();
             if (authorizationService.isUser()) {
-                int clientId = authorizationService.getUser().getClientId();
                 cache.setUser(authorizationService.getUser());
-                if (clientId != 0) {
-                    cache.setClient(clientService.getClient(clientId));
+                if (authorizationService.getUser().getClient() != null) {
+                    cache.setClient(authorizationService.getUser().getClient());
                 }
                 mainWindowUserView.display();
             } else {
