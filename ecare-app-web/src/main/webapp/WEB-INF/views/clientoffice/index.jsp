@@ -1,43 +1,71 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ page import="com.github.ilyamurzinov.ecareapp.common.domain.Client" %>
-<%@ page import="com.github.ilyamurzinov.ecareapp.common.domain.User" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%Client client = (Client) request.getAttribute("clientBean");%>
-<% User user = (User) request.getAttribute("userBean");%>
 <html>
 <head>
     <title></title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            update();
+        });
+        function update() {
+            var id = $("#contract-select").val();
+            $.ajax({
+                url: "contract",
+                data: "id=" + id,
+                type: "GET",
+                success : function(response) {
+                    $("#contract").html(response);
+                }
+            })
+        }
+    </script>
 </head>
 <body>
-    <p><c:import url="../header.jsp"/></p>
+<p><c:import url="../header.jsp"/></p>
 
-    <table>
-        <tr>
-            <td>Name:</td>
-            <td><%=client.getName()%></td>
-        </tr>
-        <tr>
-            <td>Last name:</td>
-            <td><%=client.getLastname()%></td>
-        </tr>
-        <tr>
-            <td>Passport:</td>
-            <td><%=client.getPassport()%></td>
-        </tr>
-        <tr>
-            <td>Date of birth:</td>
-            <td><%=client.getDateOfBirth()%></td>
-        </tr>
-        <tr>
-            <td>Address:</td>
-            <td><%=client.getAddress()%></td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td><%=user.getEmail()%></td>
-        </tr>
-    </table>
-    <a href="clientoffice/edit">Edit you data</a>
+<table>
+    <tr>
+        <td>Name:</td>
+        <td>${client.name}</td>
+    </tr>
+    <tr>
+        <td>Last name:</td>
+        <td>${client.lastname}</td>
+    </tr>
+    <tr>
+        <td>Passport:</td>
+        <td>${client.passport}</td>
+    </tr>
+    <tr>
+        <td>Date of birth:</td>
+        <td>${client.dateOfBirth}</td>
+    </tr>
+    <tr>
+        <td>Address:</td>
+        <td>${client.address}</td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td>${user.email}</td>
+    </tr>
+</table>
+<a href="clientoffice/edit">Edit you data</a>
+
+<p>
+    <label>
+        <select id="contract-select" onchange="update()">
+            <c:forEach var="item" items="${client.contracts}">
+                <option value="${item.id}">${item.number}</option>
+            </c:forEach>
+        </select>
+    </label>
+</p>
+
+<div id="contract">
+
+</div>
 </body>
 </html>

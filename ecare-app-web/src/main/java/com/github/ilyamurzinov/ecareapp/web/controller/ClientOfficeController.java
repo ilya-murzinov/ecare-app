@@ -19,12 +19,12 @@ public class ClientOfficeController {
     @Autowired
     private ClientService clientService;
 
-    @ModelAttribute("clientBean")
+    @ModelAttribute("client")
     public Client getClientBean() {
         return clientService.getCurrentClient();
     }
 
-    @ModelAttribute("userBean")
+    @ModelAttribute("user")
     public User getUserBean() {
         return SecurityHelper.getCurrentUser();
     }
