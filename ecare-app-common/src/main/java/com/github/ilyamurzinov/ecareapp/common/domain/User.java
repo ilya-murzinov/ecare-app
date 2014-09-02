@@ -34,7 +34,7 @@ public class User implements UserDetails, Serializable {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_authority",
             joinColumns = @JoinColumn(name = "user_id"),

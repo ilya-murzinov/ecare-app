@@ -16,4 +16,10 @@ public class SecurityHelper {
         }
         throw new IllegalStateException("You are not logged in");
     }
+
+    public static User getNullUser() {
+        User user = new User();
+        user.setEmail("nobody");
+        return user;
+    }
 }

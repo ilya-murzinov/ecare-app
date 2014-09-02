@@ -9,7 +9,7 @@
     <script>
         $(function () {
             $("#contract").submit(function () {
-                var data = '{ "tariff": { "id":' + $("#tariff").val() + '}, "options": [';
+                var data = '{ "id":' + ${contract.id} + ', "tariff": { "id":' + $("#tariff").val() + '}, "options": [';
                 var opts = [];
                 $("#options").find("option").each(function() {
                    opts.push('{"id":' + $(this).val() + "}");
@@ -25,7 +25,7 @@
                     },
                     type: "POST",
                     success: function(response) {
-                        alert('OK');
+                        alert(response);
                     },
                     error : function(xhr, status, error) {
                         alert(xhr.responseText);
@@ -44,7 +44,7 @@
         <td>${contract.number}</td>
     </tr>
 </table>
-<form:form id="contract" method="POST" modelAttribute="contract">
+<form:form action="edit" id="contract" method="POST" modelAttribute="contract">
     <table>
         <tr>
             <td>Tariff</td>

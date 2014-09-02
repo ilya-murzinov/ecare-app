@@ -26,7 +26,7 @@ public class Contract implements Serializable {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "contract_option",
             joinColumns = @JoinColumn(name = "contract_id"),
@@ -45,7 +45,7 @@ public class Contract implements Serializable {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(long number) {
         this.number = number;
     }
 
@@ -55,6 +55,14 @@ public class Contract implements Serializable {
 
     public void setTariff(Tariff tariff) {
         this.tariff = tariff;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Set<Option> getOptions() {

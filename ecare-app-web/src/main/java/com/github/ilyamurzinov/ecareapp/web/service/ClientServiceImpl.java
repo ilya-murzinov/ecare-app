@@ -20,7 +20,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client getCurrentClient() {
         User user = SecurityHelper.getCurrentUser();
-        return user.getClient();
+        return clientDAO.getClient(user.getClient().getId());
     }
 
     @Override
