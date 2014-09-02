@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Client office</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/ecare-app/css/styles.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -37,10 +37,12 @@
         function update() {
             if (${empty(client.contracts)}) {
                 $("#contract-select-div").css("display", "none");
+            } else {
+                $("#contract-select-div").css("display", "block");
             }
             var id = $("#contract-select").val();
             $.ajax({
-                url: "contract",
+                url: "/ecare-app/contract",
                 data: "id=" + id,
                 type: "GET",
                 success : function(response) {
