@@ -21,7 +21,7 @@ public class PasswordController {
 
     private PasswordBean passwordBean;
 
-    @ModelAttribute("password")
+    @ModelAttribute
     public PasswordBean getPasswordBean() {
         return passwordBean == null ? new PasswordBean() : passwordBean;
     }

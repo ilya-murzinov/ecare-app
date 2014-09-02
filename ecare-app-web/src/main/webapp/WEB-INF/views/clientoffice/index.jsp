@@ -9,6 +9,9 @@
     <script>
         $(document).ready(function() {
             update();
+            $("#edit").click(function() {
+                window.location.replace("/ecare-app/contract/edit?id=" + $("#contract-select").val());
+            })
         });
         function update() {
             var id = $("#contract-select").val();
@@ -20,7 +23,7 @@
                     $("#contract").html(response);
                 }
             })
-        }
+        };
     </script>
 </head>
 <body>
@@ -52,7 +55,7 @@
         <td>${user.email}</td>
     </tr>
 </table>
-<a href="clientoffice/edit">Edit you data</a>
+<a href="/ecare-app/clientoffice/edit">Edit you data</a>
 
 <p>
     <label>
@@ -67,5 +70,7 @@
 <div id="contract">
 
 </div>
+
+<a id="edit" href="javascript:void(0);">Edit contract</a>
 </body>
 </html>

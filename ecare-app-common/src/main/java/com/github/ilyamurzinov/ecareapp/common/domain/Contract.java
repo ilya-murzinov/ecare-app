@@ -1,13 +1,9 @@
 package com.github.ilyamurzinov.ecareapp.common.domain;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author ilya-murzinov
@@ -20,8 +16,6 @@ public class Contract implements Serializable {
     private int id;
 
     @NotNull
-    @NotBlank
-    @Pattern(regexp = "\\d+")
     private long number;
 
     @OneToOne
@@ -37,7 +31,7 @@ public class Contract implements Serializable {
             name = "contract_option",
             joinColumns = @JoinColumn(name = "contract_id"),
             inverseJoinColumns = @JoinColumn(name = "option_id"))
-    private List<Option> options;
+    private Set<Option> options;
 
     public int getId() {
         return id;
@@ -63,11 +57,11 @@ public class Contract implements Serializable {
         this.tariff = tariff;
     }
 
-    public List<Option> getOptions() {
+    public Set<Option> getOptions() {
         return options;
     }
 
-    public void setOptions(List<Option> options) {
+    public void setOptions(Set<Option> options) {
         this.options = options;
     }
 

@@ -5,7 +5,7 @@
 </head>
 <body>
     Hello!
-    <p><a href="clientoffice">For clients</a></p>
-    <p><a href="backoffice">For employees</a></p>
+    <p><a href="/ecare-app/clientoffice">For clients</a></p>
+    <p><a href="/ecare-app/backoffice">For employees</a></p>
 </body>
 </html>

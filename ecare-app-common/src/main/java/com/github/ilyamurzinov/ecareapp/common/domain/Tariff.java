@@ -21,7 +21,6 @@ public class Tariff implements Serializable {
     private int id;
 
     @Length(max = 32)
-    @NotNull
     @NotBlank
     private String name;
 

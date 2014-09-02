@@ -19,4 +19,9 @@ public class ContractServiceImpl implements ContractService {
     public Contract getContract(int id) {
         return contractDAO.getContract(id);
     }
+
+    @Override
+    public void updateContract(Contract contract) {
+        contractDAO.updateContract(contract);
+    }
 }
