@@ -13,11 +13,7 @@ import java.util.List;
  */
 @Repository
 public class OptionDAOImpl implements OptionDAO {
-    @PersistenceUnit
-    public void setEntityManager(EntityManagerFactory entityManagerFactory) {
-        entityManager = entityManagerFactory.createEntityManager();
-    }
-
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override

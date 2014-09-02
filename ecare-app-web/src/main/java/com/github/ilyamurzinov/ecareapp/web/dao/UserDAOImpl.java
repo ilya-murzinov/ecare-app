@@ -10,11 +10,7 @@ import javax.persistence.*;
  */
 @Repository
 public class UserDAOImpl implements UserDAO {
-    @PersistenceUnit
-    public void setEntityManager(EntityManagerFactory entityManagerFactory) {
-        entityManager = entityManagerFactory.createEntityManager();
-    }
-
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override

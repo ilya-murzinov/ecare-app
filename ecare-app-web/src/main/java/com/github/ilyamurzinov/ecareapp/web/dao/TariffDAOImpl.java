@@ -11,11 +11,7 @@ import java.util.List;
  */
 @Repository
 public class TariffDAOImpl implements TariffDAO {
-    @PersistenceUnit
-    public void setEntityManager(EntityManagerFactory entityManagerFactory) {
-        entityManager = entityManagerFactory.createEntityManager();
-    }
-
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override

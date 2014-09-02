@@ -12,11 +12,7 @@ import javax.persistence.*;
  */
 @Repository
 public class ContractDAOImpl implements ContractDAO {
-    @PersistenceUnit
-    public void setEntityManager(EntityManagerFactory entityManagerFactory) {
-        entityManager = entityManagerFactory.createEntityManager();
-    }
-
+    @PersistenceContext
     private EntityManager entityManager;
 
 

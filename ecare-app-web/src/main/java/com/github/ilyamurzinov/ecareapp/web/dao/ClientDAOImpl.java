@@ -12,11 +12,7 @@ import java.util.List;
  */
 @Repository
 public class ClientDAOImpl implements ClientDAO {
-    @PersistenceUnit
-    public void setEntityManager(EntityManagerFactory entityManagerFactory) {
-        entityManager = entityManagerFactory.createEntityManager();
-    }
-
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override
