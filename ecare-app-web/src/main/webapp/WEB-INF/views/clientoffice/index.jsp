@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Client office</title>
-    <link rel="stylesheet" href="/ecare-app/css/styles.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -42,7 +42,7 @@
             }
             var id = $("#contract-select").val();
             $.ajax({
-                url: "/ecare-app/contract",
+                url: "${pageContext.servletContext.contextPath}/contract",
                 data: "id=" + id,
                 type: "GET",
                 success : function(response) {
@@ -81,7 +81,7 @@
         <td>${user.email}</td>
     </tr>
 </table>
-<a href="/ecare-app/clientoffice/edit">Edit you data</a>
+<a href="${pageContext.servletContext.contextPath}/clientoffice/edit">Edit you data</a>
 
 <div id="contract-select-div">
     <table>

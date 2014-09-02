@@ -5,7 +5,7 @@
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/styles.css">
 </head>
 <body>
     <p><c:import url="../header.jsp"/></p>

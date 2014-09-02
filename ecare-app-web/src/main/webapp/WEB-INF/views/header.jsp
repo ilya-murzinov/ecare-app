@@ -13,7 +13,7 @@
 </head>
 You are logged in as <b>${user.email}</b>
 <div id="links">
-    <a href="/ecare-app/logout">Logout</a>
-    <a href="/ecare-app/change-password">Change password</a>
+    <a href="${pageContext.servletContext.contextPath}/logout">Logout</a>
+    <a href="${pageContext.servletContext.contextPath}/change-password">Change password</a>
 </div>
 </html>

@@ -7,7 +7,7 @@
 <body>
     <p><c:import url="header.jsp"/></p>
     Hello!
-    <p><a href="/ecare-app/clientoffice">For clients</a></p>
-    <p><a href="/ecare-app/backoffice">For employees</a></p>
+    <p><a href="${pageContext.servletContext.contextPath}/clientoffice">For clients</a></p>
+    <p><a href="${pageContext.servletContext.contextPath}/backoffice">For employees</a></p>
 </body>
 </html>
