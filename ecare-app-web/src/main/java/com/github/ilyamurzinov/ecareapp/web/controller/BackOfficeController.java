@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("backoffice")
 public class BackOfficeController {
-    @ModelAttribute("userBean")
+    @ModelAttribute
     public User getUserBean() {
         return SecurityHelper.getCurrentUser();
     }

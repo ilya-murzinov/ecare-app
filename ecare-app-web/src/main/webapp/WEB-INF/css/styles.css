@@ -5,3 +5,16 @@
 div.contract {
     border: 1px black;
 }
+
+.header {
+    position:relative;
+    float:right;
+}
+
+.allOptions {
+    display: none;
+}
+
+select {
+    width: 300px;
+}

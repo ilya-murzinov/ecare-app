@@ -30,8 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/change-password").access("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
-                .antMatchers("/contract").access("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
+                .antMatchers("/change-password/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
+                .antMatchers("/contract/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
                 .antMatchers("/backoffice/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/clientoffice/**").access("hasRole('ROLE_CLIENT')")
                 .and().formLogin().defaultSuccessUrl("/", false)

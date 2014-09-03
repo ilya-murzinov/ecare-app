@@ -13,13 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
     @ModelAttribute
-    public User getUser() {
+    public User getUserBean() {
         return SecurityHelper.getCurrentUser();
     }
 
     @RequestMapping(value = "/")
-    public String index() {
-        return "index";
+    public ModelAndView index() {
+        return new ModelAndView("index");
     }
 
     @ExceptionHandler

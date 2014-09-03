@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/styles.css"/>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script>
         $(function() {
@@ -11,9 +12,18 @@
         });
     </script>
 </head>
-You are logged in as <b>${user.email}</b>
-<div id="links">
-    <a href="${pageContext.servletContext.contextPath}/logout">Logout</a>
-    <a href="${pageContext.servletContext.contextPath}/change-password">Change password</a>
+<div class="header">
+    <table>
+        <tr>
+            <td>You are logged in as <b>${user.email}</b></td>
+            <td><a href="${pageContext.servletContext.contextPath}">Home</a></td>
+            <td>
+                <div id="links">
+                    <a href="${pageContext.servletContext.contextPath}/logout">Logout</a>
+                    <a href="${pageContext.servletContext.contextPath}/change-password">Change password</a>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
 </html>
