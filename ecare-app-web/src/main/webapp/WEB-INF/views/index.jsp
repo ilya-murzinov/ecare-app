@@ -2,8 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="ecare-app-web/src/main/webapp/WEB-INF/css/styles.css"/>
-    <link rel="stylesheet" type="text/css" href="ecare-app-web/src/main/webapp/WEB-INF/css/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/styles.css"/>
     <title></title>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script>
