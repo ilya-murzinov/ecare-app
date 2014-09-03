@@ -12,20 +12,18 @@
                         var currentPassword = $('#currentPassword').val();
                         var newPassword = $('#newPassword').val();
                         var newPasswordRetyped = $('#newPasswordRetyped').val();
-                        var data = 'currentPassword='
-                                + encodeURIComponent(currentPassword)
-                                + '&newPassword='
-                                + encodeURIComponent(newPassword)
-                                + '&newPasswordRetyped='
-                                + encodeURIComponent(newPasswordRetyped);
+                        var data = {
+                            currentPassword: currentPassword,
+                            newPassword: newPassword,
+                            newPasswordRetyped: newPasswordRetyped
+                        };
                         $.ajax({
                             url: $("#sampleForm").attr("action"),
-                            data: data,
+                            data: JSON.stringify(data),
                             type: "POST",
 
                             success: function (response) {
-                                alert(response);
-                                window.location.replace("${pageContext.servletContext.contextPath}/clientoffice");
+                                window.location.replace("${pageContext.servletContext.contextPath}?passwordChanged=true");
                             },
                             error: function (xhr, status, error) {
                                 alert(xhr.responseText);

@@ -27,3 +27,7 @@ table.clients {
 .clients td {
     padding: 5px;
 }
+
+div#password-changed-message {
+    display: none;
+}
