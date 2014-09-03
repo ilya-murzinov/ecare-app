@@ -41,6 +41,9 @@
                 $("#contract-select-div").css("display", "block");
             }
             var id = $("#contract-select").val();
+            if (id == null) {
+                return;
+            }
             $.ajax({
                 url: "${pageContext.servletContext.contextPath}/contract",
                 data: "id=" + id,
