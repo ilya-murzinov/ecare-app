@@ -52,7 +52,7 @@ public class ContractController {
             @RequestBody Contract newContract
     ) {
         contractService.updateContract(newContract);
-        return "OK";
+        return "{}";
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.POST)
@@ -62,6 +62,6 @@ public class ContractController {
             @RequestBody int id
     ) {
         contractService.deleteContract(id);
-        return "OK";
+        return "{}";
     }
 }

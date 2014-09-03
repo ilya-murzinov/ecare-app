@@ -25,7 +25,6 @@
                     },
                     type: "POST",
                     success: function(response) {
-                        alert(response);
                         location.reload(true);
                     },
                     error : function(xhr, status, error) {

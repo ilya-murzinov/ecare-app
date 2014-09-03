@@ -9,26 +9,33 @@
     <script>
         $(function () {
             $("#contract").submit(function () {
-                var data = '{ "id":' + ${contract.id} + ', "tariff": { "id":' + $("#tariff").val() + '}, "options": [';
-                var opts = [];
+                var data = {
+                    id: ${contract.id},
+                    tariff: {
+                        id: $("#tariff").val()
+                    },
+                    options: []
+                };
+
                 $("#options").find("option").each(function() {
-                   opts.push('{"id":' + $(this).val() + "}");
+                   data.options.push({
+                       id: $(this).val()
+                   });
                 });
-                data += opts.join(',') +  '] }';
                 $.ajax({
                     url: $("#contract").attr("action"),
                     dataType: "json",
-                    data: data,
+                    data: JSON.stringify(data),
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
                     type: "POST",
                     success: function(response) {
-                        alert(response);
+                        window.location.replace("${pageContext.servletContext.contextPath}/clientoffice");
                     },
                     error : function(xhr, status, error) {
-                        alert(xhr.responseText);
+                        alert("response: " + xhr.responseText + "\nerror: " + error);
                     }
                 });
                 return false;
