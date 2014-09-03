@@ -11,13 +11,14 @@ import org.springframework.web.servlet.ModelAndView;
  * @author ilya-murzinov
  */
 @Controller
+@RequestMapping("/")
 public class MainController {
-    @ModelAttribute
-    public User getUserBean() {
+    @ModelAttribute("currentUser")
+    public User getCurrentUser() {
         return SecurityHelper.getCurrentUser();
     }
 
-    @RequestMapping(value = "/")
+    @RequestMapping
     public ModelAndView index() {
         return new ModelAndView("index");
     }
@@ -25,7 +26,7 @@ public class MainController {
     @ExceptionHandler
     public ModelAndView handle(IllegalStateException ex) {
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("user", SecurityHelper.getNullUser());
+        modelAndView.addObject("currentUser", SecurityHelper.getNullUser());
         return modelAndView;
     }
 }

@@ -47,6 +47,9 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Contract> contracts;
 
+    @OneToOne(mappedBy = "client")
+    private User user;
+
     public int getId() {
         return id;
     }
@@ -101,6 +104,14 @@ public class Client implements Serializable {
 
     public void setContracts(Set<Contract> contracts) {
         this.contracts = contracts;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

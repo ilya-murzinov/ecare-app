@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -17,35 +18,47 @@ import javax.validation.Valid;
  * @author ilya-murzinov
  */
 @Controller
-@RequestMapping("clientoffice/edit")
+@RequestMapping("client")
 public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    @ModelAttribute("clientBean")
-    public Client getClientBean() {
-        return clientService.getCurrentClient();
-    }
-
-    @ModelAttribute("userBean")
-    public User getUserBean() {
+    @ModelAttribute("currentUser")
+    public User getCurrentUser() {
         return SecurityHelper.getCurrentUser();
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView index() {
+    public ModelAndView getClientView(@RequestParam int id) {
+        Client client = clientService.getClient(id);
+        ModelAndView modelAndView = new ModelAndView("client");
+        modelAndView.addObject("client", client);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "all", method = RequestMethod.GET)
+    public ModelAndView getAllClients() {
         return new ModelAndView("clientoffice/edit-data");
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "edit", method = RequestMethod.GET)
+    public ModelAndView getEditClientForm(
+            @RequestParam int id
+    ) {
+        ModelAndView modelAndView = new ModelAndView("clientoffice/edit-data");
+        modelAndView.addObject("client", clientService.getClient(id));
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "edit",method = RequestMethod.POST)
     public String edit(
-            @Valid @ModelAttribute("clientBean") Client client,
+            @Valid @ModelAttribute("client") Client client,
             BindingResult result
     ) {
         if (result.hasErrors()) {
             return "clientoffice/edit-data";
         }
         clientService.updateClient(client);
-        return "redirect:";
+        return "redirect:?id=" + client.getId();
     }
 }

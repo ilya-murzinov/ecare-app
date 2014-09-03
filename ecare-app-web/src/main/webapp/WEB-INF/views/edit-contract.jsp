@@ -36,7 +36,7 @@
                     type: "POST",
                     success: function (response) {
                         alert("OK");
-                        window.location.replace("${pageContext.servletContext.contextPath}/clientoffice");
+                        window.location.replace($("#contract").attr("action"));
                     },
                     error: function (xhr, status, error) {
                         alert("response: " + xhr.responseText + "\nerror: " + error);
@@ -45,7 +45,7 @@
                 return false;
             });
             $("#cancel").click(function() {
-                window.location.replace("${pageContext.servletContext.contextPath}/clientoffice");
+                window.location.replace($("#contract").attr("action"));
             });
             $("#removeOption").click(function () {
                 $('#options').find('option:selected').remove();

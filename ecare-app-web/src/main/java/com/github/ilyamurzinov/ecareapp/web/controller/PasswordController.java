@@ -32,7 +32,9 @@ public class PasswordController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String changePassword(
+    public
+    @ResponseBody
+    String changePassword(
             @Valid @ModelAttribute("passwordBean") PasswordBean passwordBean,
             BindingResult result
     ) {
@@ -40,9 +42,9 @@ public class PasswordController {
         if (!result.hasErrors()) {
             int userId = (SecurityHelper.getCurrentUser()).getId();
             userService.changePassword(userId, passwordBean.getCurrentPassword(), passwordBean.getNewPassword());
-            return "redirect:";
+            return "OK";
         }
-        return "change-password";
+        return null;
     }
 
     @ExceptionHandler(value = IllegalStateException.class)

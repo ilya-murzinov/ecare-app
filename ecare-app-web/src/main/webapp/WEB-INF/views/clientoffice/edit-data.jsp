@@ -6,11 +6,12 @@
 <head>
     <title></title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/styles.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
     <p><c:import url="../header.jsp"/></p>
 
-    <form:form method="POST" modelAttribute="clientBean">
+    <form:form id="client" method="POST" modelAttribute="client">
         <fieldset>
             <table>
                 <tr>
@@ -39,7 +40,8 @@
                     <td><form:errors path="address" cssClass="error"/></td>
                 </tr>
             </table>
-            <button type="submit">Submit</button>
+            <button type="button">Cancel</button>
+            <button type="submit">Save</button>
         </fieldset>
     </form:form>
 </body>

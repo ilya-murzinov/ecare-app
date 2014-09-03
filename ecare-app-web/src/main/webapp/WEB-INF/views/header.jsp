@@ -6,7 +6,7 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script>
         $(function() {
-            if (${user.email == "nobody"}) {
+            if (${currentUser.email == "nobody"}) {
                 $("#links").css("display", "none");
             }
         });
@@ -15,7 +15,7 @@
 <div class="header">
     <table>
         <tr>
-            <td>You are logged in as <b>${user.email}</b></td>
+            <td>You are logged in as <b>${currentUser.email}</b></td>
             <td><a href="${pageContext.servletContext.contextPath}">Home</a></td>
             <td>
                 <div id="links">

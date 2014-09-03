@@ -18,3 +18,12 @@ div.contract {
 select {
     width: 300px;
 }
+
+table.clients {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.clients td {
+    padding: 5px;
+}

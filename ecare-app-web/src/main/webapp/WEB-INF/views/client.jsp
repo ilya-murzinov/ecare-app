@@ -53,7 +53,7 @@
     </script>
 </head>
 <body>
-<p><c:import url="../header.jsp"/></p>
+<p><c:import url="header.jsp"/></p>
 
 <table>
     <tr>
@@ -78,10 +78,10 @@
     </tr>
     <tr>
         <td>Email:</td>
-        <td>${user.email}</td>
+        <td>${client.user.email}</td>
     </tr>
 </table>
-<a href="${pageContext.servletContext.contextPath}/client/edit">Edit you data</a>
+<a href="${pageContext.servletContext.contextPath}/client/edit?id=${param.id}">Edit personal data</a>
 
 <div id="contract-select-div">
     <table>

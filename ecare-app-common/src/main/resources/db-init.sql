@@ -77,6 +77,30 @@ insert into client(
   'Ivan', 'Ivanov', '1990-02-02', '123123123 asdkljdhsf fjfjjdsf', 'asdhjgh 1278h nwfhasd'
 );
 
+insert into client(
+  name, lastname, date_of_birth, passport, address
+) values (
+  'Semen', 'Semenov', '1993-03-12', 'asjk777234hfhfhfhf', 'ads123sdf2455435'
+);
+
+insert into client(
+  name, lastname, date_of_birth, passport, address
+) values (
+  'Sergey', 'Servgeev', '1982-04-22', 'kjjjdjdjdjdjdasd', '1111111111111'
+);
+
+insert into client(
+  name, lastname, date_of_birth, passport, address
+) values (
+  'Stepan', 'Stepanov', '1978-11-18', 'seerrersereesese', 'dgkjdfjdjfjdd'
+);
+
+insert into client(
+  name, lastname, date_of_birth, passport, address
+) values (
+  'Alexey', 'Alexeev', '1983-07-21', 'aagagagagaaaasdasd134134 3423 54', 'dfkjhsdgfkj2784678234678'
+);
+
 ######################################################
 # Contract
 ######################################################

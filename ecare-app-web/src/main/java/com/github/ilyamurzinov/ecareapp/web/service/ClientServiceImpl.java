@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author ilya-murzinov
  */
@@ -21,6 +23,11 @@ public class ClientServiceImpl implements ClientService {
     public Client getCurrentClient() {
         User user = SecurityHelper.getCurrentUser();
         return clientDAO.getClient(user.getClient().getId());
+    }
+
+    @Override
+    public List<Client> getAllClients() {
+        return clientDAO.getAllClients();
     }
 
     @Override

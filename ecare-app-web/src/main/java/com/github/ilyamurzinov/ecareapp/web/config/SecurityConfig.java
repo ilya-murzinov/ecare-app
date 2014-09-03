@@ -32,9 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/change-password/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
                 .antMatchers("/contract/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
+                .antMatchers("/client/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
                 .antMatchers("/backoffice/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/clientoffice/**").access("hasRole('ROLE_CLIENT')")
                 .and().formLogin().defaultSuccessUrl("/", false)
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/")
+                .and().exceptionHandling().accessDeniedPage("/WEB-INF/views/403.jsp");;
     }
 }
