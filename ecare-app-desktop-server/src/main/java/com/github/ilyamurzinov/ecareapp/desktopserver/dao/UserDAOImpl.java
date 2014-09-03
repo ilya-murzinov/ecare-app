@@ -12,10 +12,8 @@ import javax.persistence.Query;
  */
 @Repository
 public class UserDAOImpl implements UserDAO {
-    private EntityManager entityManager;
-
     @Override
-    public User getUser(String login) {
+    public User getUser(EntityManager entityManager, String login) {
         Query query = entityManager.createQuery("select u from User u where u.email = :login").setParameter("login", login);
         try {
             return (User) query.getSingleResult();
@@ -25,12 +23,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void updateUser(User user) {
+    public void updateUser(EntityManager entityManager, User user) {
         entityManager.merge(user);
-    }
-
-    @Override
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
     }
 }

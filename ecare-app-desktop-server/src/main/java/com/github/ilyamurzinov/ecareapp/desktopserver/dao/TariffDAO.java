@@ -2,19 +2,20 @@ package com.github.ilyamurzinov.ecareapp.desktopserver.dao;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Tariff;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
  * @author ilya-murzinov
  */
-public interface TariffDAO extends DAO {
-    Tariff getTariff(int id);
+public interface TariffDAO {
+    Tariff getTariff(EntityManager entityManager, int id);
 
-    List<Tariff> getAllTariffs();
+    List<Tariff> getAllTariffs(EntityManager entityManager);
 
-    void addTariff(Tariff tariff);
+    void addTariff(EntityManager entityManager, Tariff tariff);
 
-    void updateTariff(Tariff tariff);
+    void updateTariff(EntityManager entityManager, Tariff tariff);
 
-    void removeTariff(int id);
+    void removeTariff(EntityManager entityManager, int id);
 }

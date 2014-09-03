@@ -1,14 +1,12 @@
 package com.github.ilyamurzinov.ecareapp.desktopserver.service;
 
-import com.github.ilyamurzinov.ecareapp.desktopserver.dao.ClientDAO;
-import com.github.ilyamurzinov.ecareapp.desktopserver.dao.DAO;
 import com.github.ilyamurzinov.ecareapp.common.domain.Client;
+import com.github.ilyamurzinov.ecareapp.desktopserver.dao.ClientDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,8 +24,8 @@ public class ClientServiceImpl extends AbstractService implements ClientService 
     public Client getClient(int id) {
         Client client;
         try {
-            createAndInjectEntityManager();
-            client = clientDAO.getClient(id);
+            createEntityManager();
+            client = clientDAO.getClient(entityManager, id);
         } finally {
             if (entityManager.isOpen()) {
                 entityManager.close();
@@ -41,8 +39,8 @@ public class ClientServiceImpl extends AbstractService implements ClientService 
     public List<Client> getAllClients() {
         List<Client> clients;
         try {
-            createAndInjectEntityManager();
-            clients = clientDAO.getAllClients();
+            createEntityManager();
+            clients = clientDAO.getAllClients(entityManager);
         } finally {
             if (entityManager.isOpen()) {
                 entityManager.close();
@@ -54,9 +52,9 @@ public class ClientServiceImpl extends AbstractService implements ClientService 
     @Override
     public void addClient(Client client) {
         try {
-            createAndInjectEntityManager();
+            createEntityManager();
             entityManager.getTransaction().begin();
-            clientDAO.addClient(client);
+            clientDAO.addClient(entityManager, client);
             entityManager.getTransaction().commit();
         } finally {
             if (entityManager.isOpen()) {
@@ -68,9 +66,9 @@ public class ClientServiceImpl extends AbstractService implements ClientService 
     @Override
     public void updateClient(Client client) {
         try {
-            createAndInjectEntityManager();
+            createEntityManager();
             entityManager.getTransaction().begin();
-            clientDAO.updateClient(client);
+            clientDAO.updateClient(entityManager, client);
             entityManager.getTransaction().commit();
         } finally {
             if (entityManager.isOpen()) {
@@ -82,21 +80,14 @@ public class ClientServiceImpl extends AbstractService implements ClientService 
     @Override
     public void removeClient(int id) {
         try {
-            createAndInjectEntityManager();
+            createEntityManager();
             entityManager.getTransaction().begin();
-            clientDAO.removeClient(id);
+            clientDAO.removeClient(entityManager, id);
             entityManager.getTransaction().commit();
         } finally {
             if (entityManager.isOpen()) {
                 entityManager.close();
             }
         }
-    }
-
-    @Override
-    protected void setDAOs() {
-        daos = new ArrayList<DAO>() {
-            {add(clientDAO);}
-        };
     }
 }

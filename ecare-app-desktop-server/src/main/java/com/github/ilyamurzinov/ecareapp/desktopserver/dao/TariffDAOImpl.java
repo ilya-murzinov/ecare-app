@@ -12,42 +12,34 @@ import java.util.List;
  */
 @Repository
 public class TariffDAOImpl implements TariffDAO {
-
-    private EntityManager entityManager;
-
     @Override
-    public Tariff getTariff(int id) {
+    public Tariff getTariff(EntityManager entityManager, int id) {
         Query query = entityManager.createQuery("select t from Tariff t where t.id = :id").setParameter("id", id);
         return (Tariff) query.getSingleResult();
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Tariff> getAllTariffs() {
+    public List<Tariff> getAllTariffs(EntityManager entityManager) {
         Query query = entityManager.createQuery("select t from Tariff t");
         return query.getResultList();
     }
 
     @Override
-    public void addTariff(Tariff tariff) {
+    public void addTariff(EntityManager entityManager, Tariff tariff) {
         entityManager.persist(tariff);
     }
 
     @Override
-    public void updateTariff(Tariff tariff) {
+    public void updateTariff(EntityManager entityManager, Tariff tariff) {
         entityManager.merge(tariff);
     }
 
     @Override
-    public void removeTariff(int id) {
-        Tariff tariff = getTariff(id);
+    public void removeTariff(EntityManager entityManager, int id) {
+        Tariff tariff = getTariff(entityManager, id);
         if (tariff != null) {
             entityManager.remove(tariff);
         }
-    }
-
-    @Override
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
     }
 }

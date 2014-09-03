@@ -1,12 +1,9 @@
 package com.github.ilyamurzinov.ecareapp.desktopserver.service;
 
-import com.github.ilyamurzinov.ecareapp.desktopserver.dao.ContractDAO;
-import com.github.ilyamurzinov.ecareapp.desktopserver.dao.DAO;
 import com.github.ilyamurzinov.ecareapp.common.domain.Contract;
+import com.github.ilyamurzinov.ecareapp.desktopserver.dao.ContractDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 /**
  * @author ilya-murzinov
@@ -19,9 +16,9 @@ public class ContractServiceImpl extends AbstractService implements ContractServ
     @Override
     public void addContract(Contract contract) {
         try {
-            createAndInjectEntityManager();
+            createEntityManager();
             entityManager.getTransaction().begin();
-            contractDAO.addContract(contract);
+            contractDAO.addContract(entityManager, contract);
             entityManager.getTransaction().commit();
         } finally {
             if (entityManager.isOpen()) {
@@ -33,9 +30,9 @@ public class ContractServiceImpl extends AbstractService implements ContractServ
     @Override
     public void removeContract(int id) {
         try {
-            createAndInjectEntityManager();
+            createEntityManager();
             entityManager.getTransaction().begin();
-            contractDAO.removeContract(id);
+            contractDAO.removeContract(entityManager, id);
             entityManager.getTransaction().commit();
         } finally {
             if (entityManager.isOpen()) {
@@ -47,21 +44,14 @@ public class ContractServiceImpl extends AbstractService implements ContractServ
     @Override
     public void updateContract(Contract contract) {
         try {
-            createAndInjectEntityManager();
+            createEntityManager();
             entityManager.getTransaction().begin();
-            contractDAO.updateContract(contract);
+            contractDAO.updateContract(entityManager, contract);
             entityManager.getTransaction().commit();
         } finally {
             if (entityManager.isOpen()) {
                 entityManager.close();
             }
         }
-    }
-
-    @Override
-    protected void setDAOs() {
-        daos = new ArrayList<DAO>() {{
-            add(contractDAO);
-        }};
     }
 }

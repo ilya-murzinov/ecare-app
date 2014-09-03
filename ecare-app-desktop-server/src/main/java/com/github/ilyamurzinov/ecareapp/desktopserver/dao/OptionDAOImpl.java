@@ -1,5 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.desktopserver.dao;
 
+import com.github.ilyamurzinov.ecareapp.common.domain.Option;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -10,43 +11,35 @@ import java.util.List;
  * @author ilya-murzinov
  */
 @Repository
-public class OptionDAOImpl implements com.github.ilyamurzinov.ecareapp.desktopserver.dao.OptionDAO {
-
-    private EntityManager entityManager;
-
+public class OptionDAOImpl implements OptionDAO {
     @Override
-    public com.github.ilyamurzinov.ecareapp.common.domain.Option getOption(int id) {
+    public com.github.ilyamurzinov.ecareapp.common.domain.Option getOption(EntityManager entityManager, int id) {
         Query query = entityManager.createQuery("select o from Option o where o.id = :id").setParameter("id", id);
         return (com.github.ilyamurzinov.ecareapp.common.domain.Option) query.getSingleResult();
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<com.github.ilyamurzinov.ecareapp.common.domain.Option> getAllOptions() {
+    public List<com.github.ilyamurzinov.ecareapp.common.domain.Option> getAllOptions(EntityManager entityManager) {
         Query query = entityManager.createQuery("select o from Option o");
         return (List<com.github.ilyamurzinov.ecareapp.common.domain.Option>) query.getResultList();
     }
 
     @Override
-    public void addOption(com.github.ilyamurzinov.ecareapp.common.domain.Option option) {
+    public void addOption(EntityManager entityManager, Option option) {
         entityManager.persist(option);
     }
 
     @Override
-    public void removeOption(int id) {
-        com.github.ilyamurzinov.ecareapp.common.domain.Option option = getOption(id);
+    public void removeOption(EntityManager entityManager, int id) {
+        Option option = getOption(entityManager, id);
         if (option != null) {
             entityManager.remove(option);
         }
     }
 
     @Override
-    public void updateOption(com.github.ilyamurzinov.ecareapp.common.domain.Option option) {
+    public void updateOption(EntityManager entityManager, Option option) {
         entityManager.merge(option);
-    }
-
-    @Override
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
     }
 }

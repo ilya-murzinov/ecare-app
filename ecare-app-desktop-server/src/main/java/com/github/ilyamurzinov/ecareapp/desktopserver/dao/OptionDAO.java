@@ -2,19 +2,20 @@ package com.github.ilyamurzinov.ecareapp.desktopserver.dao;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Option;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
  * @author ilya-murzinov
  */
-public interface OptionDAO extends DAO {
-    Option getOption(int id);
+public interface OptionDAO {
+    Option getOption(EntityManager entityManager, int id);
 
-    List<Option> getAllOptions();
+    List<Option> getAllOptions(EntityManager entityManager);
 
-    void addOption(Option option);
+    void addOption(EntityManager entityManager, Option option);
 
-    void removeOption(int id);
+    void removeOption(EntityManager entityManager, int id);
 
-    void updateOption(Option option);
+    void updateOption(EntityManager entityManager, Option option);
 }

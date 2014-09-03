@@ -1,12 +1,9 @@
 package com.github.ilyamurzinov.ecareapp.desktopserver.service;
 
-import com.github.ilyamurzinov.ecareapp.desktopserver.dao.DAO;
-import com.github.ilyamurzinov.ecareapp.desktopserver.dao.UserDAO;
 import com.github.ilyamurzinov.ecareapp.common.domain.User;
+import com.github.ilyamurzinov.ecareapp.desktopserver.dao.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 /**
  * @author ilya-murzinov
@@ -16,12 +13,11 @@ public class UserServiceImpl extends AbstractService implements UserService {
     @Autowired
     private UserDAO userDAO;
 
-
     @Override
     public User getUser(String login) {
         try {
-            createAndInjectEntityManager();
-            return userDAO.getUser(login);
+            createEntityManager();
+            return userDAO.getUser(entityManager, login);
         } finally {
             if (entityManager.isOpen()) {
                 entityManager.close();
@@ -31,23 +27,6 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     @Override
     public void updateUser(User user) {
-        try {
-            createAndInjectEntityManager();
-            entityManager.getTransaction().begin();
-            userDAO.updateUser(user);
-            entityManager.getTransaction().commit();
-        } finally {
-            if (entityManager.isOpen()) {
-                entityManager.close();
-            }
-        }
-    }
 
-
-    @Override
-    protected void setDAOs() {
-        daos = new ArrayList<DAO>() {{
-            add(userDAO);
-        }};
     }
 }

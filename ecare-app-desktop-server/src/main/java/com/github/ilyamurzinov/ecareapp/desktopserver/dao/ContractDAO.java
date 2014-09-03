@@ -2,13 +2,15 @@ package com.github.ilyamurzinov.ecareapp.desktopserver.dao;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Contract;
 
+import javax.persistence.EntityManager;
+
 /**
  * @author ilya-murzinov
  */
-public interface ContractDAO extends DAO {
-    void addContract(Contract contract);
+public interface ContractDAO {
+    void addContract(EntityManager entityManager, Contract contract);
 
-    void removeContract(int id);
+    void removeContract(EntityManager entityManager, int id);
 
-    void updateContract(Contract contract);
+    void updateContract(EntityManager entityManager, Contract contract);
 }

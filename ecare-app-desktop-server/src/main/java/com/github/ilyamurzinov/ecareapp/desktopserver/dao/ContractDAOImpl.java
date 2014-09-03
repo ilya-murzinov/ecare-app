@@ -11,16 +11,13 @@ import javax.persistence.Query;
  */
 @Repository
 public class ContractDAOImpl implements ContractDAO {
-
-    private EntityManager entityManager;
-
     @Override
-    public void addContract(Contract contract) {
+    public void addContract(EntityManager entityManager, Contract contract) {
         entityManager.persist(contract);
     }
 
     @Override
-    public void removeContract(int id) {
+    public void removeContract(EntityManager entityManager, int id) {
         Query query = entityManager.createQuery("select c from Contract c where c.id = :id").setParameter("id", id);
         Contract contract = (Contract) query.getSingleResult();
         if (contract != null) {
@@ -29,12 +26,7 @@ public class ContractDAOImpl implements ContractDAO {
     }
 
     @Override
-    public void updateContract(Contract contract) {
+    public void updateContract(EntityManager entityManager, Contract contract) {
         entityManager.merge(contract);
-    }
-
-    @Override
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
     }
 }

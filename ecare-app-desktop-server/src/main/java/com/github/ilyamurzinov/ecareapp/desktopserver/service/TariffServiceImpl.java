@@ -1,12 +1,10 @@
 package com.github.ilyamurzinov.ecareapp.desktopserver.service;
 
-import com.github.ilyamurzinov.ecareapp.desktopserver.dao.DAO;
-import com.github.ilyamurzinov.ecareapp.desktopserver.dao.TariffDAO;
 import com.github.ilyamurzinov.ecareapp.common.domain.Tariff;
+import com.github.ilyamurzinov.ecareapp.desktopserver.dao.TariffDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,8 +18,8 @@ public class TariffServiceImpl extends AbstractService implements TariffService 
     @Override
     public Tariff getTariff(int id) {
         try {
-            createAndInjectEntityManager();
-            return tariffDAO.getTariff(id);
+            createEntityManager();
+            return tariffDAO.getTariff(entityManager, id);
         } finally {
             if (entityManager.isOpen()) {
                 entityManager.close();
@@ -32,8 +30,8 @@ public class TariffServiceImpl extends AbstractService implements TariffService 
     @Override
     public List<Tariff> getAllTariffs() {
         try {
-            createAndInjectEntityManager();
-            return tariffDAO.getAllTariffs();
+            createEntityManager();
+            return tariffDAO.getAllTariffs(entityManager);
         } finally {
             if (entityManager.isOpen()) {
                 entityManager.close();
@@ -44,9 +42,9 @@ public class TariffServiceImpl extends AbstractService implements TariffService 
     @Override
     public void addTariff(Tariff tariff) {
         try {
-            createAndInjectEntityManager();
+            createEntityManager();
             entityManager.getTransaction().begin();
-            tariffDAO.addTariff(tariff);
+            tariffDAO.addTariff(entityManager, tariff);
             entityManager.getTransaction().commit();
         } finally {
             if (entityManager.isOpen()) {
@@ -58,9 +56,9 @@ public class TariffServiceImpl extends AbstractService implements TariffService 
     @Override
     public void removeTariff(int id) {
         try {
-            createAndInjectEntityManager();
+            createEntityManager();
             entityManager.getTransaction().begin();
-            tariffDAO.removeTariff(id);
+            tariffDAO.removeTariff(entityManager, id);
             entityManager.getTransaction().commit();
         } finally {
             if (entityManager.isOpen()) {
@@ -72,21 +70,14 @@ public class TariffServiceImpl extends AbstractService implements TariffService 
     @Override
     public void updateTariff(Tariff tariff) {
         try {
-            createAndInjectEntityManager();
+            createEntityManager();
             entityManager.getTransaction().begin();
-            tariffDAO.updateTariff(tariff);
+            tariffDAO.updateTariff(entityManager, tariff);
             entityManager.getTransaction().commit();
         } finally {
             if (entityManager.isOpen()) {
                 entityManager.close();
             }
         }
-    }
-
-    @Override
-    protected void setDAOs() {
-        daos = new ArrayList<DAO>() {{
-           add(tariffDAO);
-        }};
     }
 }

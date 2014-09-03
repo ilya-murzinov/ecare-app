@@ -1,12 +1,10 @@
 package com.github.ilyamurzinov.ecareapp.desktopserver.service;
 
-import com.github.ilyamurzinov.ecareapp.desktopserver.dao.DAO;
-import com.github.ilyamurzinov.ecareapp.desktopserver.dao.OptionDAO;
 import com.github.ilyamurzinov.ecareapp.common.domain.Option;
+import com.github.ilyamurzinov.ecareapp.desktopserver.dao.OptionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,8 +18,8 @@ public class OptionServiceImpl extends AbstractService implements OptionService 
     @Override
     public Option getOption(int id) {
         try {
-            createAndInjectEntityManager();
-            return optionDAO.getOption(id);
+            createEntityManager();
+            return optionDAO.getOption(entityManager, id);
         } finally {
             if (entityManager.isOpen()) {
                 entityManager.close();
@@ -32,8 +30,8 @@ public class OptionServiceImpl extends AbstractService implements OptionService 
     @Override
     public List<Option> getAllOptions() {
         try {
-            createAndInjectEntityManager();
-            return optionDAO.getAllOptions();
+            createEntityManager();
+            return optionDAO.getAllOptions(entityManager);
         } finally {
             if (entityManager.isOpen()) {
                 entityManager.close();
@@ -44,9 +42,9 @@ public class OptionServiceImpl extends AbstractService implements OptionService 
     @Override
     public void addOption(Option option) {
         try {
-            createAndInjectEntityManager();
+            createEntityManager();
             entityManager.getTransaction().begin();
-            optionDAO.addOption(option);
+            optionDAO.addOption(entityManager, option);
             entityManager.getTransaction().commit();
         } finally {
             if (entityManager.isOpen()) {
@@ -58,9 +56,9 @@ public class OptionServiceImpl extends AbstractService implements OptionService 
     @Override
     public void removeOption(int id) {
         try {
-            createAndInjectEntityManager();
+            createEntityManager();
             entityManager.getTransaction().begin();
-            optionDAO.removeOption(id);
+            optionDAO.removeOption(entityManager, id);
             entityManager.getTransaction().commit();
         } finally {
             if (entityManager.isOpen()) {
@@ -72,21 +70,14 @@ public class OptionServiceImpl extends AbstractService implements OptionService 
     @Override
     public void updateOption(Option option) {
         try {
-            createAndInjectEntityManager();
+            createEntityManager();
             entityManager.getTransaction().begin();
-            optionDAO.updateOption(option);
+            optionDAO.updateOption(entityManager, option);
             entityManager.getTransaction().commit();
         } finally {
             if (entityManager.isOpen()) {
                 entityManager.close();
             }
         }
-    }
-
-    @Override
-    protected void setDAOs() {
-        daos = new ArrayList<DAO>(){{
-            add(optionDAO);
-        }};
     }
 }
