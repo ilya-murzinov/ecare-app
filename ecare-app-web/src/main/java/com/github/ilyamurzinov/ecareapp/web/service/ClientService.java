@@ -12,4 +12,5 @@ public interface ClientService {
     List<Client> getAllClients();
     Client getClient(int id);
     void updateClient(Client client);
+    void addClient(Client client);
 }

@@ -44,9 +44,6 @@
                 });
                 return false;
             });
-            $("#cancel").click(function() {
-                window.location.replace("${pageContext.servletContext.contextPath}/client");
-            });
             $("#removeOption").click(function () {
                 $('#options').find('option:selected').remove();
             });
@@ -77,7 +74,7 @@
 <body>
 <p><c:import url="header.jsp"/></p>
 <form:form action="edit" id="contract" method="POST" modelAttribute="contract">
-    <button type="button" id="cancel">Cancel</button>
+    <button type="button" onclick="history.go(-1);">Cancel</button>
     <button type="submit">Save</button>
     <table>
         <tr>

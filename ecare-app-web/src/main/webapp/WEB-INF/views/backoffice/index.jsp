@@ -8,18 +8,20 @@
     <title></title>
 </head>
 <body>
-    <p><c:import url="../header.jsp"/></p>
-    <table border="1" class="clients">
-        <c:forEach var="client" items="${clientList}">
-            <tr>
-                <td><b><a href="${pageContext.servletContext.contextPath}/client?id=${client.id}">${client.lastname}</a></b></td>
-                <td>${client.name}</td>
-                <td>${client.passport}</td>
-                <td>${client.dateOfBirth}</td>
-                <td>${client.address}</td>
-                <td>${client.user.email}</td>
-            </tr>
-        </c:forEach>
-    </table>
+<p><c:import url="../header.jsp"/></p>
+<table border="1" class="clients">
+    <c:forEach var="client" items="${clientList}">
+        <tr>
+            <td><b><a href="${pageContext.servletContext.contextPath}/client?id=${client.id}">${client.lastname}</a></b></td>
+            <td>${client.name}</td>
+            <td>${client.passport}</td>
+            <td>${client.dateOfBirth}</td>
+            <td>${client.address}</td>
+            <td>${client.user.email}</td>
+        </tr>
+    </c:forEach>
+</table>
+<br/>
+<a href="${pageContext.servletContext.contextPath}/client/add">Add client</a>
 </body>
 </html>

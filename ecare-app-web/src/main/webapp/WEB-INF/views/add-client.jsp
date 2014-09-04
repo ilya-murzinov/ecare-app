@@ -9,9 +9,9 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
-    <p><c:import url="../header.jsp"/></p>
+    <p><c:import url="header.jsp"/></p>
 
-    <form:form id="client" method="POST" modelAttribute="client">
+    <form:form action="${pageContext.servletContext.contextPath}/client/add" id="client" method="POST" modelAttribute="client">
         <fieldset>
             <table>
                 <tr>
@@ -40,7 +40,7 @@
                     <td><form:errors path="address" cssClass="error"/></td>
                 </tr>
             </table>
-            <button type="button">Cancel</button>
+            <button type="button" onclick="history.go(-1);">Cancel</button>
             <button type="submit">Save</button>
         </fieldset>
     </form:form>

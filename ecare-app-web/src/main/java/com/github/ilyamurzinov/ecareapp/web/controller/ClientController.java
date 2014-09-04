@@ -38,14 +38,14 @@ public class ClientController {
 
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public ModelAndView getAllClients() {
-        return new ModelAndView("clientoffice/edit-data");
+        return new ModelAndView("edit-client");
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.GET)
     public ModelAndView getEditClientForm(
             @RequestParam int id
     ) {
-        ModelAndView modelAndView = new ModelAndView("clientoffice/edit-data");
+        ModelAndView modelAndView = new ModelAndView("edit-client");
         modelAndView.addObject("client", clientService.getClient(id));
         return modelAndView;
     }
@@ -56,9 +56,28 @@ public class ClientController {
             BindingResult result
     ) {
         if (result.hasErrors()) {
-            return "clientoffice/edit-data";
+            return "edit-client";
         }
         clientService.updateClient(client);
+        return "redirect:?id=" + client.getId();
+    }
+
+    @RequestMapping(value = "add", method = RequestMethod.GET)
+    public ModelAndView getAddClientForm() {
+        ModelAndView modelAndView = new ModelAndView("add-client");
+        modelAndView.addObject("client", new Client());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public String add(
+            @Valid @ModelAttribute("client") Client client,
+            BindingResult result
+    ) {
+        if (result.hasErrors()) {
+            return "add-client";
+        }
+        clientService.addClient(client);
         return "redirect:?id=" + client.getId();
     }
 }
