@@ -28,7 +28,7 @@ public class UserController {
     @ResponseBody
     String addUser(
             @RequestParam int id,
-            @ModelAttribute User user
+            @RequestBody User user
     ) {
         return userService.addClient(user.getEmail(), user.getPassword(), id);
     }

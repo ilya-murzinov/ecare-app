@@ -53,7 +53,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
         User user = new User();
         user.setEmail(email);
         user.setPassword(Util.getMd5Hash(password));
-        //user.getAuthorities().add(authorityDAO.getAuthority("ROLE_CLIENT"));
+        user.getAuthorities().add(authorityDAO.getAuthority("ROLE_CLIENT"));
         user.setClient(clientDAO.getClient(clientId));
         userDAO.addUser(user);
         return "OK";
