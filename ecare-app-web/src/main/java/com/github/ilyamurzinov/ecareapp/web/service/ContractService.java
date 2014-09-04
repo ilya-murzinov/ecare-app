@@ -7,7 +7,7 @@ import com.github.ilyamurzinov.ecareapp.common.domain.Contract;
  */
 public interface ContractService {
     Contract getContract(int id);
-    void updateContract(Contract contract);
-
+    void updateContract(Contract newContract);
+    void addContract(Contract newContract);
     void deleteContract(int id);
 }

@@ -52,6 +52,24 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    public void addContract(Contract newContract) {
+        Contract contract = new Contract();
+
+        contract.setClient(clientDAO.getClient(newContract.getClient().getId()));
+
+        int tariffId = newContract.getTariff().getId();
+        Set<Option> newOptions = newContract.getOptions();
+        Set<Option> options = new HashSet<Option>();
+        for (Option option : newOptions) {
+            options.add(optionDAO.getOption(option.getId()));
+        }
+
+        contract.setTariff(tariffDAO.getTariff(tariffId));
+        contract.setOptions(options);
+        contractDAO.addContract(contract);
+    }
+
+    @Override
     public void deleteContract(int id) {
         Client client = contractDAO.getContract(id).getClient();
         client.getContracts().remove(contractDAO.getContract(id));

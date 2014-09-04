@@ -14,6 +14,9 @@
             $("#contract").submit(function () {
                 var data = {
                     id: ${contract.id},
+                    client: {
+                        id: ${param.id}
+                    },
                     tariff: {
                         id: $("#tariff").val()
                     },
@@ -36,7 +39,7 @@
                     type: "POST",
                     success: function (response) {
                         alert("OK");
-                        window.location.replace($("#contract").attr("action"));
+                        window.location.replace("${pageContext.servletContext.contextPath}/client/?id=${param.id}");
                     },
                     error: function (xhr, status, error) {
                         alert("response: " + xhr.responseText + "\nerror: " + error);
@@ -45,7 +48,7 @@
                 return false;
             });
             $("#cancel").click(function() {
-                window.location.replace("${pageContext.servletContext.contextPath}/client");
+                window.location.replace($("#contract").attr("action"));
             });
             $("#removeOption").click(function () {
                 $('#options').find('option:selected').remove();
@@ -58,6 +61,7 @@
             });
             $("#add").click(function() {
                 $("#options").append($("#allOptions").find("option:selected"));
+                $('#allOptions-div').css("display", "none");
             });
         });
         function updateOptions() {
@@ -76,13 +80,13 @@
 </head>
 <body>
 <p><c:import url="header.jsp"/></p>
-<form:form action="edit" id="contract" method="POST" modelAttribute="contract">
+<form:form action="add" id="contract" method="POST" modelAttribute="contract">
     <button type="button" id="cancel">Cancel</button>
     <button type="submit">Save</button>
     <table>
         <tr>
-            <td>Contract:</td>
-            <td>${contract.number}</td>
+            <td>Number:</td>
+            <td><form:input path="number"/></td>
         </tr>
     </table>
     <table>
