@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -34,13 +35,13 @@ public class User implements UserDetails, Serializable {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Authority.class)
     @JoinTable(
             name = "user_authority",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id")
     )
-    private Set<Authority> authorities;
+    private Collection<GrantedAuthority> authorities;
 
     public int getId() {
         return id;
@@ -71,7 +72,10 @@ public class User implements UserDetails, Serializable {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<GrantedAuthority> getAuthorities() {
+        if (authorities == null) {
+            authorities = new HashSet<GrantedAuthority>();
+        }
         return authorities;
     }
 

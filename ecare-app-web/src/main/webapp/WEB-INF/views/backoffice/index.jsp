@@ -17,7 +17,14 @@
             <td>${client.passport}</td>
             <td>${client.dateOfBirth}</td>
             <td>${client.address}</td>
-            <td>${client.user.email}</td>
+            <c:choose>
+                <c:when test="${client.user.email != null}">
+                    <td>${client.user.email}</td>
+                </c:when>
+                <c:when test="${client.user.email == null}">
+                    <td><a href="${pageContext.servletContext.contextPath}/user/add?id=${client.id}">Register</a></td>
+                </c:when>
+            </c:choose>
         </tr>
     </c:forEach>
 </table>
