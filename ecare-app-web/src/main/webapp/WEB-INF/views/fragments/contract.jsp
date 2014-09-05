@@ -5,6 +5,21 @@
 <html>
 <table>
     <tr>
+        <td>Status:</td>
+        <td>
+            <b>
+            <c:choose>
+                <c:when test="${contract.blocked}">
+                    Blocked
+                </c:when>
+                <c:otherwise>
+                    Active
+                </c:otherwise>
+            </c:choose>
+            </b>
+        </td>
+    </tr>
+    <tr>
         <td>Tariff:</td>
         <td><b>${contract.tariff}</b></td>
     </tr>

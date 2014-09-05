@@ -21,6 +21,9 @@ public class PasswordController {
 
     private PasswordBean passwordBean;
 
+    @Autowired
+    private SecurityHelper securityHelper;
+
     @ModelAttribute
     public PasswordBean getPasswordBean() {
         return passwordBean == null ? new PasswordBean() : passwordBean;
@@ -40,7 +43,7 @@ public class PasswordController {
     ) {
         this.passwordBean = passwordBean;
         if (!result.hasErrors()) {
-            int userId = (SecurityHelper.getCurrentUser()).getId();
+            int userId = (securityHelper.getCurrentUser()).getId();
             userService.changePassword(userId, passwordBean.getCurrentPassword(), passwordBean.getNewPassword());
             return "OK";
         }

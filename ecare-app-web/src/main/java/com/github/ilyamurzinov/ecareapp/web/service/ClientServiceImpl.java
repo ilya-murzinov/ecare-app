@@ -2,6 +2,7 @@ package com.github.ilyamurzinov.ecareapp.web.service;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Client;
 import com.github.ilyamurzinov.ecareapp.common.domain.User;
+import com.github.ilyamurzinov.ecareapp.web.beans.UserBean;
 import com.github.ilyamurzinov.ecareapp.web.controller.SecurityHelper;
 import com.github.ilyamurzinov.ecareapp.web.dao.ClientDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,12 @@ public class ClientServiceImpl implements ClientService {
     @Autowired
     private ClientDAO clientDAO;
 
+    @Autowired
+    private SecurityHelper securityHelper;
+
     @Override
     public Client getCurrentClient() {
-        User user = SecurityHelper.getCurrentUser();
+        UserBean user = securityHelper.getCurrentUser();
         return clientDAO.getClient(user.getClient().getId());
     }
 

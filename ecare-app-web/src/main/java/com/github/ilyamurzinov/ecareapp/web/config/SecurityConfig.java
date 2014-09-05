@@ -30,12 +30,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/change-password/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
-                .antMatchers("/contract/edit/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
-                .antMatchers("/contract/add/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/client/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
-                .antMatchers("/backoffice/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/clientoffice/**").access("hasRole('ROLE_CLIENT')")
+                .antMatchers("/").permitAll()
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/js/**").permitAll()
+                .antMatchers("/**").authenticated()
+                .and().rememberMe()
                 .and().formLogin().defaultSuccessUrl("/", false)
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/")
                 .and().exceptionHandling().accessDeniedPage("/WEB-INF/views/403.jsp");

@@ -33,6 +33,8 @@ public class Contract implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "option_id"))
     private Set<Option> options;
 
+    private boolean blocked;
+
     public int getId() {
         return id;
     }
@@ -71,6 +73,14 @@ public class Contract implements Serializable {
 
     public void setOptions(Set<Option> options) {
         this.options = options;
+    }
+
+    public boolean isBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
     }
 
     @Override

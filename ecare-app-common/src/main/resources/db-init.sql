@@ -18,7 +18,8 @@ create table contract(
   id int key auto_increment,
   number long,
   tariff_id int,
-  client_id int
+  client_id int,
+  blocked bool
 );
 
 create table tariff(
@@ -106,19 +107,19 @@ insert into client(
 ######################################################
 
 insert into contract(
-  number, tariff_id, client_id
+  number, tariff_id, client_id, blocked
 ) values (
-  1267854678, 3, 1
+  1267854678, 3, 1, false
 );
 insert into contract(
-  number, tariff_id, client_id
+  number, tariff_id, client_id, blocked
 ) values (
-  6673747412, 2, 1
+  6673747412, 2, 1, false
 );
 insert into contract(
-  number, tariff_id, client_id
+  number, tariff_id, client_id, blocked
 ) values (
-  54783223, 1, 1
+  54783223, 1, 1, false
 );
 
 ######################################################

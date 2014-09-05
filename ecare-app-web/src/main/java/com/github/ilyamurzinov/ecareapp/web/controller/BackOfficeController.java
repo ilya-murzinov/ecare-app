@@ -2,6 +2,7 @@ package com.github.ilyamurzinov.ecareapp.web.controller;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Client;
 import com.github.ilyamurzinov.ecareapp.common.domain.User;
+import com.github.ilyamurzinov.ecareapp.web.beans.UserBean;
 import com.github.ilyamurzinov.ecareapp.web.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +21,12 @@ public class BackOfficeController {
     @Autowired
     private ClientService clientService;
 
+    @Autowired
+    private SecurityHelper securityHelper;
+
     @ModelAttribute("currentUser")
-    public User getCurrentUser() {
-        return SecurityHelper.getCurrentUser();
+    public UserBean getCurrentUser() {
+        return securityHelper.getCurrentUser();
     }
 
     @RequestMapping

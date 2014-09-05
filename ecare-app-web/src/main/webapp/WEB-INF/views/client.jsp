@@ -51,11 +51,6 @@
             });
         });
         function update() {
-            if (${empty(client.contracts)}) {
-                $("#contract-select-div").css("display", "none");
-            } else {
-                $("#contract-select-div").css("display", "block");
-            }
             var id = $("#contract-select").val();
             if (id == null) {
                 return;
