@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.js"></script>
     <script>
-        $(document).ready(function () {
+        $(function () {
             update();
             $("#edit").click(function () {
                 window.location.replace("${pageContext.request.contextPath}/contract/edit?id=" + $("#contract-select").val());
@@ -17,7 +17,7 @@
                 window.location.replace("${pageContext.request.contextPath}/contract/add?id=${param.id}");
             });
             $("#delete").click(function () {
-                data = $("#contract-select").val();
+                var data = $("#contract-select").val();
                 $.ajax({
                     url: "${pageContext.request.contextPath}/contract/delete",
                     dataType: "json",
@@ -34,26 +34,20 @@
                         alert(xhr.responseText);
                     }
                 });
-            })
-        });
-        $("#deleteClient").click(function() {
-            alert();
-            $.ajax({
-                url: "${pageContext.request.contextPath}/client/delete",
-                dataType: "json",
-                data: ${param.id},
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                type: "POST",
-                success: function (response) {
-                    alert(response);
-                    history.go(-1);
-                },
-                error: function (xhr, status, error) {
-                    alert(xhr.responseText);
-                }
+            });
+            $("#deleteClient").click(function() {
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/client/delete",
+                    data: "id=" + ${param.id},
+                    type: "POST",
+                    success: function (response) {
+                        alert(response);
+                        history.go(-1);
+                    },
+                    error: function (xhr, status, error) {
+                        alert(xhr.responseText);
+                    }
+                });
             });
         });
         function update() {
@@ -67,8 +61,7 @@
                 return;
             }
             $.ajax({
-                url: "${pageContext.servletContext.contextPath}/contract",
-                data: "id=" + id,
+                url: "${pageContext.servletContext.contextPath}/contract?id=" + id,
                 type: "GET",
                 success: function (response) {
                     $("#contract").html(response);

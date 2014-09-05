@@ -84,8 +84,9 @@ public class ClientController {
     public
     @ResponseBody
     String delete(
-            @RequestBody int id
+            @RequestParam("id") int id
     ) {
+        clientService.removeClient(id);
         return "{}";
     }
 }
