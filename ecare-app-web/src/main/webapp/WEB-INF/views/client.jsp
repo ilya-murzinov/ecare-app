@@ -6,8 +6,7 @@
 <head>
     <title>Client office</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.js"></script>
     <script>
         $(document).ready(function () {
             update();
@@ -36,6 +35,26 @@
                     }
                 });
             })
+        });
+        $("#deleteClient").click(function() {
+            alert();
+            $.ajax({
+                url: "${pageContext.request.contextPath}/client/delete",
+                dataType: "json",
+                data: ${param.id},
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "POST",
+                success: function (response) {
+                    alert(response);
+                    history.go(-1);
+                },
+                error: function (xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
         });
         function update() {
             if (${empty(client.contracts)}) {
@@ -88,7 +107,11 @@
     </tr>
 </table>
 <a href="${pageContext.servletContext.contextPath}/client/edit?id=${param.id}">Edit personal data</a>
+<c:if test="${currentUser.email == 'admin@mail.com'}">
+    <a id="deleteClient" href="javascript:void(0);">Delete client</a>
+</c:if>
 
+<c:if test="${!empty(client.contracts)}">
 <div id="contract-select-div">
     <table>
         <tr>
@@ -109,11 +132,13 @@
 
     </div>
 
+    <c:if test="${currentUser.email == 'admin@mail.com'}">
+        <a id="add" href="javascript:void(0);">Add contract</a>
+    </c:if>
     <a id="edit" href="javascript:void(0);">Edit contract</a>
     <a id="delete" href="javascript:void(0);">Delete contract</a>
 </div>
-<div class="addContract">
-    <a id="add" href="javascript:void(0);">Add contract</a>
-</div>
+</c:if>
+
 </body>
 </html>

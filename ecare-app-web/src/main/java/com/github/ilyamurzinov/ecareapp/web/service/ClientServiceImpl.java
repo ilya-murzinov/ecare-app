@@ -44,4 +44,9 @@ public class ClientServiceImpl implements ClientService {
     public void addClient(Client client) {
         clientDAO.addClient(client);
     }
+
+    @Override
+    public void removeClient(int id) {
+        clientDAO.removeClient(id);
+    }
 }

@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface OptionService {
     Option getOption(int id);
+
+    List<Option> getAllOptions();
 }

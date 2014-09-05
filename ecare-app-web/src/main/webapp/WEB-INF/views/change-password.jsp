@@ -4,7 +4,7 @@
 <head>
     <title></title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/styles.css">
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.js"></script>
     <script>
         $(document).ready(function () {
             $('#passwordBean').submit(

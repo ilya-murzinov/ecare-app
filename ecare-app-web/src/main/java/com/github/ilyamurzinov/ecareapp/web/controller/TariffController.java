@@ -1,11 +1,15 @@
 package com.github.ilyamurzinov.ecareapp.web.controller;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Tariff;
+import com.github.ilyamurzinov.ecareapp.web.service.OptionService;
 import com.github.ilyamurzinov.ecareapp.web.service.TariffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 /**
  * @author ilya-murzinov
@@ -16,24 +20,43 @@ public class TariffController {
     @Autowired
     private TariffService tariffService;
 
+    @Autowired
+    private OptionService optionService;
+
     @ModelAttribute
     public Tariff getContract() {
         return new Tariff();
     }
 
     @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView getTariff(@RequestParam int id) {
+        ModelAndView modelAndView = new ModelAndView("tariff");
+        modelAndView.addObject("tariff", tariffService.getTariff(id));
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "edit", method = RequestMethod.GET)
+    public ModelAndView getEditTariffForm(@RequestParam int id) {
+        ModelAndView modelAndView = new ModelAndView("edit-tariff");
+        modelAndView.addObject("tariff", tariffService.getTariff(id));
+        modelAndView.addObject("options", optionService.getAllOptions());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
     public
     @ResponseBody
-    ModelAndView getContract(@RequestParam int id) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("tariff", tariffService.getTariff(id));
-        modelAndView.setViewName("tariff");
-        return modelAndView;
+    String editTariff(
+            @Valid @RequestBody Tariff tariff,
+            BindingResult result
+    ) {
+        tariffService.updateTariff(tariff);
+        return "{}";
     }
 
     @RequestMapping("options")
     public ModelAndView getOptionsByTariff(@RequestParam("id") int tariffId) {
-        ModelAndView modelAndView = new ModelAndView("options");
+        ModelAndView modelAndView = new ModelAndView("fragments/options");
         modelAndView.addObject("tariff", tariffService.getTariff(tariffId));
         return modelAndView;
     }

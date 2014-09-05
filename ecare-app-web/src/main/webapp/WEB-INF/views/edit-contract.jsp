@@ -6,8 +6,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/styles.css"/>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.js"></script>
     <script>
         $(function () {
             updateOptions();

@@ -8,7 +8,7 @@
     <title></title>
 </head>
 <body>
-<p><c:import url="../header.jsp"/></p>
+<p><c:import url="header.jsp"/></p>
 <table border="1" class="clients">
     <c:forEach var="client" items="${clientList}">
         <tr>

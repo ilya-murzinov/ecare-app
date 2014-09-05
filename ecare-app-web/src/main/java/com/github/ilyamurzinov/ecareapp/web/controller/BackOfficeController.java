@@ -25,14 +25,8 @@ public class BackOfficeController {
         return SecurityHelper.getCurrentUser();
     }
 
-    @ModelAttribute
-    public List<Client> getClients() {
-        return clientService.getAllClients();
-    }
-
     @RequestMapping
     public ModelAndView index() {
-        ModelAndView modelAndView = new ModelAndView("backoffice/index");
-        return modelAndView;
+        return new ModelAndView("backoffice-index");
     }
 }

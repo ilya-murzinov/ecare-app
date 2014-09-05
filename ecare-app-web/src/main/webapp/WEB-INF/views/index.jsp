@@ -2,9 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/styles.css"/>
     <title></title>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/styles.css"/>
+    <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.js"></script>
     <script>
         $(function () {
             if (${param.passwordChanged == "true"}) {

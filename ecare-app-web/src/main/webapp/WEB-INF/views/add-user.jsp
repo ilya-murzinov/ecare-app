@@ -6,7 +6,7 @@
 <head>
     <title></title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/styles.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.js"></script>
     <script>
         $(function() {
             $("#user").submit(function() {

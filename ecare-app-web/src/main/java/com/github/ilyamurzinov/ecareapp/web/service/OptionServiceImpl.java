@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author ilya-murzinov
  */
@@ -18,5 +20,10 @@ public class OptionServiceImpl implements OptionService {
     @Override
     public Option getOption(int id) {
         return optionDAO.getOption(id);
+    }
+
+    @Override
+    public List<Option> getAllOptions() {
+        return optionDAO.getAllOptions();
     }
 }

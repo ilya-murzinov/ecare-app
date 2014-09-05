@@ -35,7 +35,7 @@ public class ContractController {
     public
     @ResponseBody
     ModelAndView getContract(int id) {
-        ModelAndView modelAndView = new ModelAndView("contract");
+        ModelAndView modelAndView = new ModelAndView("fragments/contract");
         modelAndView.addObject("contract", contractService.getContract(id));
         return modelAndView;
     }
