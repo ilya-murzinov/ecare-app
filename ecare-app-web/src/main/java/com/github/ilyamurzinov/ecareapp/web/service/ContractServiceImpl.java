@@ -48,6 +48,7 @@ public class ContractServiceImpl implements ContractService {
 
         contract.setTariff(tariffDAO.getTariff(tariffId));
         contract.setOptions(options);
+        contract.setBlocked(newContract.isBlocked());
         contractDAO.updateContract(contract);
     }
 

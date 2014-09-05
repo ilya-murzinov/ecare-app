@@ -13,6 +13,7 @@
             $("#contract").submit(function () {
                 var data = {
                     id: ${contract.id},
+                    blocked: $("#blocked").val(),
                     tariff: {
                         id: $("#tariff").val()
                     },
@@ -35,7 +36,7 @@
                     type: "POST",
                     success: function (response) {
                         alert("OK");
-                        window.location.replace($("#contract").attr("action"));
+                        history.go(-1);
                     },
                     error: function (xhr, status, error) {
                         alert("response: " + xhr.responseText + "\nerror: " + error);
@@ -57,16 +58,19 @@
             });
         });
         function updateOptions() {
-            $.ajax({
-                url: "${pageContext.servletContext.contextPath}/tariff/options?id=" + $("#tariff").val(),
-                type: "GET",
-                success: function (response) {
-                    $("#allOptions").html(response);
-                },
-                error: function (xhr, status, error) {
-                    alert("response: " + xhr.responseText + "\nerror: " + error);
-                }
-            });
+            var tariffId = $("#tariff").val();
+            if (tariffId) {
+                $.ajax({
+                    url: "${pageContext.servletContext.contextPath}/tariff/options?id=" + tariffId,
+                    type: "GET",
+                    success: function (response) {
+                        $("#allOptions").html(response);
+                    },
+                    error: function (xhr, status, error) {
+                        alert("response: " + xhr.responseText + "\nerror: " + error);
+                    }
+                });
+            }
         }
     </script>
 </head>
@@ -75,15 +79,14 @@
 <c:choose>
     <c:when test="${!contract.blocked || currentUser.admin}">
         <form:form action="edit" id="contract" method="POST" modelAttribute="contract">
-            <button type="button" onclick="history.go(-1);">Cancel</button>
-            <button type="submit">Save</button>
             <table>
                 <tr>
                     <td>Contract:</td>
                     <td>${contract.number}</td>
                 </tr>
-            </table>
-            <table>
+                <tr>
+                    <td><form:checkbox id="blocked" path="blocked" label="Blocked"/></td>
+                </tr>
                 <tr>
                     <td>Tariff</td>
                     <td>
@@ -111,11 +114,13 @@
                 </label>
                 <a id="add" href="javascript:void(0);">Add</a>
             </div>
+            <button type="submit">Save</button>
         </form:form>
     </c:when>
     <c:otherwise>
         <b>Contract is blocked</b>
     </c:otherwise>
 </c:choose>
+<button type="button" onclick="history.go(-1);">Cancel</button>
 </body>
 </html>

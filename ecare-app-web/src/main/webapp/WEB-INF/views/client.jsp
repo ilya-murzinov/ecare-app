@@ -13,9 +13,6 @@
             $("#edit").click(function () {
                 window.location.replace("${pageContext.request.contextPath}/contract/edit?id=" + $("#contract-select").val());
             });
-            $("#add").click(function() {
-                window.location.replace("${pageContext.request.contextPath}/contract/add?id=${param.id}");
-            });
             $("#delete").click(function () {
                 var data = $("#contract-select").val();
                 $.ajax({
@@ -123,7 +120,7 @@
     <c:if test="${currentUser.email == 'admin@mail.com'}">
         <a id="add" href="javascript:void(0);">Add contract</a>
     </c:if>
-    <a id="edit" href="javascript:void(0);">Edit contract</a>
+    <a id="edit" href="${pageContext.request.contextPath}/contract/edit?id=${param.id}">Edit contract</a>
     <a id="delete" href="javascript:void(0);">Delete contract</a>
 </div>
 </c:if>
