@@ -101,11 +101,6 @@ public class Contract implements Serializable {
         this.blockedByEmployee = blockedByEmployee;
     }
 
-    @AssertTrue
-    public boolean isValid() {
-        return false;
-    }
-
     @Override
     public String toString() {
         return String.valueOf(number);
