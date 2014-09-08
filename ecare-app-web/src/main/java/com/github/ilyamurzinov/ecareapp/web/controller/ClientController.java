@@ -5,6 +5,7 @@ import com.github.ilyamurzinov.ecareapp.common.domain.User;
 import com.github.ilyamurzinov.ecareapp.web.beans.UserBean;
 import com.github.ilyamurzinov.ecareapp.web.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,7 @@ public class ClientController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #id == this.currentUser.client.id")
     public ModelAndView getClientView(@RequestParam int id) {
         Client client = clientService.getClient(id);
         ModelAndView modelAndView = new ModelAndView("client");
@@ -38,6 +40,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "all", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getAllClients() {
         ModelAndView modelAndView = new ModelAndView("list-clients");
         modelAndView.addObject("clientsList", clientService.getAllClients());
@@ -45,6 +48,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #id == this.currentUser.client.id")
     public ModelAndView getEditClientForm(
             @RequestParam int id
     ) {
@@ -54,6 +58,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "edit",method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #client.id == this.currentUser.client.id")
     public String edit(
             @Valid @ModelAttribute("client") Client client,
             BindingResult result
@@ -66,6 +71,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getAddClientForm() {
         ModelAndView modelAndView = new ModelAndView("add-client");
         modelAndView.addObject("client", new Client());
@@ -73,6 +79,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String add(
             @Valid @ModelAttribute("client") Client client,
             BindingResult result
@@ -85,6 +92,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public
     @ResponseBody
     String delete(

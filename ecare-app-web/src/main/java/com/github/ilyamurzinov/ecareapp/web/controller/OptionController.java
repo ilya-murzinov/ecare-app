@@ -5,6 +5,7 @@ import com.github.ilyamurzinov.ecareapp.common.domain.Tariff;
 import com.github.ilyamurzinov.ecareapp.web.beans.UserBean;
 import com.github.ilyamurzinov.ecareapp.web.service.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,7 @@ public class OptionController {
     }
 
     @RequestMapping(value = "all")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getOptionsList() {
         ModelAndView modelAndView = new ModelAndView("list-options");
         modelAndView.addObject("optionsList", optionService.getAllOptions());
@@ -37,6 +39,7 @@ public class OptionController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getEditOptionForm(@RequestParam int id) {
         ModelAndView modelAndView = new ModelAndView("edit-option");
         modelAndView.addObject("option", optionService.getOption(id));
@@ -44,6 +47,7 @@ public class OptionController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public
     @ResponseBody
     String editTariff(
@@ -55,6 +59,7 @@ public class OptionController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getAddOptionForm() {
         ModelAndView modelAndView = new ModelAndView("add-option");
         modelAndView.addObject("option", new Option());
@@ -62,6 +67,7 @@ public class OptionController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public
     @ResponseBody
     String addOption(
@@ -73,6 +79,7 @@ public class OptionController {
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public
     @ResponseBody
     String deleteOption(

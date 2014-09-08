@@ -25,9 +25,6 @@ public class ContractController {
     private TariffService tariffService;
 
     @Autowired
-    private OptionService optionService;
-
-    @Autowired
     private SecurityHelper securityHelper;
 
     @ModelAttribute("currentUser")
@@ -45,6 +42,7 @@ public class ContractController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getAddContractForm(@RequestParam int id) {
         ModelAndView modelAndView = new ModelAndView("add-contract");
         modelAndView.addObject("contract", new Contract());
@@ -53,6 +51,7 @@ public class ContractController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public
     @ResponseBody
     String addContract(
@@ -63,14 +62,22 @@ public class ContractController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.GET)
-    public ModelAndView getEditContractForm(@RequestParam String id) {
+    @PreAuthorize("hasRole('ROLE_ADMIN') " +
+            "|| this.currentUser.client.contracts.contains(" +
+            "new com.github.ilyamurzinov.ecareapp.common.domain.Contract(#id)" +
+    ")")
+    public ModelAndView getEditContractForm(@RequestParam int id) {
         ModelAndView modelAndView = new ModelAndView("edit-contract");
-        modelAndView.addObject("contract", contractService.getContract(Integer.parseInt(id)));
+        modelAndView.addObject("contract", contractService.getContract(id));
         modelAndView.addObject("tariffs", tariffService.getAllTariffs());
         return modelAndView;
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN') " +
+            "|| this.currentUser.client.contracts.contains(" +
+            "new com.github.ilyamurzinov.ecareapp.common.domain.Contract(#id)" +
+    ")")
     public
     @ResponseBody
     String updateContract(
@@ -84,6 +91,7 @@ public class ContractController {
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public
     @ResponseBody
     String deleteContract(

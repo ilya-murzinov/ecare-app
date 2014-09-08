@@ -5,6 +5,7 @@ import com.github.ilyamurzinov.ecareapp.web.beans.UserBean;
 import com.github.ilyamurzinov.ecareapp.web.service.OptionService;
 import com.github.ilyamurzinov.ecareapp.web.service.TariffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,7 @@ public class TariffController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getTariff(@RequestParam int id) {
         ModelAndView modelAndView = new ModelAndView("tariff");
         modelAndView.addObject("tariff", tariffService.getTariff(id));
@@ -47,6 +49,7 @@ public class TariffController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getEditTariffForm(@RequestParam int id) {
         ModelAndView modelAndView = new ModelAndView("edit-tariff");
         modelAndView.addObject("tariff", tariffService.getTariff(id));
@@ -55,6 +58,7 @@ public class TariffController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public
     @ResponseBody
     String editTariff(
@@ -66,6 +70,7 @@ public class TariffController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getAddTariffForm() {
         ModelAndView modelAndView = new ModelAndView("add-tariff");
         modelAndView.addObject("tariff", new Tariff());
@@ -74,6 +79,7 @@ public class TariffController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public
     @ResponseBody
     String addTariff(
@@ -85,6 +91,7 @@ public class TariffController {
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public
     @ResponseBody
     String delete(

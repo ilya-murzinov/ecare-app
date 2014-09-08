@@ -37,6 +37,12 @@ public class Contract implements Serializable {
 
     private boolean blockedByEmployee;
 
+    public Contract() {}
+
+    public Contract(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
