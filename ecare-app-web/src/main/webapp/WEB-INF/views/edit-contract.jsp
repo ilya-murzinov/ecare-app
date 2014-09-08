@@ -10,6 +10,24 @@
     <script>
         $(function () {
             updateOptions();
+            var options = $("#options");
+            var allOptions = $("#allOptions");
+            var tariffSelect = $("#tariff");
+            var selectedTariff = tariffSelect.val();
+            tariffSelect.change(function () {
+                if (confirm("All options will be removed!")) {
+                    selectedTariff = tariffSelect.val();
+                    $('#options').find('option').remove();
+                } else {
+                    tariffSelect.val(selectedTariff);
+                }
+            });
+
+            $("#tariffDetails").click(function () {
+                if (confirm("You will lose all changes!")) {
+                    window.location.assign("${pageContext.servletContext.contextPath}/tariff?id=" + tariffSelect.val());
+                }
+            });
             $("#contract").submit(function () {
                 var data = {
                     id: ${contract.id},
@@ -20,7 +38,7 @@
                     options: []
                 };
 
-                $("#options").find("option").each(function () {
+                options.find("option").each(function () {
                     data.options.push({
                         id: $(this).val()
                     });
@@ -45,7 +63,8 @@
                 return false;
             });
             $("#removeOption").click(function () {
-                $('#options').find('option:selected').remove();
+                allOptions.append(options.find('option:selected'));
+                options.find('option:selected').remove();
             });
             $("#addOption").click(function () {
                 $('#allOptions-div').css("display", "block");
@@ -54,8 +73,8 @@
                 });
             });
             $("#add").click(function () {
-                $("#options").append($("#allOptions").find("option:selected"));
-                $('#allOptions-div').css("display", "none");
+                options.append(allOptions.find("option:selected"));
+                allOptions.find("option:selected").remove();
             });
         });
         function updateOptions() {
@@ -66,6 +85,9 @@
                     type: "GET",
                     success: function (response) {
                         $("#allOptions").html(response);
+                        $("#options").find("option").each(function() {
+                            $("#allOptions").find("option[value='" + $(this).val() + "']").remove();
+                        });
                     },
                     error: function (xhr, status, error) {
                         alert("response: " + xhr.responseText + "\nerror: " + error);
@@ -91,8 +113,12 @@
                 <tr>
                     <td>Tariff</td>
                     <td>
-                        <form:select path="tariff" id="tariff" items="${tariffs}" itemValue="id" itemLabel="name"
-                                     onchange="updateOptions();"/>
+                        <form:select path="tariff" id="tariff" items="${tariffs}" itemValue="id" itemLabel="name"/>
+                    </td>
+                    <td>
+                        <a id="tariffDetails" href="javascript:void(0);">
+                            View tariff details
+                        </a>
                     </td>
                 </tr>
             </table>
@@ -100,7 +126,7 @@
             <label>
                 <select id="options" size="5">
                     <c:forEach var="option" items="${contract.options}">
-                        <option value="${option.id}">${option.name}</option>
+                        <option value="${option.id}">${option}</option>
                     </c:forEach>
                 </select>
             </label>
@@ -117,6 +143,7 @@
                 </label>
                 <a id="add" href="javascript:void(0);">Add</a>
             </div>
+            <button type="button" onclick="history.go(-1);">Cancel</button>
             <button type="submit">Save</button>
         </form:form>
     </c:when>
@@ -124,6 +151,5 @@
         <b>Contract is blocked</b>
     </c:otherwise>
 </c:choose>
-<button type="button" onclick="history.go(-1);">Cancel</button>
 </body>
 </html>

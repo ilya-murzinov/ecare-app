@@ -3,7 +3,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head></head>
+<head>
+    <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/styles.css"/>
+    <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.js"></script>
+</head>
 <body>
 <table>
     <tr>
@@ -23,6 +26,8 @@
         </c:forEach>
     </select>
 </label>
-<a href="${pageContext.servletContext.contextPath}/tariff/edit?id=${tariff.id}">Edit tariff</a>
+<c:if test="${currentUser.admin}">
+    <a href="${pageContext.servletContext.contextPath}/tariff/edit?id=${tariff.id}">Edit tariff</a>
+</c:if>
 </body>
 </html>

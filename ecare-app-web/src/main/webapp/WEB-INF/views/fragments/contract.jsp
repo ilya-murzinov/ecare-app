@@ -24,7 +24,7 @@
     </tr>
     <tr>
         <td>Tariff:</td>
-        <td><b>${contract.tariff}</b></td>
+        <td><a href="${pageContext.servletContext.contextPath}/tariff?id=${contract.tariff.id}"><b>${contract.tariff}</b></a></td>
     </tr>
 </table>
 <p>Options:</p>

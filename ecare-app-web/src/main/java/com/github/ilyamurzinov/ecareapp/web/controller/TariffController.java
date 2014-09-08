@@ -41,7 +41,6 @@ public class TariffController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getTariff(@RequestParam int id) {
         ModelAndView modelAndView = new ModelAndView("tariff");
         modelAndView.addObject("tariff", tariffService.getTariff(id));

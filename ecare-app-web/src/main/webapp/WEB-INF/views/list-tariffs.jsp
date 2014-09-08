@@ -19,7 +19,7 @@
         <c:forEach var="tariff" items="${tariffsList}">
             <tr>
                 <td><b><a
-                        href="${pageContext.servletContext.contextPath}/tariff/edit?id=${tariff.id}">${tariff.name}</a></b>
+                        href="${pageContext.servletContext.contextPath}/tariff?id=${tariff.id}">${tariff.name}</a></b>
                 </td>
                 <td>${tariff.price}</td>
                 <td>
