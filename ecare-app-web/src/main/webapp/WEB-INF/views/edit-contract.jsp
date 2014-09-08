@@ -44,10 +44,10 @@
                 });
                 return false;
             });
-            $("#removeRequiredOption").click(function () {
+            $("#removeOption").click(function () {
                 $('#options').find('option:selected').remove();
             });
-            $("#addRequiredOption").click(function () {
+            $("#addOption").click(function () {
                 $('#allOptions-div').css("display", "block");
                 $(this).find('#add').click(function () {
                     $('#allOptions-div').css("display", "none");
@@ -55,6 +55,7 @@
             });
             $("#add").click(function () {
                 $("#options").append($("#allOptions").find("option:selected"));
+                $('#allOptions-div').css("display", "none");
             });
         });
         function updateOptions() {
