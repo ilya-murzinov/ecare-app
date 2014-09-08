@@ -19,7 +19,8 @@ create table contract(
   number long,
   tariff_id int,
   client_id int,
-  blocked bool
+  blocked bool,
+  blockedByEmployee bool
 );
 
 create table tariff(
@@ -107,19 +108,19 @@ insert into client(
 ######################################################
 
 insert into contract(
-  number, tariff_id, client_id, blocked
+  number, tariff_id, client_id, blocked, blockedByEmployee
 ) values (
-  1267854678, 3, 1, false
+  1267854678, 3, 1, false, false
 );
 insert into contract(
-  number, tariff_id, client_id, blocked
+  number, tariff_id, client_id, blocked, blockedByEmployee
 ) values (
-  6673747412, 2, 1, false
+  6673747412, 2, 1, false, false
 );
 insert into contract(
-  number, tariff_id, client_id, blocked
+  number, tariff_id, client_id, blocked, blockedByEmployee
 ) values (
-  54783223, 1, 1, false
+  54783223, 1, 1, false, false
 );
 
 ######################################################

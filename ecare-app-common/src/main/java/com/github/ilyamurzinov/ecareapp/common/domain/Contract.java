@@ -35,6 +35,8 @@ public class Contract implements Serializable {
 
     private boolean blocked;
 
+    private boolean blockedByEmployee;
+
     public int getId() {
         return id;
     }
@@ -81,6 +83,14 @@ public class Contract implements Serializable {
 
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
+    }
+
+    public boolean isBlockedByEmployee() {
+        return blockedByEmployee;
+    }
+
+    public void setBlockedByEmployee(boolean blockedByEmployee) {
+        this.blockedByEmployee = blockedByEmployee;
     }
 
     @Override

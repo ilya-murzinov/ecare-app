@@ -9,7 +9,10 @@
         <td>
             <b>
             <c:choose>
-                <c:when test="${contract.blocked}">
+                <c:when test="${contract.blocked && contract.blockedByEmployee}">
+                    Blocked by employee
+                </c:when>
+                <c:when test="${contract.blocked && !contract.blockedByEmployee}">
                     Blocked
                 </c:when>
                 <c:otherwise>

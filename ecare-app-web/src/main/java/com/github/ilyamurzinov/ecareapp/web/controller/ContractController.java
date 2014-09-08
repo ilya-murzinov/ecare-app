@@ -76,6 +76,9 @@ public class ContractController {
     String updateContract(
             @RequestBody Contract newContract
     ) {
+        if (getCurrentUser().isAdmin()) {
+            newContract.setBlockedByEmployee(true);
+        }
         contractService.updateContract(newContract);
         return "{}";
     }

@@ -13,7 +13,7 @@
             $("#contract").submit(function () {
                 var data = {
                     id: ${contract.id},
-                    blocked: $("#blocked").val(),
+                    blocked: $("#blocked").prop('checked'),
                     tariff: {
                         id: $("#tariff").val()
                     },
@@ -77,7 +77,7 @@
 <body>
 <p><c:import url="header.jsp"/></p>
 <c:choose>
-    <c:when test="${!contract.blocked || currentUser.admin}">
+    <c:when test="${!(contract.blocked && contract.blockedByEmployee) || currentUser.admin}">
         <form:form action="edit" id="contract" method="POST" modelAttribute="contract">
             <table>
                 <tr>

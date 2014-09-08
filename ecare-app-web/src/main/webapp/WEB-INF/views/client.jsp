@@ -11,7 +11,7 @@
         $(function () {
             update();
             $("#edit").click(function () {
-                window.location.replace("${pageContext.request.contextPath}/contract/edit?id=" + $("#contract-select").val());
+                window.location.assign("${pageContext.request.contextPath}/contract/edit?id=" + $("#contract-select").val());
             });
             $("#delete").click(function () {
                 var data = $("#contract-select").val();
@@ -92,7 +92,7 @@
     </tr>
 </table>
 <a href="${pageContext.servletContext.contextPath}/client/edit?id=${param.id}">Edit personal data</a>
-<c:if test="${currentUser.email == 'admin@mail.com'}">
+<c:if test="${currentUser.admin}">
     <a id="deleteClient" href="javascript:void(0);">Delete client</a>
 </c:if>
 
@@ -117,11 +117,11 @@
 
     </div>
 
-    <a id="edit" href="${pageContext.request.contextPath}/contract/edit?id=${param.id}">Edit contract</a>
+    <a id="edit" href="javascript:void(0);">Edit contract</a>
     <a id="delete" href="javascript:void(0);">Delete contract</a>
 </div>
 </c:if>
-<c:if test="${currentUser.email == 'admin@mail.com'}">
+<c:if test="${currentUser.admin}">
     <a id="add" href="${pageContext.request.contextPath}/contract/add?id=${param.id}">Add contract</a>
 </c:if>
 
