@@ -39,8 +39,8 @@ public class ClientController {
 
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public ModelAndView getAllClients() {
-        ModelAndView modelAndView = new ModelAndView("clients-list");
-        modelAndView.addObject("clientList", clientService.getAllClients());
+        ModelAndView modelAndView = new ModelAndView("list-clients");
+        modelAndView.addObject("clientsList", clientService.getAllClients());
         return modelAndView;
     }
 

@@ -16,6 +16,7 @@
                     client: {
                         id: ${param.id}
                     },
+                    number: $("#number").val(),
                     tariff: {
                         id: $("#tariff").val()
                     },
@@ -77,15 +78,11 @@
 <body>
 <p><c:import url="header.jsp"/></p>
 <form:form action="add" id="contract" method="POST" modelAttribute="contract">
-    <button type="button" onclick="history.go(-1);">Cancel</button>
-    <button type="submit">Save</button>
     <table>
         <tr>
             <td>Number:</td>
-            <td><form:input path="number"/></td>
+            <td><form:input id="number" path="number"/></td>
         </tr>
-    </table>
-    <table>
         <tr>
             <td>Tariff</td>
             <td>
@@ -113,6 +110,8 @@
         </label>
         <a id="add" href="javascript:void(0);">Add</a>
     </div>
+    <button type="button" onclick="history.go(-1);">Cancel</button>
+    <button type="submit">Save</button>
 </form:form>
 </body>
 </html>

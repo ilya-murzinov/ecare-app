@@ -18,7 +18,7 @@
         <td>Address</td>
         <td>E-mail</td>
     </tr>
-    <c:forEach var="client" items="${clientList}">
+    <c:forEach var="client" items="${clientsList}">
         <tr>
             <td><b><a href="${pageContext.servletContext.contextPath}/client?id=${client.id}">${client.lastname}</a></b></td>
             <td>${client.name}</td>

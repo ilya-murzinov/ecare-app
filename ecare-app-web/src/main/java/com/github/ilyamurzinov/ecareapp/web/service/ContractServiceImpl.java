@@ -65,6 +65,7 @@ public class ContractServiceImpl implements ContractService {
             options.add(optionDAO.getOption(option.getId()));
         }
 
+        contract.setNumber(newContract.getNumber());
         contract.setTariff(tariffDAO.getTariff(tariffId));
         contract.setOptions(options);
         contractDAO.addContract(contract);

@@ -8,20 +8,15 @@
     <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.js"></script>
     <script>
         $(function() {
-            $("#tariff").submit(function() {
+            $("#option").submit(function() {
                 var data = {
                     id: ${param.id},
                     name: $("#name").val(),
                     price: $("#price").val(),
-                    options: []
+                    subscriptionFee: $("#subscriptionFee").val()
                 };
-                $("#options").find("option").each(function() {
-                    data.options.push({
-                        id: $(this).val()
-                    });
-                });
                 $.ajax({
-                    url: "${pageContext.servletContext.contextPath}/tariff/edit",
+                    url: "${pageContext.servletContext.contextPath}/option/edit",
                     dataType: "json",
                     data: JSON.stringify(data),
                     headers: {
@@ -39,19 +34,9 @@
                 });
                 return false;
             });
-            $("#removeOption").click(function () {
-                $('#options').find('option:selected').remove();
-            });
-            $("#addOption").click(function () {
-                $('#allOptions-div').css("display", "block");
-            });
-            $("#add").click(function() {
-                $("#options").append($("#allOptions").find("option:selected"));
-                $('#allOptions-div').css("display", "none");
-            });
             $("#deleteOption").click(function () {
                 $.ajax({
-                    url: "${pageContext.request.contextPath}/tariff/delete",
+                    url: "${pageContext.request.contextPath}/option/delete",
                     data: "id=" + ${param.id},
                     type: "POST",
                     success: function (response) {
@@ -67,13 +52,13 @@
     </script>
 </head>
 <body>
-<form id="tariff">
+<form id="option">
     <table>
         <tr>
             <td>Name:</td>
             <td>
                 <label>
-                    <input id="name" type="text" value="${tariff.name}"/>
+                    <input id="name" type="text" value="${option.name}"/>
                 </label>
             </td>
         </tr>
@@ -81,36 +66,22 @@
             <td>Price:</td>
             <td>
                 <label>
-                    <input id="price" type="text" value="${tariff.price}"/>
+                    <input id="price" type="text" value="${option.price}"/>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>Subscription fee:</td>
+            <td>
+                <label>
+                    <input id="subscriptionFee" type="text" value="${option.subscriptionFee}"/>
                 </label>
             </td>
         </tr>
     </table>
-    <p>Options:</p>
-    <label>
-        <select id="options" size="5">
-            <c:forEach var="option" items="${tariff.options}">
-                <option value="${option.id}">${option}</option>
-            </c:forEach>
-        </select>
-    </label>
-    <div id="optionOperations">
-        <a id="addOption" href="javascript:void(0);">Add option</a>
-        <a id="removeOption" href="javascript:void(0);">Remove option</a>
-    </div>
-    <div id="allOptions-div" class="allOptions">
-        <label>
-            <select id="allOptions" size="5">
-                <c:forEach var="option" items="${options}">
-                    <option value="${option.id}">${option}</option>
-                </c:forEach>
-            </select>
-        </label>
-        <a id="add" href="javascript:void(0);">Add</a>
-    </div>
     <button type="button" onclick="history.go(-1);">Cancel</button>
     <button type="submit">Save</button>
 </form>
-<a id="deleteTariff" href="javascript:void(0);">Delete tariff</a>
+<a id="deleteOption" href="javascript:void(0);">Delete option</a>
 </body>
 </html>

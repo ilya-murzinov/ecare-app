@@ -26,4 +26,19 @@ public class OptionServiceImpl implements OptionService {
     public List<Option> getAllOptions() {
         return optionDAO.getAllOptions();
     }
+
+    @Override
+    public void updateOption(Option option) {
+        optionDAO.updateOption(option);
+    }
+
+    @Override
+    public void addOption(Option option) {
+        optionDAO.addOption(option);
+    }
+
+    @Override
+    public void removeOption(int id) {
+        optionDAO.removeOption(id);
+    }
 }

@@ -117,12 +117,12 @@
 
     </div>
 
-    <c:if test="${currentUser.email == 'admin@mail.com'}">
-        <a id="add" href="javascript:void(0);">Add contract</a>
-    </c:if>
     <a id="edit" href="${pageContext.request.contextPath}/contract/edit?id=${param.id}">Edit contract</a>
     <a id="delete" href="javascript:void(0);">Delete contract</a>
 </div>
+</c:if>
+<c:if test="${currentUser.email == 'admin@mail.com'}">
+    <a id="add" href="${pageContext.request.contextPath}/contract/add?id=${param.id}">Add contract</a>
 </c:if>
 
 </body>
