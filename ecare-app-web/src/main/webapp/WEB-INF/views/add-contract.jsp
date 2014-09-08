@@ -76,7 +76,7 @@
     </script>
 </head>
 <body>
-<p><c:import url="header.jsp"/></p>
+<c:import url="header.jsp"/>
 <form:form action="add" id="contract" method="POST" modelAttribute="contract">
     <table>
         <tr>

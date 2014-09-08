@@ -13,8 +13,16 @@
                     id: ${param.id},
                     name: $("#name").val(),
                     price: $("#price").val(),
-                    subscriptionFee: $("#subscriptionFee").val()
+                    subscriptionFee: $("#subscriptionFee").val(),
+                    requiredOptions: [],
+                    incompatibleOptions: []
                 };
+                $("#requiredOptions").find("option").each(function () {
+                    data.requiredOptions.push({ id: $(this).val() });
+                });
+                $("#incompatibleOptions").find("option").each(function () {
+                    data.incompatibleOptions.push({ id: $(this).val()});
+                });
                 $.ajax({
                     url: "${pageContext.servletContext.contextPath}/option/edit",
                     dataType: "json",
@@ -34,6 +42,28 @@
                 });
                 return false;
             });
+            $("#removeRequiredOption").click(function () {
+                $('#requiredOptions').find('option:selected').remove();
+            });
+            $("#addRequiredOption").click(function () {
+                $('#allRequiredOptions-div').css("display", "block");
+            });
+            $("#addRequired").click(function () {
+                $("#requiredOptions").append($("#allRequiredOptions-select").find("option:selected"));
+                $('#allRequiredOptions-div').css("display", "none");
+            });
+
+            $("#removeIncompatibleOption").click(function () {
+                $('#incompatibleOptions').find('option:selected').remove();
+            });
+            $("#addIncompatibleOption").click(function () {
+                $('#allIncompatibleOptions-div').css("display", "block");
+            });
+            $("#addIncompatible").click(function () {
+                $("#incompatibleOptions").append($("#allIncompatibleOptions-select").find("option:selected"));
+                $('#allIncompatibleOptions-div').css("display", "none");
+            });
+
             $("#deleteOption").click(function () {
                 $.ajax({
                     url: "${pageContext.request.contextPath}/option/delete",
@@ -76,6 +106,70 @@
                 <label>
                     <input id="subscriptionFee" type="text" value="${option.subscriptionFee}"/>
                 </label>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <p>Required options:</p>
+                <label>
+                    <select id="requiredOptions" size="5">
+                        <c:forEach var="option" items="${option.requiredOptions}">
+                            <option value="${option.id}">${option}</option>
+                        </c:forEach>
+                    </select>
+                </label>
+            </td>
+            <td>
+                <p>Incompatible options:</p>
+                <label>
+                    <select id="incompatibleOptions" size="5">
+                        <c:forEach var="option" items="${option.incompatibleOptions}">
+                            <option value="${option.id}">${option}</option>
+                        </c:forEach>
+                    </select>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="requiredOptionOperations">
+                    <a id="addRequiredOption" href="javascript:void(0);">Add required option</a>
+                    <a id="removeRequiredOption" href="javascript:void(0);">Remove required option</a>
+                </div>
+            </td>
+            <td>
+                <div id="optionOperations">
+                    <a id="addIncompatibleOption" href="javascript:void(0);">Add incompatible option</a>
+                    <a id="removeIncompatibleOption" href="javascript:void(0);">Remove incompatible option</a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="allRequiredOptions-div" class="allOptions">
+                    <label>
+                        <select id="allRequiredOptions-select" size="5">
+                            <c:forEach var="option" items="${optionsList}">
+                                <option value="${option.id}">${option}</option>
+                            </c:forEach>
+                        </select>
+                    </label>
+                    <a id="addRequired" href="javascript:void(0);">Add</a>
+                </div>
+            </td>
+            <td>
+                <div id="allIncompatibleOptions-div" class="allOptions">
+                    <label>
+                        <select id="allIncompatibleOptions-select" size="5">
+                            <c:forEach var="option" items="${optionsList}">
+                                <option value="${option.id}">${option}</option>
+                            </c:forEach>
+                        </select>
+                    </label>
+                    <a id="addIncompatible" href="javascript:void(0);">Add</a>
+                </div>
             </td>
         </tr>
     </table>

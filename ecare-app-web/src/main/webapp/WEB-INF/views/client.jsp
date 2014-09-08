@@ -63,7 +63,7 @@
     </script>
 </head>
 <body>
-<p><c:import url="header.jsp"/></p>
+<c:import url="header.jsp"/>
 
 <table>
     <tr>

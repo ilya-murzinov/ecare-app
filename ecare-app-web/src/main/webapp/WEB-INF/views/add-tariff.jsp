@@ -38,10 +38,10 @@
                 });
                 return false;
             });
-            $("#removeOption").click(function () {
+            $("#removeRequiredOption").click(function () {
                 $('#options').find('option:selected').remove();
             });
-            $("#addOption").click(function () {
+            $("#addRequiredOption").click(function () {
                 $('#allOptions-div').css("display", "block");
             });
             $("#add").click(function () {

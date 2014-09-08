@@ -8,24 +8,38 @@
     <title></title>
 </head>
 <body>
-<p><c:import url="header.jsp"/></p>
-<table border="1" class="clients">
-    <tr>
-        <td>Name</td>
-        <td>Price</td>
-        <td>Subscription fee</td>
-    </tr>
-    <c:forEach var="option" items="${optionsList}">
+<c:import url="header.jsp"/>
+<div class="main">
+    <table border="1" class="clients">
         <tr>
-            <td><b><a
-                    href="${pageContext.servletContext.contextPath}/option/edit?id=${option.id}">${option.name}</a></b>
-            </td>
-            <td>${option.price}</td>
-            <td>${option.subscriptionFee}</td>
+            <td>Name</td>
+            <td>Price</td>
+            <td>Subscription fee</td>
+            <td>Required options</td>
+            <td>Incompatible options</td>
         </tr>
-    </c:forEach>
-</table>
-<br/>
-<a href="${pageContext.servletContext.contextPath}/option/add">Add option</a>
+        <c:forEach var="option" items="${optionsList}">
+            <tr>
+                <td><b><a
+                        href="${pageContext.servletContext.contextPath}/option/edit?id=${option.id}">${option.name}</a></b>
+                </td>
+                <td>${option.price}</td>
+                <td>${option.subscriptionFee}</td>
+                <td>
+                    <c:forEach var="requiredOption" items="${option.requiredOptions}">
+                        ${requiredOption}<br/>
+                    </c:forEach>
+                </td>
+                <td>
+                    <c:forEach var="incompatibleOption" items="${option.incompatibleOptions}">
+                        ${incompatibleOption}<br/>
+                    </c:forEach>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+    <br/>
+    <a href="${pageContext.servletContext.contextPath}/option/add">Add option</a>
+</div>
 </body>
 </html>

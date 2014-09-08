@@ -16,9 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("backoffice")
 public class BackOfficeController {
     @Autowired
-    private ClientService clientService;
-
-    @Autowired
     private SecurityHelper securityHelper;
 
     @ModelAttribute("currentUser")

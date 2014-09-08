@@ -19,14 +19,12 @@ public class PasswordController {
     @Autowired
     private UserService userService;
 
-    private PasswordBean passwordBean;
-
     @Autowired
     private SecurityHelper securityHelper;
 
     @ModelAttribute
     public PasswordBean getPasswordBean() {
-        return passwordBean == null ? new PasswordBean() : passwordBean;
+        return new PasswordBean();
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -38,16 +36,15 @@ public class PasswordController {
     public
     @ResponseBody
     String changePassword(
-            @Valid @ModelAttribute("passwordBean") PasswordBean passwordBean,
+            @Valid @RequestBody PasswordBean passwordBean,
             BindingResult result
     ) {
-        this.passwordBean = passwordBean;
-        if (!result.hasErrors()) {
-            int userId = (securityHelper.getCurrentUser()).getId();
-            userService.changePassword(userId, passwordBean.getCurrentPassword(), passwordBean.getNewPassword());
-            return "OK";
+        if (result.hasErrors()) {
+            return BindingResultHelper.getMessage(result);
         }
-        return null;
+        int userId = (securityHelper.getCurrentUser()).getId();
+        userService.changePassword(userId, passwordBean.getCurrentPassword(), passwordBean.getNewPassword());
+        return "{}";
     }
 
     @ExceptionHandler(value = IllegalStateException.class)

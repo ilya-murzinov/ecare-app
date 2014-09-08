@@ -38,7 +38,7 @@
     </script>
 </head>
 <body>
-<p><c:import url="header.jsp"/></p>
+<c:import url="header.jsp"/>
 
 <form:form id="user" method="POST" modelAttribute="user">
     <fieldset>

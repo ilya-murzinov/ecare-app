@@ -14,14 +14,12 @@
     </script>
 </head>
 <body>
-<p><c:import url="header.jsp"/></p>
+<c:import url="header.jsp"/>
 
 <div id="password-changed-message">
     <p>Password successfully changed!</p>
 </div>
 
-<p><a href="${pageContext.servletContext.contextPath}/clientoffice">For clients</a></p>
-
-<p><a href="${pageContext.servletContext.contextPath}/backoffice">For employees</a></p>
+<p><a href="${pageContext.servletContext.contextPath}/login">Login</a></p>
 </body>
 </html>

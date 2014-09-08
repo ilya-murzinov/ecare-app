@@ -2,6 +2,7 @@ package com.github.ilyamurzinov.ecareapp.web.controller;
 
 import com.github.ilyamurzinov.ecareapp.web.beans.UserBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,14 @@ public class MainController {
 
     @RequestMapping
     public ModelAndView index() {
-        return new ModelAndView("index");
+        if (!SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+            if (getCurrentUser().isAdmin()) {
+                return new ModelAndView("backoffice-index");
+            } else {
+                return new ModelAndView("redirect:client?id=" + getCurrentUser().getClient().getId());
+            }
+        } else {
+            return new ModelAndView("index");
+        }
     }
 }

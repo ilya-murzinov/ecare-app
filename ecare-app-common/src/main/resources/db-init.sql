@@ -38,6 +38,18 @@ CREATE TABLE t_option (
   price            DOUBLE
 );
 
+CREATE TABLE required_option (
+  id         INT KEY AUTO_INCREMENT,
+  option1_id INT,
+  option2_id INT
+);
+
+CREATE TABLE incompatible_option (
+  id         INT KEY AUTO_INCREMENT,
+  option1_id INT,
+  option2_id INT
+);
+
 CREATE TABLE tariff_option (
   id        INT KEY AUTO_INCREMENT,
   tariff_id INT,
@@ -195,14 +207,26 @@ INSERT INTO t_option (
   'super option 8', 1.12, 15
 );
 
+INSERT INTO required_option (
+  option1_id, option2_id
+) VALUES (
+  1, 1
+);
+
+INSERT INTO incompatible_option (
+  option1_id, option2_id
+) VALUES (
+  1, 2
+);
+
 ######################################################
 # Option to tariff
 ######################################################
 
 INSERT INTO tariff_option (
-  tariff_id, option_id
+tariff_id, option_id
 ) VALUES (
-  1, 1
+1, 1
 );
 INSERT INTO tariff_option (
   tariff_id, option_id

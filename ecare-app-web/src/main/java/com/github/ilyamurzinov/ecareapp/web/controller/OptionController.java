@@ -42,6 +42,7 @@ public class OptionController {
     public ModelAndView getEditOptionForm(@RequestParam int id) {
         ModelAndView modelAndView = new ModelAndView("edit-option");
         modelAndView.addObject("option", optionService.getOption(id));
+        modelAndView.addObject("optionsList", optionService.getAllOptions());
         return modelAndView;
     }
 
@@ -62,6 +63,7 @@ public class OptionController {
     public ModelAndView getAddOptionForm() {
         ModelAndView modelAndView = new ModelAndView("add-option");
         modelAndView.addObject("option", new Option());
+        modelAndView.addObject("optionsList", optionService.getAllOptions());
         return modelAndView;
     }
 

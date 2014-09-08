@@ -1,8 +1,11 @@
 package com.github.ilyamurzinov.ecareapp.common.domain;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * @author ilya-murzinov
@@ -23,6 +26,20 @@ public class Option implements Serializable {
 
     @NotNull(message = "Price must be defined")
     private double price;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "required_option",
+            joinColumns = @JoinColumn(name = "option1_id"),
+            inverseJoinColumns = @JoinColumn(name = "option2_id")
+    )
+    private Set<Option> requiredOptions;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "incompatible_option",
+            joinColumns = @JoinColumn(name = "option1_id"),
+            inverseJoinColumns = @JoinColumn(name = "option2_id")
+    )
+    private Set<Option> incompatibleOptions;
 
     public int getId() {
         return id;
@@ -54,6 +71,22 @@ public class Option implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Set<Option> getRequiredOptions() {
+        return requiredOptions;
+    }
+
+    public void setRequiredOptions(Set<Option> requiredOptions) {
+        this.requiredOptions = requiredOptions;
+    }
+
+    public Set<Option> getIncompatibleOptions() {
+        return incompatibleOptions;
+    }
+
+    public void setIncompatibleOptions(Set<Option> incompatibleOptions) {
+        this.incompatibleOptions = incompatibleOptions;
     }
 
     @Override

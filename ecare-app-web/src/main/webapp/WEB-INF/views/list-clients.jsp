@@ -8,36 +8,38 @@
     <title></title>
 </head>
 <body>
-<p><c:import url="header.jsp"/></p>
-<table border="1" class="clients">
-    <tr>
-        <td>Last name</td>
-        <td>Name</td>
-        <td>Passport</td>
-        <td>Date of birth</td>
-        <td>Address</td>
-        <td>E-mail</td>
-    </tr>
-    <c:forEach var="client" items="${clientsList}">
+<c:import url="header.jsp"/>
+<div class="main">
+    <table border="1" class="clients">
         <tr>
-            <td><b><a href="${pageContext.servletContext.contextPath}/client?id=${client.id}">${client.lastname}</a></b>
-            </td>
-            <td>${client.name}</td>
-            <td>${client.passport}</td>
-            <td>${client.dateOfBirth}</td>
-            <td>${client.address}</td>
-            <c:choose>
-                <c:when test="${client.user.email != null}">
-                    <td>${client.user.email}</td>
-                </c:when>
-                <c:when test="${client.user.email == null}">
-                    <td><a href="${pageContext.servletContext.contextPath}/user/add?id=${client.id}">Register</a></td>
-                </c:when>
-            </c:choose>
+            <td>Last name</td>
+            <td>Name</td>
+            <td>Passport</td>
+            <td>Date of birth</td>
+            <td>Address</td>
+            <td>E-mail</td>
         </tr>
-    </c:forEach>
-</table>
-<br/>
-<a href="${pageContext.servletContext.contextPath}/client/add">Add client</a>
+        <c:forEach var="client" items="${clientsList}">
+            <tr>
+                <td><b><a href="${pageContext.servletContext.contextPath}/client?id=${client.id}">${client.lastname}</a></b>
+                </td>
+                <td>${client.name}</td>
+                <td>${client.passport}</td>
+                <td>${client.dateOfBirth}</td>
+                <td>${client.address}</td>
+                <c:choose>
+                    <c:when test="${client.user.email != null}">
+                        <td>${client.user.email}</td>
+                    </c:when>
+                    <c:when test="${client.user.email == null}">
+                        <td><a href="${pageContext.servletContext.contextPath}/user/add?id=${client.id}">Register</a></td>
+                    </c:when>
+                </c:choose>
+            </tr>
+        </c:forEach>
+    </table>
+    <br/>
+    <a href="${pageContext.servletContext.contextPath}/client/add">Add client</a>
+</div>
 </body>
 </html>

@@ -39,15 +39,15 @@
                         history.go(-1);
                     },
                     error: function (xhr, status, error) {
-                        alert("response: " + xhr.responseText + "\nerror: " + error);
+                        alert(xhr.responseText);
                     }
                 });
                 return false;
             });
-            $("#removeOption").click(function () {
+            $("#removeRequiredOption").click(function () {
                 $('#options').find('option:selected').remove();
             });
-            $("#addOption").click(function () {
+            $("#addRequiredOption").click(function () {
                 $('#allOptions-div').css("display", "block");
                 $(this).find('#add').click(function () {
                     $('#allOptions-div').css("display", "none");
@@ -75,7 +75,7 @@
     </script>
 </head>
 <body>
-<p><c:import url="header.jsp"/></p>
+<c:import url="header.jsp"/>
 <c:choose>
     <c:when test="${!(contract.blocked && contract.blockedByEmployee) || currentUser.admin}">
         <form:form action="edit" id="contract" method="POST" modelAttribute="contract">

@@ -9,7 +9,7 @@
     <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.js"></script>
 </head>
 <body>
-<p><c:import url="header.jsp"/></p>
+<c:import url="header.jsp"/>
 
 <form:form action="${pageContext.servletContext.contextPath}/client/add" id="client" method="POST"
            modelAttribute="client">

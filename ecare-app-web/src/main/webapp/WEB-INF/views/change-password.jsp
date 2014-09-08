@@ -21,9 +21,12 @@
                             url: $("#sampleForm").attr("action"),
                             data: JSON.stringify(data),
                             type: "POST",
-
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
                             success: function (response) {
-                                window.location.replace("${pageContext.servletContext.contextPath}?passwordChanged=true");
+                                window.location.assign("${pageContext.servletContext.contextPath}?passwordChanged=true");
                             },
                             error: function (xhr, status, error) {
                                 alert(xhr.responseText);

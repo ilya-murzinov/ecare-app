@@ -8,7 +8,7 @@
     <title></title>
 </head>
 <body>
-<p><c:import url="header.jsp"/></p>
+<c:import url="header.jsp"/>
 <a href="${pageContext.servletContext.contextPath}/client/all">Clients</a><br/>
 <a href="${pageContext.servletContext.contextPath}/tariff/all">Tariffs</a><br/>
 <a href="${pageContext.servletContext.contextPath}/option/all">Options</a><br/>

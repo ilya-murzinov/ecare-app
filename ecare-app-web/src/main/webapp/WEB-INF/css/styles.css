@@ -11,6 +11,10 @@ div.contract {
     float: right;
 }
 
+.main {
+    clear: both;
+}
+
 .allOptions {
     display: none;
 }

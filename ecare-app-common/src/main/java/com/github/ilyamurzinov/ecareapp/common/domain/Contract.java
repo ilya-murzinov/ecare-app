@@ -1,6 +1,7 @@
 package com.github.ilyamurzinov.ecareapp.common.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
@@ -98,6 +99,11 @@ public class Contract implements Serializable {
 
     public void setBlockedByEmployee(boolean blockedByEmployee) {
         this.blockedByEmployee = blockedByEmployee;
+    }
+
+    @AssertTrue
+    public boolean isValid() {
+        return false;
     }
 
     @Override

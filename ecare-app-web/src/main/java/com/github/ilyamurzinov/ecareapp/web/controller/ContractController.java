@@ -5,10 +5,16 @@ import com.github.ilyamurzinov.ecareapp.web.beans.UserBean;
 import com.github.ilyamurzinov.ecareapp.web.service.ContractService;
 import com.github.ilyamurzinov.ecareapp.web.service.TariffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 
 /**
  * @author ilya-murzinov
@@ -53,7 +59,7 @@ public class ContractController {
     public
     @ResponseBody
     String addContract(
-            @RequestBody Contract contract
+            @Valid @RequestBody Contract contract
     ) {
         contractService.addContract(contract);
         return "{}";
@@ -74,13 +80,17 @@ public class ContractController {
     @RequestMapping(value = "edit", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_ADMIN') " +
             "|| this.currentUser.client.contracts.contains(" +
-            "new com.github.ilyamurzinov.ecareapp.common.domain.Contract(#id)" +
+            "new com.github.ilyamurzinov.ecareapp.common.domain.Contract(#newContract.id)" +
             ")")
     public
     @ResponseBody
     String updateContract(
-            @RequestBody Contract newContract
+            @Valid @RequestBody Contract newContract,
+            BindingResult result
     ) {
+        if (result.hasErrors()) {
+            return BindingResultHelper.getMessage(result);
+        }
         if (getCurrentUser().isAdmin()) {
             newContract.setBlockedByEmployee(true);
         }
