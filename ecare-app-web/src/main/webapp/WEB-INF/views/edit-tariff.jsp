@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/styles.css">
     <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.js"></script>
     <script>
-        $(function() {
-            $("#tariff").submit(function() {
+        $(function () {
+            $("#tariff").submit(function () {
                 var data = {
                     id: ${param.id},
                     name: $("#name").val(),
                     price: $("#price").val(),
                     options: []
                 };
-                $("#options").find("option").each(function() {
+                $("#options").find("option").each(function () {
                     data.options.push({
                         id: $(this).val()
                     });
@@ -45,7 +45,7 @@
             $("#addOption").click(function () {
                 $('#allOptions-div').css("display", "block");
             });
-            $("#add").click(function() {
+            $("#add").click(function () {
                 $("#options").append($("#allOptions").find("option:selected"));
                 $('#allOptions-div').css("display", "none");
             });
@@ -94,6 +94,7 @@
             </c:forEach>
         </select>
     </label>
+
     <div id="optionOperations">
         <a id="addOption" href="javascript:void(0);">Add option</a>
         <a id="removeOption" href="javascript:void(0);">Remove option</a>

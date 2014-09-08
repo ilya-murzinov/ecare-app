@@ -13,7 +13,8 @@ import java.security.NoSuchAlgorithmException;
 public class Util {
     private static Logger logger = LogManager.getLogger(Util.class);
 
-    private Util() {}
+    private Util() {
+    }
 
     public static String getMd5Hash(String input) {
         MessageDigest m;
@@ -22,11 +23,11 @@ public class Util {
             m.reset();
             m.update(input.getBytes());
             byte[] digest = m.digest();
-            BigInteger bigInt = new BigInteger(1,digest);
+            BigInteger bigInt = new BigInteger(1, digest);
             String hashtext = bigInt.toString(16);
 
-            while(hashtext.length() < 32 ){
-                hashtext = "0"+hashtext;
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
             }
 
             return hashtext;

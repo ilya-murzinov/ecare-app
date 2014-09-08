@@ -1,7 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.common.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 

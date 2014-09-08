@@ -1,7 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.web.service;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Client;
-import com.github.ilyamurzinov.ecareapp.common.domain.User;
 import com.github.ilyamurzinov.ecareapp.web.beans.UserBean;
 import com.github.ilyamurzinov.ecareapp.web.controller.SecurityHelper;
 import com.github.ilyamurzinov.ecareapp.web.dao.ClientDAO;

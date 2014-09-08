@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/styles.css">
     <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.js"></script>
     <script>
-        $(function() {
-            $("#option").submit(function() {
+        $(function () {
+            $("#option").submit(function () {
                 var data = {
                     id: ${param.id},
                     name: $("#name").val(),

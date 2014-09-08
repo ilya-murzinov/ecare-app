@@ -1,7 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.web.controller;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Option;
-import com.github.ilyamurzinov.ecareapp.common.domain.Tariff;
 import com.github.ilyamurzinov.ecareapp.web.beans.UserBean;
 import com.github.ilyamurzinov.ecareapp.web.service.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;

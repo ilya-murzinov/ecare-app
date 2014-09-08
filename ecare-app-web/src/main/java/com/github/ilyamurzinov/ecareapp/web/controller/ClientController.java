@@ -1,7 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.web.controller;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Client;
-import com.github.ilyamurzinov.ecareapp.common.domain.User;
 import com.github.ilyamurzinov.ecareapp.web.beans.UserBean;
 import com.github.ilyamurzinov.ecareapp.web.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +56,7 @@ public class ClientController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "edit",method = RequestMethod.POST)
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_ADMIN') || #client.id == this.currentUser.client.id")
     public String edit(
             @Valid @ModelAttribute("client") Client client,

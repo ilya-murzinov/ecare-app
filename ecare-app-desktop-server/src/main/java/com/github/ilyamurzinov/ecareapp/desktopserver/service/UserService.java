@@ -7,5 +7,6 @@ import com.github.ilyamurzinov.ecareapp.common.domain.User;
  */
 public interface UserService {
     User getUser(String login);
+
     void updateUser(User user);
 }

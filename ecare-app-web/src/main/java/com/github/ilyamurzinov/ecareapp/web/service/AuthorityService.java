@@ -7,5 +7,6 @@ import com.github.ilyamurzinov.ecareapp.common.domain.Authority;
  */
 public interface AuthorityService {
     Authority getClientAuthority();
+
     Authority getAdminAuthority();
 }

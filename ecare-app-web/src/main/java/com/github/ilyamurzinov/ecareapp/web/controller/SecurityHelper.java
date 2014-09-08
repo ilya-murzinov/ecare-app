@@ -2,7 +2,6 @@ package com.github.ilyamurzinov.ecareapp.web.controller;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.User;
 import com.github.ilyamurzinov.ecareapp.web.beans.UserBean;
-import com.github.ilyamurzinov.ecareapp.web.dao.AuthorityDAO;
 import com.github.ilyamurzinov.ecareapp.web.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

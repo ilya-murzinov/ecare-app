@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/styles.css">
     <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.js"></script>
     <script>
-        $(function() {
-            $("#user").submit(function() {
+        $(function () {
+            $("#user").submit(function () {
                 var data = {
                     user: {
                         email: $("#email").val(),
@@ -25,7 +25,7 @@
                         'Content-Type': 'application/json'
                     },
                     method: "POST",
-                    success: function(response) {
+                    success: function (response) {
                         alert(response);
                     },
                     error: function (xhr, status, error) {

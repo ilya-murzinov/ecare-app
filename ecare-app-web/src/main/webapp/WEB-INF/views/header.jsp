@@ -11,10 +11,10 @@
             <td><a href="${pageContext.servletContext.contextPath}">Home</a></td>
             <td>
                 <c:if test="${currentUser.email != 'nobody'}">
-                <div id="links">
-                    <a href="${pageContext.servletContext.contextPath}/logout">Logout</a>
-                    <a href="${pageContext.servletContext.contextPath}/change-password">Change password</a>
-                </div>
+                    <div id="links">
+                        <a href="${pageContext.servletContext.contextPath}/logout">Logout</a>
+                        <a href="${pageContext.servletContext.contextPath}/change-password">Change password</a>
+                    </div>
                 </c:if>
             </td>
         </tr>

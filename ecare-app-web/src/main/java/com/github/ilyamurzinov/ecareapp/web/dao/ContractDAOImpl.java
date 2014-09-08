@@ -1,11 +1,11 @@
 package com.github.ilyamurzinov.ecareapp.web.dao;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Contract;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  * @author ilya-murzinov

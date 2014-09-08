@@ -17,7 +17,9 @@
     </tr>
     <c:forEach var="option" items="${optionsList}">
         <tr>
-            <td><b><a href="${pageContext.servletContext.contextPath}/option/edit?id=${option.id}">${option.name}</a></b></td>
+            <td><b><a
+                    href="${pageContext.servletContext.contextPath}/option/edit?id=${option.id}">${option.name}</a></b>
+            </td>
             <td>${option.price}</td>
             <td>${option.subscriptionFee}</td>
         </tr>

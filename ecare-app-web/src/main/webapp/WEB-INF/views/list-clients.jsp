@@ -20,7 +20,8 @@
     </tr>
     <c:forEach var="client" items="${clientsList}">
         <tr>
-            <td><b><a href="${pageContext.servletContext.contextPath}/client?id=${client.id}">${client.lastname}</a></b></td>
+            <td><b><a href="${pageContext.servletContext.contextPath}/client?id=${client.id}">${client.lastname}</a></b>
+            </td>
             <td>${client.name}</td>
             <td>${client.passport}</td>
             <td>${client.dateOfBirth}</td>

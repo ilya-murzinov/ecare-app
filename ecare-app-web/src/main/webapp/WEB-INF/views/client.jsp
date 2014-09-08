@@ -32,7 +32,7 @@
                     }
                 });
             });
-            $("#deleteClient").click(function() {
+            $("#deleteClient").click(function () {
                 $.ajax({
                     url: "${pageContext.request.contextPath}/client/delete",
                     data: "id=" + ${param.id},
@@ -97,29 +97,29 @@
 </c:if>
 
 <c:if test="${!empty(client.contracts)}">
-<div id="contract-select-div">
-    <table>
-        <tr>
-            <td>Contract:</td>
-            <td>
-                <label>
-                    <select id="contract-select" onchange="update()">
-                        <c:forEach var="item" items="${client.contracts}">
-                            <option value="${item.id}">${item.number}</option>
-                        </c:forEach>
-                    </select>
-                </label>
-            </td>
-        </tr>
-    </table>
+    <div id="contract-select-div">
+        <table>
+            <tr>
+                <td>Contract:</td>
+                <td>
+                    <label>
+                        <select id="contract-select" onchange="update()">
+                            <c:forEach var="item" items="${client.contracts}">
+                                <option value="${item.id}">${item.number}</option>
+                            </c:forEach>
+                        </select>
+                    </label>
+                </td>
+            </tr>
+        </table>
 
-    <div class="contract" id="contract">
+        <div class="contract" id="contract">
 
+        </div>
+
+        <a id="edit" href="javascript:void(0);">Edit contract</a>
+        <a id="delete" href="javascript:void(0);">Delete contract</a>
     </div>
-
-    <a id="edit" href="javascript:void(0);">Edit contract</a>
-    <a id="delete" href="javascript:void(0);">Delete contract</a>
-</div>
 </c:if>
 <c:if test="${currentUser.admin}">
     <a id="add" href="${pageContext.request.contextPath}/contract/add?id=${param.id}">Add contract</a>

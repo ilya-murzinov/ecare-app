@@ -46,10 +46,12 @@ public class TariffController {
                     optionsListView.getOptionsListModel().addElement(option);
                 }
             }
+
             @Override
             public void windowActivated(WindowEvent e) {
                 updateView();
             }
+
             @Override
             public void windowDeactivated(WindowEvent e) {
                 cache.setTariff(getTariffFromView());

@@ -119,7 +119,8 @@ public class Server {
                             tariffService.getTariff(((Tariff) object).getId())
                     );
                 }
-            } if (method.equals("GET_ALL")) {
+            }
+            if (method.equals("GET_ALL")) {
                 if (object instanceof Client) {
                     objectOutputStream.writeObject(
                             clientService.getAllClients()

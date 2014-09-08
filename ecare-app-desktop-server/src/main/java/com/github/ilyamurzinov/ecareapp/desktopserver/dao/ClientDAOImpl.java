@@ -4,7 +4,6 @@ import com.github.ilyamurzinov.ecareapp.common.domain.Client;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class ClientDAOImpl implements ClientDAO {
 
     @Override
     public void removeClient(EntityManager entityManager, int id) {
-        Client client = getClient(entityManager,id);
+        Client client = getClient(entityManager, id);
         if (client != null) {
             entityManager.remove(client);
         }

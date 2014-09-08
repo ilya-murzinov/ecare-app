@@ -7,7 +7,10 @@ import com.github.ilyamurzinov.ecareapp.common.domain.User;
  */
 public interface UserDAO {
     User getUser(int id);
+
     User getUser(String login);
+
     void updateUser(User user);
+
     void addUser(User user);
 }

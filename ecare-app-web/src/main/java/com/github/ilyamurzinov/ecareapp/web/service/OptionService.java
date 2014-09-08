@@ -9,8 +9,12 @@ import java.util.List;
  */
 public interface OptionService {
     Option getOption(int id);
+
     List<Option> getAllOptions();
+
     void updateOption(Option option);
+
     void addOption(Option option);
+
     void removeOption(int id);
 }

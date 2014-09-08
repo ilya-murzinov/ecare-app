@@ -9,5 +9,6 @@ import javax.persistence.EntityManager;
  */
 public interface UserDAO {
     User getUser(EntityManager entityManager, String login);
+
     void updateUser(EntityManager entityManager, User user);
 }

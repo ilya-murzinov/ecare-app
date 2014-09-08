@@ -1,7 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.web.service;
 
 import com.github.ilyamurzinov.ecareapp.common.Util;
-import com.github.ilyamurzinov.ecareapp.common.domain.Authority;
 import com.github.ilyamurzinov.ecareapp.common.domain.User;
 import com.github.ilyamurzinov.ecareapp.web.controller.PasswordException;
 import com.github.ilyamurzinov.ecareapp.web.dao.AuthorityDAO;

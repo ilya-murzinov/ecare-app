@@ -9,8 +9,12 @@ import java.util.List;
  */
 public interface TariffService {
     Tariff getTariff(int id);
+
     List<Tariff> getAllTariffs();
+
     void updateTariff(Tariff tariff);
+
     void addTariff(Tariff tariff);
+
     void removeTariff(int id);
 }

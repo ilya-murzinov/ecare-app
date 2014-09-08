@@ -1,10 +1,8 @@
 package com.github.ilyamurzinov.ecareapp.web.controller;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Contract;
-import com.github.ilyamurzinov.ecareapp.common.domain.User;
 import com.github.ilyamurzinov.ecareapp.web.beans.UserBean;
 import com.github.ilyamurzinov.ecareapp.web.service.ContractService;
-import com.github.ilyamurzinov.ecareapp.web.service.OptionService;
 import com.github.ilyamurzinov.ecareapp.web.service.TariffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -65,7 +63,7 @@ public class ContractController {
     @PreAuthorize("hasRole('ROLE_ADMIN') " +
             "|| this.currentUser.client.contracts.contains(" +
             "new com.github.ilyamurzinov.ecareapp.common.domain.Contract(#id)" +
-    ")")
+            ")")
     public ModelAndView getEditContractForm(@RequestParam int id) {
         ModelAndView modelAndView = new ModelAndView("edit-contract");
         modelAndView.addObject("contract", contractService.getContract(id));
@@ -77,7 +75,7 @@ public class ContractController {
     @PreAuthorize("hasRole('ROLE_ADMIN') " +
             "|| this.currentUser.client.contracts.contains(" +
             "new com.github.ilyamurzinov.ecareapp.common.domain.Contract(#id)" +
-    ")")
+            ")")
     public
     @ResponseBody
     String updateContract(

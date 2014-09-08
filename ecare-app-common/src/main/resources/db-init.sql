@@ -1,105 +1,107 @@
-CREATE USER admin@localhost identified BY 'admin';
-GRANT usage ON *.* TO admin@localhost identified BY 'admin';
+CREATE USER admin@localhost
+  IDENTIFIED BY 'admin';
+GRANT USAGE ON *.* TO admin@localhost
+IDENTIFIED BY 'admin';
 DROP DATABASE IF EXISTS ecare;
 CREATE DATABASE IF NOT EXISTS ecare;
-GRANT ALL privileges ON ecare.* TO admin@localhost;
+GRANT ALL PRIVILEGES ON ecare.* TO admin@localhost;
 USE ecare;
 
-create table client(
-  id int key auto_increment,
-  name varchar(32),
-  lastname varchar(32),
-  date_of_birth date,
-  passport varchar(200),
-  address varchar(200)
+CREATE TABLE client (
+  id            INT KEY AUTO_INCREMENT,
+  name          VARCHAR(32),
+  lastname      VARCHAR(32),
+  date_of_birth DATE,
+  passport      VARCHAR(200),
+  address       VARCHAR(200)
 );
 
-create table contract(
-  id int key auto_increment,
-  number long,
-  tariff_id int,
-  client_id int,
-  blocked bool,
-  blockedByEmployee bool
+CREATE TABLE contract (
+  id                INT KEY AUTO_INCREMENT,
+  number            LONG,
+  tariff_id         INT,
+  client_id         INT,
+  blocked           BOOL,
+  blockedByEmployee BOOL
 );
 
-create table tariff(
-  id int key auto_increment,
-  name varchar(32),
-  price double
+CREATE TABLE tariff (
+  id    INT KEY AUTO_INCREMENT,
+  name  VARCHAR(32),
+  price DOUBLE
 );
 
-create table t_option(
-  id int key auto_increment,
-  name varchar(32),
-  subscription_fee double,
-  price double
+CREATE TABLE t_option (
+  id               INT KEY AUTO_INCREMENT,
+  name             VARCHAR(32),
+  subscription_fee DOUBLE,
+  price            DOUBLE
 );
 
-create table tariff_option(
-  id int key auto_increment,
-  tariff_id int,
-  option_id int
+CREATE TABLE tariff_option (
+  id        INT KEY AUTO_INCREMENT,
+  tariff_id INT,
+  option_id INT
 );
 
-create table contract_option(
-  id int key auto_increment,
-  contract_id int,
-  option_id int
+CREATE TABLE contract_option (
+  id          INT KEY AUTO_INCREMENT,
+  contract_id INT,
+  option_id   INT
 );
 
-create table ecare.user
+CREATE TABLE ecare.user
 (
-    id int key auto_increment,
-    email varchar(32) NOT NULL,
-    password varchar(100) NOT NULL,
-    client_id int
+  id        INT KEY AUTO_INCREMENT,
+  email     VARCHAR(32)  NOT NULL,
+  password  VARCHAR(100) NOT NULL,
+  client_id INT
 );
 
-create table authority
+CREATE TABLE authority
 (
-  id int key auto_increment,
-  authority varchar(32)
+  id        INT KEY AUTO_INCREMENT,
+  authority VARCHAR(32)
 );
 
-create table user_authority
+CREATE TABLE user_authority
 (
-  id int key auto_increment,
-  user_id int,
-  authority_id int
+  id           INT KEY AUTO_INCREMENT,
+  user_id      INT,
+  authority_id INT
 );
 
 ######################################################
 # Client
 ######################################################
 
-insert into client(
+INSERT INTO client (
   name, lastname, date_of_birth, passport, address
-) values (
+) VALUES (
   'Ivan', 'Ivanov', '1990-02-02', '123123123 asdkljdhsf fjfjjdsf', 'asdhjgh 1278h nwfhasd'
 );
 
-insert into client(
+INSERT INTO client (
   name, lastname, date_of_birth, passport, address
-) values (
+) VALUES (
   'Semen', 'Semenov', '1993-03-12', 'asjk777234hfhfhfhf', 'ads123sdf2455435'
 );
 
-insert into client(
+INSERT INTO client (
   name, lastname, date_of_birth, passport, address
-) values (
+) VALUES (
   'Sergey', 'Servgeev', '1982-04-22', 'kjjjdjdjdjdjdasd', '1111111111111'
 );
 
-insert into client(
+INSERT INTO client (
   name, lastname, date_of_birth, passport, address
-) values (
+) VALUES (
   'Stepan', 'Stepanov', '1978-11-18', 'seerrersereesese', 'dgkjdfjdjfjdd'
 );
 
-insert into client(
+INSERT INTO client (
   name, lastname, date_of_birth, passport, address
-) values (
+) VALUES (
   'Alexey', 'Alexeev', '1983-07-21', 'aagagagagaaaasdasd134134 3423 54', 'dfkjhsdgfkj2784678234678'
 );
 
@@ -107,44 +109,44 @@ insert into client(
 # Contract
 ######################################################
 
-insert into contract(
+INSERT INTO contract (
   number, tariff_id, client_id, blocked, blockedByEmployee
-) values (
-  1267854678, 3, 1, false, false
+) VALUES (
+  1267854678, 3, 1, FALSE, FALSE
 );
-insert into contract(
+INSERT INTO contract (
   number, tariff_id, client_id, blocked, blockedByEmployee
-) values (
-  6673747412, 2, 1, false, false
+) VALUES (
+  6673747412, 2, 1, FALSE, FALSE
 );
-insert into contract(
+INSERT INTO contract (
   number, tariff_id, client_id, blocked, blockedByEmployee
-) values (
-  54783223, 1, 1, false, false
+) VALUES (
+  54783223, 1, 1, FALSE, FALSE
 );
 
 ######################################################
 # Tariff
 ######################################################
 
-insert into tariff(
+INSERT INTO tariff (
   name, price
-) values (
+) VALUES (
   'super tariff', 12.0
 );
-insert into tariff(
+INSERT INTO tariff (
   name, price
-) values (
+) VALUES (
   'super tariff 2', 13.0
 );
-insert into tariff(
+INSERT INTO tariff (
   name, price
-) values (
+) VALUES (
   'super tariff 3', 14.0
 );
-insert into tariff(
+INSERT INTO tariff (
   name, price
-) values (
+) VALUES (
   'super tariff 4', 15.0
 );
 
@@ -152,44 +154,44 @@ insert into tariff(
 # Option
 ######################################################
 
-insert into t_option(
+INSERT INTO t_option (
   name, subscription_fee, price
-) values (
+) VALUES (
   'super option', 120.12, 30
 );
-insert into t_option(
+INSERT INTO t_option (
   name, subscription_fee, price
-) values (
+) VALUES (
   'super option 2', 10.12, 120
 );
-insert into t_option(
+INSERT INTO t_option (
   name, subscription_fee, price
-) values (
+) VALUES (
   'super option 3', 20.4, 42
 );
-insert into t_option(
+INSERT INTO t_option (
   name, subscription_fee, price
-) values (
+) VALUES (
   'super option 4', 1.12, 15
 );
-insert into t_option(
+INSERT INTO t_option (
   name, subscription_fee, price
-) values (
+) VALUES (
   'super option 5', 120.12, 30
 );
-insert into t_option(
+INSERT INTO t_option (
   name, subscription_fee, price
-) values (
+) VALUES (
   'super option 6', 10.12, 120
 );
-insert into t_option(
+INSERT INTO t_option (
   name, subscription_fee, price
-) values (
+) VALUES (
   'super option 7', 20.4, 42
 );
-insert into t_option(
+INSERT INTO t_option (
   name, subscription_fee, price
-) values (
+) VALUES (
   'super option 8', 1.12, 15
 );
 
@@ -197,89 +199,89 @@ insert into t_option(
 # Option to tariff
 ######################################################
 
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   1, 1
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   1, 3
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   1, 4
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   1, 7
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   2, 2
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   2, 3
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   2, 6
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   2, 7
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   3, 4
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   3, 1
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   3, 2
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   3, 8
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   4, 1
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   4, 3
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   4, 5
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   4, 7
 );
-insert into tariff_option(
+INSERT INTO tariff_option (
   tariff_id, option_id
-) values (
+) VALUES (
   4, 2
 );
 
@@ -287,34 +289,34 @@ insert into tariff_option(
 # Option to contract
 ######################################################
 
-insert into contract_option(
+INSERT INTO contract_option (
   contract_id, option_id
-) values (
+) VALUES (
   1, 4
 );
-insert into contract_option(
+INSERT INTO contract_option (
   contract_id, option_id
-) values (
+) VALUES (
   2, 3
 );
-insert into contract_option(
+INSERT INTO contract_option (
   contract_id, option_id
-) values (
+) VALUES (
   2, 2
 );
-insert into contract_option(
+INSERT INTO contract_option (
   contract_id, option_id
-) values (
+) VALUES (
   3, 1
 );
-insert into contract_option(
+INSERT INTO contract_option (
   contract_id, option_id
-) values (
+) VALUES (
   3, 3
 );
-insert into contract_option(
+INSERT INTO contract_option (
   contract_id, option_id
-) values (
+) VALUES (
   3, 4
 );
 
@@ -322,38 +324,38 @@ insert into contract_option(
 # User
 ######################################################
 
-insert into user(
+INSERT INTO user (
   email, password, client_id
-) values(
+) VALUES (
   'admin@mail.com', '21232f297a57a5a743894a0e4a801fc3', NULL
 );
 
-insert into user(
+INSERT INTO user (
   email, password, client_id
-) values(
+) VALUES (
   'user@mail.com', 'ee11cbb19052e40b07aac0ca060c23ee', 1
 );
 
-insert into authority (
+INSERT INTO authority (
   authority
-) values (
+) VALUES (
   'ROLE_ADMIN'
 );
 
-insert into authority (
+INSERT INTO authority (
   authority
-) values (
+) VALUES (
   'ROLE_CLIENT'
 );
 
-insert into user_authority (
+INSERT INTO user_authority (
   user_id, authority_id
-) values (
+) VALUES (
   1, 1
 );
 
-insert into user_authority (
+INSERT INTO user_authority (
   user_id, authority_id
-) values (
+) VALUES (
   2, 2
 );

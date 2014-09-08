@@ -52,11 +52,11 @@
             });
             $("#addOption").click(function () {
                 $('#allOptions-div').css("display", "block");
-                $(this).find('#add').click(function() {
+                $(this).find('#add').click(function () {
                     $('#allOptions-div').css("display", "none");
                 });
             });
-            $("#add").click(function() {
+            $("#add").click(function () {
                 $("#options").append($("#allOptions").find("option:selected"));
                 $('#allOptions-div').css("display", "none");
             });
@@ -86,7 +86,8 @@
         <tr>
             <td>Tariff</td>
             <td>
-                <form:select path="tariff" id="tariff" items="${tariffs}" itemValue="id" itemLabel="name" onchange="updateOptions();"/>
+                <form:select path="tariff" id="tariff" items="${tariffs}" itemValue="id" itemLabel="name"
+                             onchange="updateOptions();"/>
             </td>
         </tr>
     </table>
@@ -98,6 +99,7 @@
             </c:forEach>
         </select>
     </label>
+
     <div id="optionOperations">
         <a id="addOption" href="javascript:void(0);">Add option</a>
         <a id="removeOption" href="javascript:void(0);">Remove option</a>

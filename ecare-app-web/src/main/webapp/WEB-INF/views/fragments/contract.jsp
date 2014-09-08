@@ -8,17 +8,17 @@
         <td>Status:</td>
         <td>
             <b>
-            <c:choose>
-                <c:when test="${contract.blocked && contract.blockedByEmployee}">
-                    Blocked by employee
-                </c:when>
-                <c:when test="${contract.blocked && !contract.blockedByEmployee}">
-                    Blocked
-                </c:when>
-                <c:otherwise>
-                    Active
-                </c:otherwise>
-            </c:choose>
+                <c:choose>
+                    <c:when test="${contract.blocked && contract.blockedByEmployee}">
+                        Blocked by employee
+                    </c:when>
+                    <c:when test="${contract.blocked && !contract.blockedByEmployee}">
+                        Blocked
+                    </c:when>
+                    <c:otherwise>
+                        Active
+                    </c:otherwise>
+                </c:choose>
             </b>
         </td>
     </tr>

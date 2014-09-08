@@ -5,8 +5,12 @@ import com.github.ilyamurzinov.ecareapp.common.domain.Contract;
 import com.github.ilyamurzinov.ecareapp.common.domain.Option;
 import com.github.ilyamurzinov.ecareapp.common.domain.Tariff;
 import com.github.ilyamurzinov.ecareapp.desktopclient.cache.Cache;
-import com.github.ilyamurzinov.ecareapp.desktopclient.service.*;
-import com.github.ilyamurzinov.ecareapp.desktopclient.view.*;
+import com.github.ilyamurzinov.ecareapp.desktopclient.service.ClientService;
+import com.github.ilyamurzinov.ecareapp.desktopclient.service.ContractService;
+import com.github.ilyamurzinov.ecareapp.desktopclient.service.TariffService;
+import com.github.ilyamurzinov.ecareapp.desktopclient.view.DialogView;
+import com.github.ilyamurzinov.ecareapp.desktopclient.view.MainWindowUserView;
+import com.github.ilyamurzinov.ecareapp.desktopclient.view.OptionsListView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

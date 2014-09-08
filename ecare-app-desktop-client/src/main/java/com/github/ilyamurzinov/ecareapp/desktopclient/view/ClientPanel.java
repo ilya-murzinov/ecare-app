@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * @author ilya-murzinov

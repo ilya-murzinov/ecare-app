@@ -3,7 +3,9 @@ package com.github.ilyamurzinov.ecareapp.web.dao;
 import com.github.ilyamurzinov.ecareapp.common.domain.User;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  * @author ilya-murzinov
