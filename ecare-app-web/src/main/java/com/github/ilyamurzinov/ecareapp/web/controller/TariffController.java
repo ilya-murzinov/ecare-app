@@ -1,6 +1,7 @@
 package com.github.ilyamurzinov.ecareapp.web.controller;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Tariff;
+import com.github.ilyamurzinov.ecareapp.web.beans.UserBean;
 import com.github.ilyamurzinov.ecareapp.web.service.OptionService;
 import com.github.ilyamurzinov.ecareapp.web.service.TariffService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,19 @@ public class TariffController {
     @Autowired
     private OptionService optionService;
 
-    @ModelAttribute
-    public Tariff getContract() {
-        return new Tariff();
+    @Autowired
+    private SecurityHelper securityHelper;
+
+    @ModelAttribute("currentUser")
+    public UserBean getCurrentUser() {
+        return securityHelper.getCurrentUser();
+    }
+
+    @RequestMapping(value = "all")
+    private ModelAndView getAllTariffs() {
+        ModelAndView modelAndView = new ModelAndView("tariffs-list");
+        modelAndView.addObject("tariffsList", tariffService.getAllTariffs());
+        return modelAndView;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -51,6 +62,35 @@ public class TariffController {
             BindingResult result
     ) {
         tariffService.updateTariff(tariff);
+        return "{}";
+    }
+
+    @RequestMapping(value = "add", method = RequestMethod.GET)
+    public ModelAndView getAddTariffForm() {
+        ModelAndView modelAndView = new ModelAndView("add-tariff");
+        modelAndView.addObject("tariff", new Tariff());
+        modelAndView.addObject("options", optionService.getAllOptions());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String addTariff(
+            @Valid @RequestBody Tariff tariff,
+            BindingResult result
+    ) {
+        tariffService.addTariff(tariff);
+        return "{}";
+    }
+
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String delete(
+            @RequestParam("id") int id
+    ) {
+        tariffService.removeTariff(id);
         return "{}";
     }
 

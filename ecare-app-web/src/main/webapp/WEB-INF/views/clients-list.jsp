@@ -10,6 +10,14 @@
 <body>
 <p><c:import url="header.jsp"/></p>
 <table border="1" class="clients">
+    <tr>
+        <td>Last name</td>
+        <td>Name</td>
+        <td>Passport</td>
+        <td>Date of birth</td>
+        <td>Address</td>
+        <td>E-mail</td>
+    </tr>
     <c:forEach var="client" items="${clientList}">
         <tr>
             <td><b><a href="${pageContext.servletContext.contextPath}/client?id=${client.id}">${client.lastname}</a></b></td>

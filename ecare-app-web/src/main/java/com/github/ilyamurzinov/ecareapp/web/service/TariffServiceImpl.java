@@ -49,4 +49,25 @@ public class TariffServiceImpl implements TariffService {
 
         tariffDAO.updateTariff(tariff);
     }
+
+    @Override
+    public void addTariff(Tariff newTariff) {
+        Tariff tariff = new Tariff();
+
+        Set<Option> options = new HashSet<Option>();
+        for (Option option : newTariff.getOptions()) {
+            options.add(optionDAO.getOption(option.getId()));
+        }
+
+        tariff.setName(newTariff.getName());
+        tariff.setPrice(newTariff.getPrice());
+        tariff.setOptions(options);
+
+        tariffDAO.addTariff(tariff);
+    }
+
+    @Override
+    public void removeTariff(int id) {
+        tariffDAO.removeTariff(id);
+    }
 }

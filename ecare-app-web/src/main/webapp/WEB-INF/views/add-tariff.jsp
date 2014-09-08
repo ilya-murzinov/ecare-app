@@ -10,7 +10,6 @@
         $(function() {
             $("#tariff").submit(function() {
                 var data = {
-                    id: ${param.id},
                     name: $("#name").val(),
                     price: $("#price").val(),
                     options: []
@@ -21,7 +20,7 @@
                     });
                 });
                 $.ajax({
-                    url: "${pageContext.servletContext.contextPath}/tariff/edit",
+                    url: "${pageContext.servletContext.contextPath}/tariff/add",
                     dataType: "json",
                     data: JSON.stringify(data),
                     headers: {
@@ -49,20 +48,6 @@
                 $("#options").append($("#allOptions").find("option:selected"));
                 $('#allOptions-div').css("display", "none");
             });
-            $("#deleteTariff").click(function () {
-                $.ajax({
-                    url: "${pageContext.request.contextPath}/tariff/delete",
-                    data: "id=" + ${param.id},
-                    type: "POST",
-                    success: function (response) {
-                        alert("OK");
-                        history.go(-1);
-                    },
-                    error: function (xhr, status, error) {
-                        alert(xhr.responseText);
-                    }
-                });
-            })
         });
     </script>
 </head>
@@ -111,6 +96,5 @@
     <button type="button" onclick="history.go(-1);">Cancel</button>
     <button type="submit">Save</button>
 </form>
-<a id="deleteTariff" href="javascript:void(0);">Delete tariff</a>
 </body>
 </html>
