@@ -34,7 +34,7 @@ public class TariffController {
     }
 
     @RequestMapping(value = "all")
-    private ModelAndView getAllTariffs() {
+    public ModelAndView getAllTariffs() {
         ModelAndView modelAndView = new ModelAndView("list-tariffs");
         modelAndView.addObject("tariffsList", tariffService.getAllTariffs());
         return modelAndView;
