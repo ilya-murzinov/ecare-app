@@ -8,9 +8,9 @@ import com.github.ilyamurzinov.ecareapp.common.domain.Contract;
 public interface ContractService {
     Contract getContract(int id);
 
-    void updateContract(Contract newContract);
+    String updateContract(Contract newContract);
 
-    void addContract(Contract newContract);
+    String addContract(Contract newContract);
 
     void deleteContract(int id);
 }

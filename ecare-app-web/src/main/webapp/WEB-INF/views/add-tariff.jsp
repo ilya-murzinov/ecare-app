@@ -55,6 +55,7 @@
     </script>
 </head>
 <body>
+<c:import url="header.jsp"/>
 <form id="tariff">
     <table>
         <tr>

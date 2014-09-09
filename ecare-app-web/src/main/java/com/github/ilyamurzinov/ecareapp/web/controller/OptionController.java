@@ -54,6 +54,9 @@ public class OptionController {
             @Valid @RequestBody Option option,
             BindingResult result
     ) {
+        if (result.hasErrors()) {
+            return BindingResultHelper.getMessage(result);
+        }
         optionService.updateOption(option);
         return "{}";
     }
@@ -75,6 +78,9 @@ public class OptionController {
             @Valid @RequestBody Option option,
             BindingResult result
     ) {
+        if (result.hasErrors()) {
+            return BindingResultHelper.getMessage(result);
+        }
         optionService.addOption(option);
         return "{}";
     }

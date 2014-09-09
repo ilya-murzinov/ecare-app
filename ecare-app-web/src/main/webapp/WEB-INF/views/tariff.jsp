@@ -26,6 +26,7 @@
     </script>
 </head>
 <body>
+<c:import url="header.jsp"/>
 <table>
     <tr>
         <td>Name:</td>

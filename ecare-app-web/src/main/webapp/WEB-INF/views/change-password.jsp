@@ -38,6 +38,7 @@
     </script>
 </head>
 <body>
+<c:import url="header.jsp"/>
 <h2>Change your password</h2>
 <form:form method="POST" id="passwordBean" modelAttribute="passwordBean">
     <fieldset>

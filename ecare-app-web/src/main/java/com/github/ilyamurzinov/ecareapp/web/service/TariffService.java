@@ -12,9 +12,9 @@ public interface TariffService {
 
     List<Tariff> getAllTariffs();
 
-    void updateTariff(Tariff tariff);
+    String updateTariff(Tariff tariff);
 
-    void addTariff(Tariff tariff);
+    String addTariff(Tariff tariff);
 
     void removeTariff(int id);
 }

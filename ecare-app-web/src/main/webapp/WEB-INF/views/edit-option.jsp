@@ -42,6 +42,14 @@
                 });
                 return false;
             });
+
+            $("#requiredOptions").find("option").each(function() {
+                $("#allRequiredOptions-select").find("option[value='" + $(this).val() + "']").remove();
+            });
+            $("#incompatibleOptions").find("option").each(function() {
+                $("#allIncompatibleOptions-select").find("option[value='" + $(this).val() + "']").remove();
+            });
+
             $("#removeRequiredOption").click(function () {
                 $("#allRequiredOptions-select").append($("#requiredOptions").find("option:selected"));
                 $('#requiredOptions').find('option:selected').remove();
@@ -84,6 +92,7 @@
     </script>
 </head>
 <body>
+<c:import url="header.jsp"/>
 <form id="option">
     <table>
         <tr>

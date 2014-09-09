@@ -64,7 +64,14 @@ public class TariffController {
             @Valid @RequestBody Tariff tariff,
             BindingResult result
     ) {
-        tariffService.updateTariff(tariff);
+        if (result.hasErrors()) {
+            return BindingResultHelper.getMessage(result);
+        }
+
+        String message = tariffService.updateTariff(tariff);
+        if (message != null) {
+            return message;
+        }
         return "{}";
     }
 
@@ -88,7 +95,10 @@ public class TariffController {
         if (result.hasErrors()) {
             return BindingResultHelper.getMessage(result);
         }
-        tariffService.addTariff(tariff);
+        String message = tariffService.addTariff(tariff);
+        if (message != null) {
+            return message;
+        }
         return "{}";
     }
 

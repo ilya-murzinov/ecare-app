@@ -34,15 +34,18 @@
                         history.go(-1);
                     },
                     error: function (xhr, status, error) {
-                        alert("response: " + xhr.responseText + "\nerror: " + error);
+                        alert(xhr.responseText);
                     }
                 });
                 return false;
             });
-            $("#removeRequiredOption").click(function () {
+            $("#options").find("option").each(function() {
+                $("#allOptions").find("option[value='" + $(this).val() + "']").remove();
+            });
+            $("#removeOption").click(function () {
                 $('#options').find('option:selected').remove();
             });
-            $("#addRequiredOption").click(function () {
+            $("#addOption").click(function () {
                 $('#allOptions-div').css("display", "block");
             });
             $("#add").click(function () {
@@ -53,6 +56,7 @@
     </script>
 </head>
 <body>
+<c:import url="header.jsp"/>
 <form id="tariff">
     <table>
         <tr>

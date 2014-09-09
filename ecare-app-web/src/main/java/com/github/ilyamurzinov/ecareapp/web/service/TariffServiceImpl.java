@@ -35,7 +35,7 @@ public class TariffServiceImpl implements TariffService {
     }
 
     @Override
-    public void updateTariff(Tariff newTariff) {
+    public String updateTariff(Tariff newTariff) {
         Tariff tariff = tariffDAO.getTariff(newTariff.getId());
 
         Set<Option> options = new HashSet<Option>();
@@ -43,15 +43,21 @@ public class TariffServiceImpl implements TariffService {
             options.add(optionDAO.getOption(option.getId()));
         }
 
+        String message = OptionsValidator.validate(options);
+        if (message != null) {
+            return message;
+        }
+
         tariff.setName(newTariff.getName());
         tariff.setPrice(newTariff.getPrice());
         tariff.setOptions(options);
 
         tariffDAO.updateTariff(tariff);
+        return null;
     }
 
     @Override
-    public void addTariff(Tariff newTariff) {
+    public String addTariff(Tariff newTariff) {
         Tariff tariff = new Tariff();
 
         Set<Option> options = new HashSet<Option>();
@@ -59,11 +65,17 @@ public class TariffServiceImpl implements TariffService {
             options.add(optionDAO.getOption(option.getId()));
         }
 
+        String message = OptionsValidator.validate(options);
+        if (message != null) {
+            return message;
+        }
+
         tariff.setName(newTariff.getName());
         tariff.setPrice(newTariff.getPrice());
         tariff.setOptions(options);
 
         tariffDAO.addTariff(tariff);
+        return null;
     }
 
     @Override

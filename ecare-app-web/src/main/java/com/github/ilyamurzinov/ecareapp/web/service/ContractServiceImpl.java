@@ -38,7 +38,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public void updateContract(Contract newContract) {
+    public String updateContract(Contract newContract) {
         Contract contract = contractDAO.getContract(newContract.getId());
         int tariffId = newContract.getTariff().getId();
         Set<Option> newOptions = newContract.getOptions();
@@ -47,15 +47,22 @@ public class ContractServiceImpl implements ContractService {
             options.add(optionDAO.getOption(option.getId()));
         }
 
+        String message = OptionsValidator.validate(options);
+        if (message != null) {
+            return message;
+        }
+
         contract.setTariff(tariffDAO.getTariff(tariffId));
         contract.setOptions(options);
         contract.setBlocked(newContract.isBlocked());
         contract.setBlockedByEmployee(newContract.isBlockedByEmployee());
         contractDAO.updateContract(contract);
+
+        return null;
     }
 
     @Override
-    public void addContract(Contract newContract) {
+    public String addContract(Contract newContract) {
         Contract contract = new Contract();
 
         contract.setClient(clientDAO.getClient(newContract.getClient().getId()));
@@ -67,10 +74,17 @@ public class ContractServiceImpl implements ContractService {
             options.add(optionDAO.getOption(option.getId()));
         }
 
+        String message = OptionsValidator.validate(options);
+        if (message != null) {
+            return message;
+        }
+
         contract.setNumber(newContract.getNumber());
         contract.setTariff(tariffDAO.getTariff(tariffId));
         contract.setOptions(options);
         contractDAO.addContract(contract);
+
+        return null;
     }
 
     @Override

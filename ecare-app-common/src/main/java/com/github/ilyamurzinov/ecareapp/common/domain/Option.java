@@ -1,8 +1,7 @@
 package com.github.ilyamurzinov.ecareapp.common.domain;
 
-import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
@@ -40,6 +39,16 @@ public class Option implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "option2_id")
     )
     private Set<Option> incompatibleOptions;
+
+    @AssertTrue(message = "Required options can not contain incompatible option and other way around")
+    public boolean isValid() {
+        for (Option requiredOption : requiredOptions) {
+            if (incompatibleOptions.contains(requiredOption)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public int getId() {
         return id;

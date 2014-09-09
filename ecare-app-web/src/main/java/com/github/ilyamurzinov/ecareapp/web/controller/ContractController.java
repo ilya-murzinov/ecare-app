@@ -59,9 +59,18 @@ public class ContractController {
     public
     @ResponseBody
     String addContract(
-            @Valid @RequestBody Contract contract
+            @Valid @RequestBody Contract contract,
+            BindingResult result
     ) {
-        contractService.addContract(contract);
+        if (result.hasErrors()) {
+            return BindingResultHelper.getMessage(result);
+        }
+
+        String message = contractService.addContract(contract);
+        if (message != null) {
+            return message;
+        }
+
         return "{}";
     }
 
@@ -94,7 +103,12 @@ public class ContractController {
         if (getCurrentUser().isAdmin()) {
             newContract.setBlockedByEmployee(true);
         }
-        contractService.updateContract(newContract);
+
+        String message = contractService.updateContract(newContract);
+        if (message != null) {
+            return message;
+        }
+
         return "{}";
     }
 
