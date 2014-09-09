@@ -68,9 +68,6 @@
             });
             $("#addOption").click(function () {
                 $('#allOptions-div').css("display", "block");
-                $(this).find('#add').click(function () {
-                    $('#allOptions-div').css("display", "none");
-                });
             });
             $("#add").click(function () {
                 options.append(allOptions.find("option:selected"));

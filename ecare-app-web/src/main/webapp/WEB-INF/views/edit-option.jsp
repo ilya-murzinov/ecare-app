@@ -43,6 +43,7 @@
                 return false;
             });
             $("#removeRequiredOption").click(function () {
+                $("#allRequiredOptions-select").append($("#requiredOptions").find("option:selected"));
                 $('#requiredOptions').find('option:selected').remove();
             });
             $("#addRequiredOption").click(function () {
@@ -50,10 +51,11 @@
             });
             $("#addRequired").click(function () {
                 $("#requiredOptions").append($("#allRequiredOptions-select").find("option:selected"));
-                $('#allRequiredOptions-div').css("display", "none");
+                $('#allRequiredOptions-select').find('option:selected').remove();
             });
 
             $("#removeIncompatibleOption").click(function () {
+                $("#allIncompatibleOptions-select").append($("#incompatibleOptions").find("option:selected"));
                 $('#incompatibleOptions').find('option:selected').remove();
             });
             $("#addIncompatibleOption").click(function () {
@@ -61,7 +63,7 @@
             });
             $("#addIncompatible").click(function () {
                 $("#incompatibleOptions").append($("#allIncompatibleOptions-select").find("option:selected"));
-                $('#allIncompatibleOptions-div').css("display", "none");
+                $('#allIncompatibleOptions-select').find('option:selected').remove();
             });
 
             $("#deleteOption").click(function () {

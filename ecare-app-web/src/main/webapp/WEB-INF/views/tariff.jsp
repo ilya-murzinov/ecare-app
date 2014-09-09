@@ -6,6 +6,24 @@
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/styles.css"/>
     <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.js"></script>
+    <script>
+        $(function () {
+            $("#deleteTariff").click(function () {
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/tariff/delete",
+                    data: "id=" + ${param.id},
+                    type: "POST",
+                    success: function (response) {
+                        alert("OK");
+                        history.go(-1);
+                    },
+                    error: function (xhr, status, error) {
+                        alert(xhr.responseText);
+                    }
+                });
+            })
+        })
+    </script>
 </head>
 <body>
 <table>
@@ -27,7 +45,10 @@
     </select>
 </label>
 <c:if test="${currentUser.admin}">
-    <a href="${pageContext.servletContext.contextPath}/tariff/edit?id=${tariff.id}">Edit tariff</a>
+    <div>
+        <a href="${pageContext.servletContext.contextPath}/tariff/edit?id=${tariff.id}">Edit tariff</a>
+        <a id="deleteTariff" href="javascript:void(0);">Delete tariff</a>
+    </div>
 </c:if>
 </body>
 </html>

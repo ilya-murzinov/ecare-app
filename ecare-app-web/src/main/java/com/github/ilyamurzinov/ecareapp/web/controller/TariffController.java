@@ -85,6 +85,9 @@ public class TariffController {
             @Valid @RequestBody Tariff tariff,
             BindingResult result
     ) {
+        if (result.hasErrors()) {
+            return BindingResultHelper.getMessage(result);
+        }
         tariffService.addTariff(tariff);
         return "{}";
     }

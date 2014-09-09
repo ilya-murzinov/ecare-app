@@ -21,12 +21,12 @@ public class User implements UserDetails, Serializable {
     @GeneratedValue
     private int id;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "E-mail may not be empty")
+    @Email(message = "E-mail must have correct format")
     @Length(max = 32)
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Password may not be empty")
     private String password;
 
     @OneToOne

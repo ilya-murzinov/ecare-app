@@ -16,7 +16,7 @@ public class Contract implements Serializable {
     @GeneratedValue
     private int id;
 
-    @NotNull
+    @NotNull(message = "Number may not be empty")
     private long number;
 
     @OneToOne

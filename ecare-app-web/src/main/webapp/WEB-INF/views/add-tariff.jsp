@@ -8,6 +8,8 @@
     <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.js"></script>
     <script>
         $(function () {
+            var options = $("#options");
+            var allOptions = $("#allOptions");
             $("#tariff").submit(function () {
                 var data = {
                     name: $("#name").val(),
@@ -33,20 +35,21 @@
                         history.go(-1);
                     },
                     error: function (xhr, status, error) {
-                        alert("response: " + xhr.responseText + "\nerror: " + error);
+                        alert(xhr.responseText);
                     }
                 });
                 return false;
             });
-            $("#removeRequiredOption").click(function () {
-                $('#options').find('option:selected').remove();
+            $("#removeOption").click(function () {
+                allOptions.append(options.find('option:selected'));
+                options.find('option:selected').remove();
             });
-            $("#addRequiredOption").click(function () {
+            $("#addOption").click(function () {
                 $('#allOptions-div').css("display", "block");
             });
             $("#add").click(function () {
-                $("#options").append($("#allOptions").find("option:selected"));
-                $('#allOptions-div').css("display", "none");
+                options.append(allOptions.find("option:selected"));
+                allOptions.find("option:selected").remove();
             });
         });
     </script>

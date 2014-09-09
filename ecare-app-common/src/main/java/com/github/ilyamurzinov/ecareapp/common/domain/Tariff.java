@@ -19,10 +19,10 @@ public class Tariff implements Serializable {
     private int id;
 
     @Length(max = 32)
-    @NotBlank
+    @NotBlank(message = "Name may not be empty")
     private String name;
 
-    @Min(0)
+    @Min(value = 0, message = "price must be positive number")
     private double price;
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -21,17 +21,17 @@ public class Client implements Serializable {
     @GeneratedValue
     private int id;
 
-    @NotBlank
+    @NotBlank(message = "Name may not be empty")
     @Length(max = 32)
     private String name;
 
     @Column(name = "lastname")
-    @NotBlank
+    @NotBlank(message = "Last name may not be empty")
     @Length(max = 32)
     private String lastname;
 
     @Column(name = "date_of_birth")
-    @NotNull
+    @NotNull(message = "Date of birth may not be empty")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Past
