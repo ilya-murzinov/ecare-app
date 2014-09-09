@@ -135,10 +135,10 @@
 </table>
 <a href="${pageContext.servletContext.contextPath}/client/edit?id=${param.id}">Edit personal data</a>
 <c:if test="${currentUser.admin}">
-    <c:if test="${client.user.enabled}">
+    <c:if test="${client.user != null && client.user.enabled}">
         <a id="blockClient" href="javascript:void(0);">Block client</a>
     </c:if>
-    <c:if test="${!client.user.enabled}">
+    <c:if test="${client.user != null && !client.user.enabled}">
         <a id="unblockClient" href="javascript:void(0);">Unblock client</a>
     </c:if>
     <a id="deleteClient" href="javascript:void(0);">Delete client</a>
