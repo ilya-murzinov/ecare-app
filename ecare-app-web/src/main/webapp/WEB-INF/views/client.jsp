@@ -38,7 +38,7 @@
                     data: "id=" + ${param.id},
                     type: "POST",
                     success: function (response) {
-                        alert(response);
+                        alert("OK");
                         history.go(-1);
                     },
                     error: function (xhr, status, error) {
@@ -97,7 +97,7 @@
             $.ajax({
                 url: "${pageContext.servletContext.contextPath}/contract?id=" + id,
                 type: "GET",
-                success: function (response) {
+                success: function () {
                     $("#contract").html(response);
                 }
             })

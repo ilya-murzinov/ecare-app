@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.NoResultException;
 import javax.validation.Valid;
 
 /**
@@ -121,5 +122,10 @@ public class TariffController {
         ModelAndView modelAndView = new ModelAndView("fragments/options");
         modelAndView.addObject("tariff", tariffService.getTariff(tariffId));
         return modelAndView;
+    }
+
+    @ExceptionHandler(NoResultException.class)
+    public ModelAndView handle(NoResultException ex) {
+        return new ModelAndView("error");
     }
 }
