@@ -16,5 +16,5 @@ public interface OptionService {
 
     void addOption(Option option);
 
-    void removeOption(int id);
+    String removeOption(int id);
 }

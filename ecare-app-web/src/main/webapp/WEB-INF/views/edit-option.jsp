@@ -77,8 +77,14 @@
             $("#deleteOption").click(function () {
                 $.ajax({
                     url: "${pageContext.request.contextPath}/option/delete",
-                    data: "id=" + ${param.id},
+                    data: JSON.stringify({
+                        id: ${param.id}
+                    }),
                     type: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
                     success: function (response) {
                         alert("OK");
                         history.go(-1);

@@ -90,9 +90,12 @@ public class OptionController {
     public
     @ResponseBody
     String deleteOption(
-            @RequestParam("id") int id
+            @RequestBody Option option
     ) {
-        optionService.removeOption(id);
+        String message = optionService.removeOption(option.getId());
+        if (message != null) {
+            return message;
+        }
         return "{}";
     }
 }
