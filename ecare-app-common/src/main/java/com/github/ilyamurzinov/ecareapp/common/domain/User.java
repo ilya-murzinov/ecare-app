@@ -29,6 +29,8 @@ public class User implements UserDetails, Serializable {
     @NotBlank(message = "Password may not be empty")
     private String password;
 
+    private boolean enabled;
+
     @OneToOne
     @JoinColumn(name = "client_id")
     private Client client;
@@ -103,7 +105,11 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override

@@ -56,4 +56,11 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
         user.setClient(clientDAO.getClient(clientId));
         userDAO.addUser(user);
     }
+
+    @Override
+    public void updateUser(User user) {
+        User user1 = userDAO.getUser(user.getId());
+        user1.setEnabled(user.isEnabled());
+        userDAO.updateUser(user1);
+    }
 }

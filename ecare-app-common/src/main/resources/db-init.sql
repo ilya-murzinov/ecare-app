@@ -67,6 +67,7 @@ CREATE TABLE ecare.user
   id        INT KEY AUTO_INCREMENT,
   email     VARCHAR(32)  NOT NULL,
   password  VARCHAR(100) NOT NULL,
+  enabled   BOOL,
   client_id INT
 );
 
@@ -349,15 +350,27 @@ INSERT INTO contract_option (
 ######################################################
 
 INSERT INTO user (
-  email, password, client_id
+  email, password, client_id, enabled
 ) VALUES (
-  'admin@mail.com', '21232f297a57a5a743894a0e4a801fc3', NULL
+  'admin@mail.com', '21232f297a57a5a743894a0e4a801fc3', NULL, true
 );
 
 INSERT INTO user (
-  email, password, client_id
+  email, password, client_id, enabled
 ) VALUES (
-  'user@mail.com', 'ee11cbb19052e40b07aac0ca060c23ee', 1
+  'ivanov@mail.com', '4dfe6e220d16e7b633cfdd92bcc8050b', 1, true
+);
+
+INSERT INTO user (
+  email, password, client_id, enabled
+) VALUES (
+  'semenov@mail.com', '32c13add4fb40e769df9f176c04be368', 2, false
+);
+
+INSERT INTO user (
+  email, password, client_id, enabled
+) VALUES (
+  'sergeev@mail.com', 'd36a36839d08c17830c91d13c1a250eb', 3, false
 );
 
 INSERT INTO authority (

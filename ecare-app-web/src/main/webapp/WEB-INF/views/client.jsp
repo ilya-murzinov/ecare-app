@@ -46,6 +46,48 @@
                     }
                 });
             });
+            $("#blockClient").click(function () {
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/user/update",
+                    data: JSON.stringify({
+                        id: ${client.user.id},
+                        enabled: false
+                    }),
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    type: "POST",
+                    success: function (response) {
+                        alert("OK");
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        alert(xhr.responseText);
+                    }
+                });
+            });
+            $("#unblockClient").click(function () {
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/user/update",
+                    data: JSON.stringify({
+                        id: ${client.user.id},
+                        enabled: true
+                    }),
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    type: "POST",
+                    success: function (response) {
+                        alert("OK");
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        alert(xhr.responseText);
+                    }
+                });
+            });
         });
         function update() {
             var id = $("#contract-select").val();
@@ -93,6 +135,12 @@
 </table>
 <a href="${pageContext.servletContext.contextPath}/client/edit?id=${param.id}">Edit personal data</a>
 <c:if test="${currentUser.admin}">
+    <c:if test="${client.user.enabled}">
+        <a id="blockClient" href="javascript:void(0);">Block client</a>
+    </c:if>
+    <c:if test="${!client.user.enabled}">
+        <a id="unblockClient" href="javascript:void(0);">Unblock client</a>
+    </c:if>
     <a id="deleteClient" href="javascript:void(0);">Delete client</a>
 </c:if>
 
