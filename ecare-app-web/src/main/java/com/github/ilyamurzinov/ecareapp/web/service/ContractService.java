@@ -2,11 +2,15 @@ package com.github.ilyamurzinov.ecareapp.web.service;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Contract;
 
+import java.util.Set;
+
 /**
  * @author ilya-murzinov
  */
 public interface ContractService {
     Contract getContract(int id);
+
+    java.util.List<Contract> getAllContracts();
 
     String updateContract(Contract newContract);
 

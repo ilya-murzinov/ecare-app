@@ -16,5 +16,5 @@ public interface TariffService {
 
     String addTariff(Tariff tariff);
 
-    void removeTariff(int id);
+    String removeTariff(int id);
 }

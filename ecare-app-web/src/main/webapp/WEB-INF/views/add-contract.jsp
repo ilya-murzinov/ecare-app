@@ -42,7 +42,7 @@
                         window.location.replace("${pageContext.servletContext.contextPath}/client/?id=${param.id}");
                     },
                     error: function (xhr, status, error) {
-                        alert("response: " + xhr.responseText + "\nerror: " + error);
+                        alert(xhr.responseText);
                     }
                 });
                 return false;
@@ -69,7 +69,7 @@
                     $("#allOptions").html(response);
                 },
                 error: function (xhr, status, error) {
-                    alert("response: " + xhr.responseText + "\nerror: " + error);
+                    alert(xhr.responseText);
                 }
             });
         }

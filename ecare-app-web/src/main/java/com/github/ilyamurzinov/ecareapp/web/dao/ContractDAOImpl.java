@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.List;
 
 /**
  * @author ilya-murzinov
@@ -36,5 +37,11 @@ public class ContractDAOImpl implements ContractDAO {
     @Override
     public void updateContract(Contract contract) {
         entityManager.merge(contract);
+    }
+
+    @Override
+    public List<Contract> getAllContracts() {
+        Query query = entityManager.createQuery("select c from Contract c");
+        return query.getResultList();
     }
 }

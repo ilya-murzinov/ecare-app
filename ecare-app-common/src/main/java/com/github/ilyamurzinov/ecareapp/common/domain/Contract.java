@@ -113,13 +113,13 @@ public class Contract implements Serializable {
 
         Contract contract = (Contract) o;
 
-        if (id != contract.id) return false;
+        if (number != contract.number) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return id;
+        return (int) (number ^ (number >>> 32));
     }
 }

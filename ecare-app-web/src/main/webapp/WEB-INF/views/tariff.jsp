@@ -11,7 +11,13 @@
             $("#deleteTariff").click(function () {
                 $.ajax({
                     url: "${pageContext.request.contextPath}/tariff/delete",
-                    data: "id=" + ${param.id},
+                    data: JSON.stringify({
+                        id: ${param.id}
+                    }),
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
                     type: "POST",
                     success: function (response) {
                         alert("OK");

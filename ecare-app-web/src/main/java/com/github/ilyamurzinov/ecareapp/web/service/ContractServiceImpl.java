@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -38,7 +39,16 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    public List<Contract> getAllContracts() {
+        return contractDAO.getAllContracts();
+    }
+
+    @Override
     public String updateContract(Contract newContract) {
+        if (contractDAO.getAllContracts().contains(newContract)) {
+            return "Contract with the same number already exists";
+        }
+
         Contract contract = contractDAO.getContract(newContract.getId());
         int tariffId = newContract.getTariff().getId();
         Set<Option> newOptions = newContract.getOptions();
@@ -63,6 +73,10 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public String addContract(Contract newContract) {
+        if (contractDAO.getAllContracts().contains(newContract)) {
+            return "Contract with the same number already exists";
+        }
+
         Contract contract = new Contract();
 
         contract.setClient(clientDAO.getClient(newContract.getClient().getId()));

@@ -107,9 +107,12 @@ public class TariffController {
     public
     @ResponseBody
     String delete(
-            @RequestParam("id") int id
+            @RequestBody Tariff tariff
     ) {
-        tariffService.removeTariff(id);
+        String message = tariffService.removeTariff(tariff.getId());
+        if (message != null) {
+            return message;
+        }
         return "{}";
     }
 

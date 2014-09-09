@@ -1,7 +1,10 @@
 package com.github.ilyamurzinov.ecareapp.web.service;
 
+import com.github.ilyamurzinov.ecareapp.common.domain.Client;
+import com.github.ilyamurzinov.ecareapp.common.domain.Contract;
 import com.github.ilyamurzinov.ecareapp.common.domain.Option;
 import com.github.ilyamurzinov.ecareapp.common.domain.Tariff;
+import com.github.ilyamurzinov.ecareapp.web.dao.ClientDAO;
 import com.github.ilyamurzinov.ecareapp.web.dao.OptionDAO;
 import com.github.ilyamurzinov.ecareapp.web.dao.TariffDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,9 @@ public class TariffServiceImpl implements TariffService {
 
     @Autowired
     private OptionDAO optionDAO;
+
+    @Autowired
+    private ContractService contractService;
 
     @Override
     public Tariff getTariff(int id) {
@@ -79,7 +85,18 @@ public class TariffServiceImpl implements TariffService {
     }
 
     @Override
-    public void removeTariff(int id) {
+    public String removeTariff(int id) {
+        for (Contract contract : contractService.getAllContracts()) {
+            if (contract.getTariff().getId() == id) {
+                return "Cannot delete tariff with id " +
+                        id +
+                        "\nThere is contract " +
+                        contract +
+                        " with this tariff";
+            }
+        }
+
         tariffDAO.removeTariff(id);
+        return null;
     }
 }
