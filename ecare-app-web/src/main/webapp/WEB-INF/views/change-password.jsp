@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -26,7 +27,8 @@
                                 'Content-Type': 'application/json'
                             },
                             success: function (response) {
-                                window.location.assign("${pageContext.servletContext.contextPath}?passwordChanged=true");
+                                alert("OK");
+                                window.location.assign("${pageContext.servletContext.contextPath}");
                             },
                             error: function (xhr, status, error) {
                                 alert(xhr.responseText);

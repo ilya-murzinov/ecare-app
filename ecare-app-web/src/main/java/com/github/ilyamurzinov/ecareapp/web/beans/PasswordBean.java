@@ -9,14 +9,14 @@ import javax.validation.constraints.Size;
  * @author ilya-murzinov
  */
 public class PasswordBean {
-    @NotBlank
+    @NotBlank(message = "Current password may not be empty")
     private String currentPassword;
 
-    @NotBlank
-    @Size(min = 4, max = 20)
+    @NotBlank(message = "New password may not be empty")
+    @Size(min = 4, max = 20, message = "New password must be between 4 and 20 symbols")
     private String newPassword;
 
-    @NotBlank
+    @NotBlank(message = "New password may not be empty")
     private String newPasswordRetyped;
 
     private boolean valid;
