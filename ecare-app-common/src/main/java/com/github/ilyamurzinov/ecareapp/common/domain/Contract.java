@@ -102,7 +102,7 @@ public class Contract implements Serializable {
 
     @Override
     public String toString() {
-        return String.valueOf(number);
+        return String.valueOf(number) + "tariff: " + tariff;
     }
 
     @Override

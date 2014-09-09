@@ -18,7 +18,7 @@ CREATE TABLE client (
 
 CREATE TABLE contract (
   id                INT KEY AUTO_INCREMENT,
-  number            LONG,
+  number            BIGINT,
   tariff_id         INT,
   client_id         INT,
   blocked           BOOL,

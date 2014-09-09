@@ -96,57 +96,50 @@
 </head>
 <body>
 <c:import url="header.jsp"/>
-<c:choose>
-    <c:when test="${!(contract.blocked && contract.blockedByEmployee) || currentUser.admin}">
-        <form:form action="edit" id="contract" method="POST" modelAttribute="contract">
-            <table>
-                <tr>
-                    <td>Contract:</td>
-                    <td>${contract.number}</td>
-                </tr>
-                <tr>
-                    <td><form:checkbox id="blocked" path="blocked" label="Blocked"/></td>
-                </tr>
-                <tr>
-                    <td>Tariff</td>
-                    <td>
-                        <form:select path="tariff" id="tariff" items="${tariffs}" itemValue="id" itemLabel="name"/>
-                    </td>
-                    <td>
-                        <a id="tariffDetails" href="javascript:void(0);">
-                            View tariff details
-                        </a>
-                    </td>
-                </tr>
-            </table>
-            <p>Options:</p>
-            <label>
-                <select id="options" size="5">
-                    <c:forEach var="option" items="${contract.options}">
-                        <option value="${option.id}">${option}</option>
-                    </c:forEach>
-                </select>
-            </label>
+<form:form action="edit" id="contract" method="POST" modelAttribute="contract">
+    <table>
+        <tr>
+            <td>Contract:</td>
+            <td>${contract.number}</td>
+        </tr>
+        <tr>
+            <td><form:checkbox id="blocked" path="blocked" label="Blocked"/></td>
+        </tr>
+        <tr>
+            <td>Tariff</td>
+            <td>
+                <form:select path="tariff" id="tariff" items="${tariffs}" itemValue="id" itemLabel="name"/>
+            </td>
+            <td>
+                <a id="tariffDetails" href="javascript:void(0);">
+                    View tariff details
+                </a>
+            </td>
+        </tr>
+    </table>
+    <p>Options:</p>
+    <label>
+        <select id="options" size="5">
+            <c:forEach var="option" items="${contract.options}">
+                <option value="${option.id}">${option}</option>
+            </c:forEach>
+        </select>
+    </label>
 
-            <div id="optionOperations">
-                <a id="addOption" href="javascript:void(0);">Add option</a>
-                <a id="removeOption" href="javascript:void(0);">Remove option</a>
-            </div>
-            <div id="allOptions-div" class="allOptions">
-                <label>
-                    <select id="allOptions" size="5">
+    <div id="optionOperations">
+        <a id="addOption" href="javascript:void(0);">Add option</a>
+        <a id="removeOption" href="javascript:void(0);">Remove option</a>
+    </div>
+    <div id="allOptions-div" class="allOptions">
+        <label>
+            <select id="allOptions" size="5">
 
-                    </select>
-                </label>
-                <a id="add" href="javascript:void(0);">Add</a>
-            </div>
-            <button type="button" onclick="history.go(-1);">Cancel</button>
-            <button type="submit">Save</button>
-        </form:form>
-    </c:when>
-    <c:otherwise>
-        <b>Contract is blocked</b>
-    </c:otherwise>
-</c:choose>
+            </select>
+        </label>
+        <a id="add" href="javascript:void(0);">Add</a>
+    </div>
+    <button type="button" onclick="history.go(-1);">Cancel</button>
+    <button type="submit">Save</button>
+</form:form>
 </body>
 </html>

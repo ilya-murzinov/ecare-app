@@ -72,10 +72,7 @@ public class ContractController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.GET)
-    @PreAuthorize("hasRole('ROLE_ADMIN') " +
-            "|| this.currentUser.client.contracts.contains(" +
-            "new com.github.ilyamurzinov.ecareapp.common.domain.Contract(#id)" +
-            ")")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasPermission(#id, 'edit_contract')")
     public ModelAndView getEditContractForm(@RequestParam int id) {
         ModelAndView modelAndView = new ModelAndView("edit-contract");
         modelAndView.addObject("contract", contractService.getContract(id));
@@ -84,10 +81,7 @@ public class ContractController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('ROLE_ADMIN') " +
-            "|| this.currentUser.client.contracts.contains(" +
-            "new com.github.ilyamurzinov.ecareapp.common.domain.Contract(#newContract.id)" +
-            ")")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasPermission(#newContract.id, 'edit_contract')")
     public
     @ResponseBody
     String updateContract(
