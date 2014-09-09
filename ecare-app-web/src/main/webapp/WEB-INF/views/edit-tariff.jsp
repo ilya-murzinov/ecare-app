@@ -39,7 +39,7 @@
                 });
                 return false;
             });
-            $("#options").find("option").each(function() {
+            $("#options").find("option").each(function () {
                 $("#allOptions").find("option[value='" + $(this).val() + "']").remove();
             });
             $("#removeOption").click(function () {

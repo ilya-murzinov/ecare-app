@@ -43,10 +43,10 @@
                 return false;
             });
 
-            $("#requiredOptions").find("option").each(function() {
+            $("#requiredOptions").find("option").each(function () {
                 $("#allRequiredOptions-select").find("option[value='" + $(this).val() + "']").remove();
             });
-            $("#incompatibleOptions").find("option").each(function() {
+            $("#incompatibleOptions").find("option").each(function () {
                 $("#allIncompatibleOptions-select").find("option[value='" + $(this).val() + "']").remove();
             });
 

@@ -82,7 +82,7 @@
                     type: "GET",
                     success: function (response) {
                         $("#allOptions").html(response);
-                        $("#options").find("option").each(function() {
+                        $("#options").find("option").each(function () {
                             $("#allOptions").find("option[value='" + $(this).val() + "']").remove();
                         });
                     },

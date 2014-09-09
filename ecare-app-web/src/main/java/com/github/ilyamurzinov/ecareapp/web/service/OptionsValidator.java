@@ -8,7 +8,8 @@ import java.util.Set;
  * @author ilya-murzinov
  */
 public class OptionsValidator {
-    private OptionsValidator() {}
+    private OptionsValidator() {
+    }
 
     public static String validate(Set<Option> options) {
         StringBuilder stringBuilder = new StringBuilder();

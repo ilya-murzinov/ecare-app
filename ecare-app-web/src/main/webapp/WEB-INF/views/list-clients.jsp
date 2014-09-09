@@ -32,7 +32,8 @@
                         <td>${client.user.email}</td>
                     </c:when>
                     <c:when test="${client.user.email == null}">
-                        <td><a href="${pageContext.servletContext.contextPath}/user/add?id=${client.id}">Register</a></td>
+                        <td><a href="${pageContext.servletContext.contextPath}/user/add?id=${client.id}">Register</a>
+                        </td>
                     </c:when>
                 </c:choose>
             </tr>

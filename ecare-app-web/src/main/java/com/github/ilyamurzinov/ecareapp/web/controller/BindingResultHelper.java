@@ -7,7 +7,9 @@ import org.springframework.validation.ObjectError;
  * @author ilya-murzinov
  */
 public class BindingResultHelper {
-    private BindingResultHelper() {}
+    private BindingResultHelper() {
+    }
+
     public static String getMessage(BindingResult result) {
         StringBuilder stringBuilder = new StringBuilder();
         for (ObjectError objectError : result.getAllErrors()) {

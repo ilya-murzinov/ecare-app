@@ -5,15 +5,12 @@ import com.github.ilyamurzinov.ecareapp.web.beans.UserBean;
 import com.github.ilyamurzinov.ecareapp.web.service.ContractService;
 import com.github.ilyamurzinov.ecareapp.web.service.TariffService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 /**

@@ -1,10 +1,8 @@
 package com.github.ilyamurzinov.ecareapp.web.service;
 
-import com.github.ilyamurzinov.ecareapp.common.domain.Client;
 import com.github.ilyamurzinov.ecareapp.common.domain.Contract;
 import com.github.ilyamurzinov.ecareapp.common.domain.Option;
 import com.github.ilyamurzinov.ecareapp.common.domain.Tariff;
-import com.github.ilyamurzinov.ecareapp.web.dao.ClientDAO;
 import com.github.ilyamurzinov.ecareapp.web.dao.OptionDAO;
 import com.github.ilyamurzinov.ecareapp.web.dao.TariffDAO;
 import org.springframework.beans.factory.annotation.Autowired;

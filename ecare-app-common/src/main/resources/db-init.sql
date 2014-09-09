@@ -224,9 +224,9 @@ INSERT INTO incompatible_option (
 ######################################################
 
 INSERT INTO tariff_option (
-tariff_id, option_id
+  tariff_id, option_id
 ) VALUES (
-1, 1
+  1, 1
 );
 INSERT INTO tariff_option (
   tariff_id, option_id

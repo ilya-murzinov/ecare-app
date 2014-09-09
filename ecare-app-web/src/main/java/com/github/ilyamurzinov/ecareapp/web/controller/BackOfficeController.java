@@ -1,7 +1,6 @@
 package com.github.ilyamurzinov.ecareapp.web.controller;
 
 import com.github.ilyamurzinov.ecareapp.web.beans.UserBean;
-import com.github.ilyamurzinov.ecareapp.web.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
