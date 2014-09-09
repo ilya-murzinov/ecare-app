@@ -1,6 +1,7 @@
 package com.github.ilyamurzinov.ecareapp.web.controller;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.User;
+import com.github.ilyamurzinov.ecareapp.web.beans.NewUserBean;
 import com.github.ilyamurzinov.ecareapp.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,7 +25,7 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getUserForm(@RequestParam int id) {
         ModelAndView modelAndView = new ModelAndView("add-user");
-        modelAndView.addObject("user", new User());
+        modelAndView.addObject("user", new NewUserBean());
         return modelAndView;
     }
 
@@ -34,7 +35,7 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     String addUser(
             @RequestParam int id,
-            @Valid @RequestBody User user,
+            @Valid @RequestBody NewUserBean user,
             BindingResult result
     ) {
         if (result.hasErrors()) {

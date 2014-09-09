@@ -12,7 +12,8 @@
             $("#user").submit(function () {
                 var data = {
                     email: $("#email").val(),
-                    password: $("#password").val()
+                    password: $("#password").val(),
+                    passwordRetyped: $("#passwordRetyped").val()
                 };
                 $.ajax({
                     url: "${pageContext.servletContext.contextPath}/user/add?id=${param.id}",
@@ -49,6 +50,10 @@
             <tr>
                 <td>Password:</td>
                 <td><form:password id="password" path="password"/></td>
+            </tr>
+            <tr>
+                <td>Re-type password:</td>
+                <td><form:password id="passwordRetyped" path="passwordRetyped"/></td>
             </tr>
         </table>
         <button type="button" onclick="history.go(-1);">Cancel</button>
