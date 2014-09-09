@@ -11,10 +11,8 @@
         $(function () {
             $("#user").submit(function () {
                 var data = {
-                    user: {
-                        email: $("#email").val(),
-                        password: $("#password").val()
-                    }
+                    email: $("#email").val(),
+                    password: $("#password").val()
                 };
                 $.ajax({
                     url: "${pageContext.servletContext.contextPath}/user/add?id=${param.id}",
@@ -26,10 +24,11 @@
                     },
                     method: "POST",
                     success: function (response) {
-                        alert(response);
+                        alert("OK");
+                        history.go(-1);
                     },
                     error: function (xhr, status, error) {
-                        alert("response: " + xhr.responseText + "\nerror: " + error);
+                        alert(xhr.responseText);
                     }
                 });
                 return false;
