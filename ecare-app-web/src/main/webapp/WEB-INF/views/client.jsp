@@ -97,7 +97,7 @@
             $.ajax({
                 url: "${pageContext.servletContext.contextPath}/contract?id=" + id,
                 type: "GET",
-                success: function () {
+                success: function (response) {
                     $("#contract").html(response);
                 }
             })
