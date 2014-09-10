@@ -5,7 +5,7 @@
         <table>
             <tr>
                 <td>You are logged in as <b>${currentUser.email}</b></td>
-                <td><a href="${pageContext.servletContext.contextPath}">Home</a></td>
+                <td><a href="${pageContext.servletContext.contextPath}/">Home</a></td>
                 <td>
                     <c:if test="${currentUser.email != 'nobody'}">
                         <div id="links">
