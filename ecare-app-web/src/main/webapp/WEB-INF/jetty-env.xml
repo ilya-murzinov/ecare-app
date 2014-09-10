@@ -2,36 +2,17 @@
 <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
 
 <Configure class="org.eclipse.jetty.maven.plugin.JettyWebAppContext">
-  <New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
-    <Arg></Arg>
+  <New id="ds" class="org.eclipse.jetty.plus.jndi.Resource">
+    <Arg>
+    </Arg>
     <Arg>ecare</Arg>
     <Arg>
-      <New class="com.atomikos.jdbc.AtomikosDataSourceBean">
-        <Set name="minPoolSize">2</Set>
-        <Set name="maxPoolSize">50</Set>
-        <Set name="xaDataSourceClassName">com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</Set>
-        <Set name="UniqueResourceName">ecare</Set>
-        <Get name="xaProperties">
-          <Call name="setProperty">
-            <Arg>url</Arg>
-            <Arg>jdbc:mysql://localhost:3306/ecare</Arg>
-          </Call>
-          <Call name="setProperty">
-            <Arg>user</Arg>
-            <Arg>admin</Arg>
-          </Call>
-          <Call name="setProperty">
-            <Arg>password</Arg>
-            <Arg>admin</Arg>
-          </Call>
-          <Call name="setProperty">
-            <Arg>pinGlobalTxToPhysicalConnection</Arg>
-            <Arg>true</Arg>
-          </Call>
-        </Get>
+      <New class="org.apache.commons.dbcp2.BasicDataSource">
+        <Set name="url">jdbc:h2:mem:test;USER=sa;INIT=RUNSCRIPT FROM 'src/main/resources/import.sql'</Set>
       </New>
     </Arg>
   </New>
+
   <New id="transactionManager"
        class="org.eclipse.jetty.plus.jndi.Resource">
     <Arg>java:appserver/TransactionManager</Arg>
