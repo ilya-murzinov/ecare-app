@@ -1,5 +1,7 @@
 package com.github.ilyamurzinov.ecareapp.common.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
@@ -16,14 +18,14 @@ public class Option implements Serializable {
     @GeneratedValue
     private int id;
 
-    @NotNull(message = "Name must be defined")
+    @NotBlank(message = "Name may not be empty")
     private String name;
 
     @Column(name = "subscription_fee")
-    @NotNull(message = "Subscription fee must be defined")
+    @NotNull(message = "Subscription fee may not be empty")
     private double subscriptionFee;
 
-    @NotNull(message = "Price must be defined")
+    @NotNull(message = "Price may not be empty")
     private double price;
 
     @ManyToMany(fetch = FetchType.EAGER)
