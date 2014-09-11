@@ -6,6 +6,7 @@
 <head>
     <title>Client office</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.css">
     <script src="${pageContext.request.contextPath}/js/jquery-1.10.2.js"></script>
     <script>
         $(function () {

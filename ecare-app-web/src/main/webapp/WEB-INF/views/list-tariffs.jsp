@@ -5,12 +5,13 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/styles.css"/>
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/bootstrap.css">
     <title></title>
 </head>
 <body>
 <c:import url="header.jsp"/>
 <div class="main">
-    <table border="1" class="clients">
+    <table border="1" class="clients table table-striped">
         <tr>
             <td>Name</td>
             <td>Price</td>
