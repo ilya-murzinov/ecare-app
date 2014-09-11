@@ -2,8 +2,8 @@ package com.github.ilyamurzinov.ecareapp.desktopserver.service;
 
 import com.github.ilyamurzinov.ecareapp.common.domain.Client;
 import com.github.ilyamurzinov.ecareapp.desktopserver.dao.ClientDAO;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +31,6 @@ public class ClientServiceImpl extends AbstractService implements ClientService 
                 entityManager.close();
             }
         }
-        logger.debug("getClient {}", client);
         return client;
     }
 
