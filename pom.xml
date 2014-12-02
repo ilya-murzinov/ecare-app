@@ -18,6 +18,7 @@
     <org.springsecurity.version>3.2.4.RELEASE</org.springsecurity.version>
     <jetty.version>9.0.5.v20130815</jetty.version>
     <jackson.version>1.9.13</jackson.version>
+    <h2.version>1.4.181</h2.version>
   </properties>
 
   <dependencies>

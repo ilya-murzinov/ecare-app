@@ -1,4 +1,6 @@
-CREATE TABLE client (
+DROP ALL OBJECTS;
+
+CREATE TABLE IF NOT EXISTS client (
   id            INT PRIMARY KEY AUTO_INCREMENT,
   name          VARCHAR(32),
   lastname      VARCHAR(32),
@@ -7,7 +9,7 @@ CREATE TABLE client (
   address       VARCHAR(200)
 );
 
-CREATE TABLE contract (
+CREATE TABLE IF NOT EXISTS contract (
   id                INT PRIMARY KEY AUTO_INCREMENT,
   number            BIGINT,
   tariff_id         INT,
@@ -16,44 +18,44 @@ CREATE TABLE contract (
   blockedByEmployee BOOL
 );
 
-CREATE TABLE tariff (
+CREATE TABLE IF NOT EXISTS tariff (
   id    INT PRIMARY KEY AUTO_INCREMENT,
   name  VARCHAR(32),
   price DOUBLE
 );
 
-CREATE TABLE t_option (
+CREATE TABLE IF NOT EXISTS t_option (
   id               INT PRIMARY KEY AUTO_INCREMENT,
   name             VARCHAR(32),
   subscription_fee DOUBLE,
   price            DOUBLE
 );
 
-CREATE TABLE required_option (
+CREATE TABLE IF NOT EXISTS required_option (
   id         INT PRIMARY KEY AUTO_INCREMENT,
   option1_id INT,
   option2_id INT
 );
 
-CREATE TABLE incompatible_option (
+CREATE TABLE IF NOT EXISTS incompatible_option (
   id         INT PRIMARY KEY AUTO_INCREMENT,
   option1_id INT,
   option2_id INT
 );
 
-CREATE TABLE tariff_option (
+CREATE TABLE IF NOT EXISTS tariff_option (
   id        INT PRIMARY KEY AUTO_INCREMENT,
   tariff_id INT,
   option_id INT
 );
 
-CREATE TABLE contract_option (
+CREATE TABLE IF NOT EXISTS contract_option (
   id          INT PRIMARY KEY AUTO_INCREMENT,
   contract_id INT,
   option_id   INT
 );
 
-CREATE TABLE user
+CREATE TABLE IF NOT EXISTS user
 (
   id        INT PRIMARY KEY AUTO_INCREMENT,
   email     VARCHAR(32)  NOT NULL,
@@ -62,13 +64,13 @@ CREATE TABLE user
   client_id INT
 );
 
-CREATE TABLE authority
+CREATE TABLE IF NOT EXISTS authority
 (
   id        INT PRIMARY KEY AUTO_INCREMENT,
   authority VARCHAR(32)
 );
 
-CREATE TABLE user_authority
+CREATE TABLE IF NOT EXISTS user_authority
 (
   id           INT PRIMARY KEY AUTO_INCREMENT,
   user_id      INT,
